@@ -1,0 +1,69 @@
+.table-wrapper {
+  /* padding: 2rem; */
+  background: #f9fafb;
+  min-height: 62vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+ 
+.table-container {
+  max-height: 400px; /* Set height where scrolling should begin */
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+ 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+}
+ 
+/* Fix the header row */
+thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f1f5f9;
+  z-index: 2;
+}
+ 
+th {
+  padding: 0.85rem 1.2rem;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.875rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+ 
+td {
+  padding: 0.85rem 1.2rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+  border-bottom: 1px solid #f1f5f9;
+}
+ 
+tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+ 
+/* Scrollbar styling */
+.table-container::-webkit-scrollbar {
+  width: 8px;
+}
+ 
+.table-container::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 4px;
+}
+ 
+.kebab-menu {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #4b5563;
+}
+.kebab-menu:hover {
+  color: #1f2937;
+}
