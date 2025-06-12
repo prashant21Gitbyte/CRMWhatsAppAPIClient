@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { users as initialUsers } from "../data/users";
 import UserCard from "../components/UserCard";
 import EditUser from "../components/EditUser";
@@ -10,10 +10,34 @@ function App() {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editUser, setEditUser] = useState(null);
+  const [search, setSearch] = useState('');
+  const [filteredData, setFilteredData] = useState(initialUsers);
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 10;
+ 
+  useEffect(() => {
+    setFilteredData(userList);
+    setCurrentPage(1);
+  }, [userList]);
+ 
+  const handleSearch = (e) => {
+    const keyword = e.target.value.toLowerCase();
+    setSearch(keyword);
+    setCurrentPage(1);
+    if (keyword === '') {
+      setFilteredData(userList);
+    } else {
+      const result = userList.filter(user =>
+        (`${user.firstName} ${user.lastName}`.toLowerCase().includes(keyword)) ||
+        (user.email?.toLowerCase().includes(keyword))
+      );
+      setFilteredData(result);
+    }
+  };
  
   const handleSelectAll = (e) => {
     if (e.target.checked) {
-      setSelectedUsers(userList.map((user) => user.id));
+      setSelectedUsers(filteredData.map((user) => user.id));
     } else {
       setSelectedUsers([]);
     }
@@ -29,36 +53,51 @@ function App() {
     setUserList((prev) => prev.filter((user) => user.id !== userToDelete.id));
   };
  
-  const handleSaveUser = (newData) => {
-    if (editUser) {
-      setUserList((prev) =>
-        prev.map((user) =>
-          user.id === editUser.id ? { ...user, ...newData } : user
-        )
-      );
-    } else {
-      const newUser = {
-        id: Date.now().toString(),
-        ...newData,
-        profileCompletion: 0,
-        joinedDate: new Date().toLocaleDateString(),
-      };
-      setUserList((prev) => [...prev, newUser]);
-    }
-    setShowModal(false);
-  };
+  const handleSaveUser = (formData) => {
+  const fullName = `${formData.firstName} ${formData.lastName}`;
+  
+  if (editUser) {
+    setUserList((prev) =>
+      prev.map((user) =>
+        user.id === editUser.id ? { ...user, ...formData, name: fullName } : user
+      )
+    );
+  } else {
+    const newUser = {
+      id: Date.now().toString(),
+      ...formData,
+      name: fullName,
+      profileCompletion: 0,
+      joinedDate: new Date().toLocaleDateString(),
+      status: "Active",
+    };
+    setUserList((prev) => [...prev, newUser]);
+  }
+  setShowModal(false);
+};
+ 
  
   const isAllSelected =
-    userList.length > 0 && selectedUsers.length === userList.length;
+    filteredData.length > 0 && selectedUsers.length === filteredData.length;
+ 
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = filteredData.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(filteredData.length / usersPerPage);
  
   return (
     <div className="table-wrapper">
       <div className="table-header">
-        <input type="text" placeholder="Search users..." className="search" />
+        <input
+          type="text"
+          placeholder="Search users..."
+          className="search"
+          value={search}
+          onChange={handleSearch}
+        />
         <div className="actions">
           {/* <button className="export-btn">Export</button> */}
           <ExportButton />
-          {/* <button className="filter-btn">Filter</button> */}
           <button
             className="add-btn"
             onClick={() => {
@@ -91,7 +130,7 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {userList.map((user) => (
+            {currentUsers.map((user) => (
               <UserCard
                 key={user.id}
                 user={user}
@@ -106,6 +145,26 @@ function App() {
             ))}
           </tbody>
         </table>
+ 
+        <div className="pagination">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            Prev
+          </button>
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
       </div>
  
       {showModal && (
@@ -120,3 +179,4 @@ function App() {
 }
  
 export default App;
+ 
