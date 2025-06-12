@@ -1,12 +1,12 @@
 .table-wrapper {
   /* padding: 2rem; */
   background: #f9fafb;
-  min-height: 62vh;
+  min-height: 48vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
  
 .table-container {
-  max-height: 400px; /* Set height where scrolling should begin */
+  max-height: 64vh; /* Set height where scrolling should begin */
   overflow-y: auto;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);

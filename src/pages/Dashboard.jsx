@@ -112,34 +112,34 @@ const MessageAnalysis = () => {
       {/* Table and Chart Layout */}
       <div className="analysis-layout mt-4">
         <div className="table-section">
-          <CustomTable
-            headers={['Name', 'Position', 'Status']}
-            data={[
-              { Name: 'Alice', Position: 'Developer', Status: 'Active' },
-              { Name: 'Bob', Position: 'Designer', Status: 'Inactive' },
-              { Name: 'Charlie', Position: 'Manager', Status: 'Active' },
-              { Name: 'Daisy', Position: 'Tester', Status: 'Inactive' },
-             { Name: 'Alice', Position: 'Developer', Status: 'Active' },
-              { Name: 'Bob', Position: 'Designer', Status: 'Inactive' },
-              { Name: 'Charlie', Position: 'Manager', Status: 'Active' },
-              { Name: 'Daisy', Position: 'Tester', Status: 'Inactive' },
-            ]}
-          />
- 
-          <CustomTable
-            headers={['Name', 'Position', 'Status']}
-            data={[
-              { Name: 'Alice', Position: 'Developer', Status: 'Active' },
-              { Name: 'Bob', Position: 'Designer', Status: 'Inactive' },
-              { Name: 'Charlie', Position: 'Manager', Status: 'Active' },
-              { Name: 'Daisy', Position: 'Tester', Status: 'Inactive' },
-             { Name: 'Alice', Position: 'Developer', Status: 'Active' },
-              { Name: 'Bob', Position: 'Designer', Status: 'Inactive' },
-              { Name: 'Charlie', Position: 'Manager', Status: 'Active' },
-              { Name: 'Daisy', Position: 'Tester', Status: 'Inactive' },
-            ]}
-          />
- 
+         <CustomTable
+  headers={['Name', 'Sent Messages', 'Read Messages', 'Not Delivered']}
+  columns={['Name', 'SentMesseages', 'ReadMessages', 'NotDelivered']}
+  data={[
+   { Name: 'Alice', SentMesseages: 3, ReadMessages: 6, NotDelivered: 2 },
+  { Name: 'Bob', SentMesseages: 8, ReadMessages: 7, NotDelivered: 1 },
+  { Name: 'Charlie', SentMesseages: 10, ReadMessages: 9, NotDelivered: 0 },
+  { Name: 'Daisy', SentMesseages: 5, ReadMessages: 3, NotDelivered: 2 },
+  { Name: 'Ethan', SentMesseages: 7, ReadMessages: 5, NotDelivered: 2 },
+  { Name: 'Fiona', SentMesseages: 4, ReadMessages: 2, NotDelivered: 2 },
+  { Name: 'George', SentMesseages: 12, ReadMessages: 10, NotDelivered: 2 },
+  { Name: 'Hannah', SentMesseages: 6, ReadMessages: 4, NotDelivered: 2 }
+  ]}
+/>
+  <CustomTable
+  headers={['Name', 'Sent Messages', 'Read Messages', 'Not Delivered']}
+  columns={['Name', 'SentMesseages', 'ReadMessages', 'NotDelivered']}
+  data={[
+   { Name: 'Alice', SentMesseages: 3, ReadMessages: 6, NotDelivered: 2 },
+  { Name: 'Bob', SentMesseages: 8, ReadMessages: 7, NotDelivered: 1 },
+  { Name: 'Charlie', SentMesseages: 10, ReadMessages: 9, NotDelivered: 0 },
+  { Name: 'Daisy', SentMesseages: 5, ReadMessages: 3, NotDelivered: 2 },
+  { Name: 'Ethan', SentMesseages: 7, ReadMessages: 5, NotDelivered: 2 },
+  { Name: 'Fiona', SentMesseages: 4, ReadMessages: 2, NotDelivered: 2 },
+  { Name: 'George', SentMesseages: 12, ReadMessages: 10, NotDelivered: 2 },
+  { Name: 'Hannah', SentMesseages: 6, ReadMessages: 4, NotDelivered: 2 }
+  ]}
+/>
         </div>
  
            
@@ -164,4 +164,3 @@ const MessageAnalysis = () => {
 };
  
 export default MessageAnalysis;
- 

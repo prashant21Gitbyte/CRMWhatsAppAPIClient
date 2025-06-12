@@ -8,6 +8,8 @@ import Conversation from './pages/Conversation'
 import WhatsAppUsers from './pages/WhatsAppUsers'
 import Dashboard from './pages/Dashboard'
 import UserDetail from './pages/UserDetail'
+import WhatsAppMeta from './pages/WhatsAppMeta'
+import WhatsAppAnalytics from './pages/WhatsAppAnalytics'
 
 import './App.css'
 const App = () => {
@@ -18,6 +20,8 @@ const App = () => {
           <Route index element={<Dashboard />} />
           <Route path="conversation" element={<Conversation />} />
           <Route path="whatsappusers" element={<WhatsAppUsers />} />
+          <Route path="whatsappmeta" element={<WhatsAppMeta />} />
+              <Route path="whatsappanalytics" element={<WhatsAppAnalytics />} />
           <Route path="settings" element={<Settings />} />
           <Route path="/user/:userId" element={<UserDetail />} />
         </Route>

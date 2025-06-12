@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs"; // Add this
 import "../components/CSS/CustomTable.css";
  
-function CustomTable({ headers = [], data = [] }) {
+function CustomTable({ headers = [], columns = [], data = [] }) {
   const [selectedRows, setSelectedRows] = useState([]);
  
   const handleSelectAll = (e) => {
@@ -61,9 +61,9 @@ function CustomTable({ headers = [], data = [] }) {
                     onChange={() => handleSelectRow(rowIndex)}
                   />
                 </td>
-                {headers.map((header, colIndex) => (
-                  <td key={colIndex}>{row[header]}</td>
-                ))}
+               {columns.map((col, colIndex) => (
+  <td key={colIndex}>{row[col]}</td>
+))}
                 <td>
                   <button style={{    background: 'transparent',
     color: 'black'}} className="kebab-menu">
