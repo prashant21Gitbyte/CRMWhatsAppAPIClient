@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, Card } from 'react-bootstrap';
-import { Doughnut } from 'react-chartjs-2';
 import 'chart.js/auto';
 import '../pages/CSS/Dashboard.css';
 import CustomTable from '../components/CustomTable';
+import DonutChart from '../pages/DonutChart';
  
 const stats = [
   {
@@ -112,53 +112,44 @@ const MessageAnalysis = () => {
       {/* Table and Chart Layout */}
       <div className="analysis-layout mt-4">
         <div className="table-section">
-         <CustomTable
-  headers={['Name', 'Sent Messages', 'Read Messages', 'Not Delivered']}
-  columns={['Name', 'SentMesseages', 'ReadMessages', 'NotDelivered']}
-  data={[
-   { Name: 'Alice', SentMesseages: 3, ReadMessages: 6, NotDelivered: 2 },
-  { Name: 'Bob', SentMesseages: 8, ReadMessages: 7, NotDelivered: 1 },
-  { Name: 'Charlie', SentMesseages: 10, ReadMessages: 9, NotDelivered: 0 },
-  { Name: 'Daisy', SentMesseages: 5, ReadMessages: 3, NotDelivered: 2 },
-  { Name: 'Ethan', SentMesseages: 7, ReadMessages: 5, NotDelivered: 2 },
-  { Name: 'Fiona', SentMesseages: 4, ReadMessages: 2, NotDelivered: 2 },
-  { Name: 'George', SentMesseages: 12, ReadMessages: 10, NotDelivered: 2 },
-  { Name: 'Hannah', SentMesseages: 6, ReadMessages: 4, NotDelivered: 2 }
-  ]}
-/>
-  <CustomTable
-  headers={['Name', 'Sent Messages', 'Read Messages', 'Not Delivered']}
-  columns={['Name', 'SentMesseages', 'ReadMessages', 'NotDelivered']}
-  data={[
-   { Name: 'Alice', SentMesseages: 3, ReadMessages: 6, NotDelivered: 2 },
-  { Name: 'Bob', SentMesseages: 8, ReadMessages: 7, NotDelivered: 1 },
-  { Name: 'Charlie', SentMesseages: 10, ReadMessages: 9, NotDelivered: 0 },
-  { Name: 'Daisy', SentMesseages: 5, ReadMessages: 3, NotDelivered: 2 },
-  { Name: 'Ethan', SentMesseages: 7, ReadMessages: 5, NotDelivered: 2 },
-  { Name: 'Fiona', SentMesseages: 4, ReadMessages: 2, NotDelivered: 2 },
-  { Name: 'George', SentMesseages: 12, ReadMessages: 10, NotDelivered: 2 },
-  { Name: 'Hannah', SentMesseages: 6, ReadMessages: 4, NotDelivered: 2 }
-  ]}
-/>
+          <CustomTable
+            headers={['Name', 'Sent Messages', 'Read Messages', 'Not Delivered']}
+            columns={['Name', 'SentMesseages', 'ReadMessages', 'NotDelivered']}
+            data={[
+              { Name: 'Alice', SentMesseages: 3, ReadMessages: 6, NotDelivered: 2 },
+              { Name: 'Bob', SentMesseages: 8, ReadMessages: 7, NotDelivered: 1 },
+              { Name: 'Charlie', SentMesseages: 10, ReadMessages: 9, NotDelivered: 0 },
+              { Name: 'Daisy', SentMesseages: 5, ReadMessages: 3, NotDelivered: 2 },
+              { Name: 'Ethan', SentMesseages: 7, ReadMessages: 5, NotDelivered: 2 },
+              { Name: 'Fiona', SentMesseages: 4, ReadMessages: 2, NotDelivered: 2 },
+              { Name: 'George', SentMesseages: 12, ReadMessages: 10, NotDelivered: 2 },
+              { Name: 'Hannah', SentMesseages: 6, ReadMessages: 4, NotDelivered: 2 }
+            ]}
+          />
+          <CustomTable
+            headers={['Name', 'Sent Messages', 'Read Messages', 'Not Delivered']}
+            columns={['Name', 'SentMesseages', 'ReadMessages', 'NotDelivered']}
+            data={[
+              { Name: 'Alice', SentMesseages: 3, ReadMessages: 6, NotDelivered: 2 },
+              { Name: 'Bob', SentMesseages: 8, ReadMessages: 7, NotDelivered: 1 },
+              { Name: 'Charlie', SentMesseages: 10, ReadMessages: 9, NotDelivered: 0 },
+              { Name: 'Daisy', SentMesseages: 5, ReadMessages: 3, NotDelivered: 2 },
+              { Name: 'Ethan', SentMesseages: 7, ReadMessages: 5, NotDelivered: 2 },
+              { Name: 'Fiona', SentMesseages: 4, ReadMessages: 2, NotDelivered: 2 },
+              { Name: 'George', SentMesseages: 12, ReadMessages: 10, NotDelivered: 2 },
+              { Name: 'Hannah', SentMesseages: 6, ReadMessages: 4, NotDelivered: 2 }
+            ]}
+          />
         </div>
  
-           
-        <div className="form-section">
-          <Card className="p-3">
-            <Doughnut
-              data={doughnutData}
-              options={{
-                plugins: {
-                  legend: {
-                    display: true,
-                    position: 'right',
-                  },
-                },
-              }}
-            />
-          </Card>
-        </div>
+ 
+ 
+        <Card className="p-3">
+          <DonutChart />
+ 
+        </Card>
       </div>
+ 
     </Container>
   );
 };

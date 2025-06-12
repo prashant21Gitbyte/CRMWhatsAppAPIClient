@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import './Topbar.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import Logo from '../../images/Logo_crm.png'
+ 
  
 const Header = () => {
   const headerRef = useRef(null);
@@ -28,14 +30,15 @@ const Header = () => {
  
           {/* Left: Logo + Breadcrumb */}
           <div className="header-section">
-            {/* <img
-              src="https://randomuser.me/api/portraits/men/32.jpg"
-              alt="Logo"
-              className="logo-img"
-            /> */}
-            <span className="breadcrumb">
+            <img
+              src={Logo}
+              alt="CRM Landing"
+              className="logo_default"
+              style={{ height: '40px' }} // Optional: adjust height as needed
+            />
+            {/* <span className="breadcrumb">
               App &gt; <span className="text-primary">Dashboards</span> &gt; Analytics
-            </span>
+            </span> */}
           </div>
  
           {/* Center: Search bar */}
@@ -73,3 +76,4 @@ const Header = () => {
 };
  
 export default Header;
+ 

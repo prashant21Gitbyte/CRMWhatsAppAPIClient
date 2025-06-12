@@ -13,13 +13,13 @@ const EditUser = ({ onClose }) => {
     avatar: ""
   });
 
-  const departmentOptions = [
-    "Account Management",
-    "Engineering",
-    "Marketing",
-    "Sales",
-    "Human Resources"
-  ];
+  // const departmentOptions = [
+  //   "Account Management",
+  //   "Engineering",
+  //   "Marketing",
+  //   "Sales",
+  //   "Human Resources"
+  // ];
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
