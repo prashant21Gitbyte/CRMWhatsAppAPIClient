@@ -6,7 +6,7 @@ const UserCard = ({ user, onDelete, isSelected, onSelect }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const menuRef = useRef(null);
- const navigate = useNavigate();
+    const navigate = useNavigate();
     const computedStatus = user.profileCompletion > 80 ? "Active" : "Inactive";
 
     useEffect(() => {
@@ -102,7 +102,10 @@ const UserCard = ({ user, onDelete, isSelected, onSelect }) => {
 
     return (
         <>
-            <tr  onClick={() => navigate(`/user/${user.id}`)} style={styles.userRow}>
+            <tr
+                onClick={() => navigate(`/user/${user.id}`)}
+                style={{ ...styles.userRow, cursor: 'pointer' }}
+            >
                 <td>
                     <input type="checkbox" checked={isSelected} onChange={onSelect} />
                 </td>
@@ -130,7 +133,11 @@ const UserCard = ({ user, onDelete, isSelected, onSelect }) => {
                 <td style={styles.status}>{computedStatus}</td>
                 <td>{user.joinedDate}</td>
                 <td style={{ position: "relative" }} ref={menuRef}>
-                    <span style={styles.dots} onClick={() => setMenuOpen(!menuOpen)}>
+                    <span style={styles.dots} onClick={(e) => {
+                        e.stopPropagation();
+                        setMenuOpen(!menuOpen)
+
+                    }}>
                         ...
                     </span>
                     {menuOpen && (
@@ -139,7 +146,7 @@ const UserCard = ({ user, onDelete, isSelected, onSelect }) => {
                                 style={styles.dropdownItem}
                                 onMouseEnter={(e) => (e.target.style.background = "#f1f5f9")}
                                 onMouseLeave={(e) => (e.target.style.background = "white")}
-                                onClick={() => setShowModal(true)}
+                                onClick={(e) => setShowModal(true)}
                             >
                                 Edit
                             </div>
@@ -147,7 +154,10 @@ const UserCard = ({ user, onDelete, isSelected, onSelect }) => {
                                 style={styles.dropdownItem}
                                 onMouseEnter={(e) => (e.target.style.background = "#f1f5f9")}
                                 onMouseLeave={(e) => (e.target.style.background = "white")}
-                                onClick={() => onDelete(user)}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onDelete(user)
+                                }}
                             >
                                 Delete
                             </div>
