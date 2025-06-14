@@ -453,52 +453,80 @@ function Meta({ show, onClose }) {
   };
  
   const styles = {
-    sectionTitle: { fontSize: '14px', fontWeight: 'bold', marginBottom: '10px' },
+    sectionTitle: { fontSize: "15px", fontWeight: 600, marginBottom: "10px", color: "#333" },
     categoryTabs: {
-      display: 'flex',
-      flexDirection: isMobile ? 'column' : 'row',
-      gap: '20px',
-      marginBottom: '12px'
+      display: "flex",
+      flexDirection: isMobile ? "column" : "row",
+      gap: "16px",
+      marginBottom: "16px",
     },
     tab: (active) => ({
-      paddingBottom: '6px',
-      fontWeight: 'bold',
-      fontSize: '13px',
-      borderBottom: !isMobile && active ? '2px solid #0070f3' : 'none',
-      color: active ? '#0070f3' : '#555',
-      cursor: 'pointer'
-    }),
-    checkboxRow: { display: 'flex', flexDirection: 'column', gap: '12px' },
+      padding: "6px 12px",
+      borderRadius: "20px",
+      background: active
+        ? "linear-gradient(90deg, #1e2a5a 0%, #1852a1 100%)"
+        : "#f1f1f1",
+      color: active ? "#fff" : "#555",
+      fontWeight: active ? 600 : 500,
+      fontSize: "13px",
+      cursor: "pointer",
+      textAlign: "center",
+      minWidth: "120px",
+      transition: "all 0.2s ease",
+      boxShadow: active ? "0 2px 6px rgba(0,0,0,0.15)" : "none",
+    })
+,    
+    checkboxLabel: {
+      fontSize: "13px",
+      color: "#333",
+      display: "block",
+      marginBottom: "12px",
+      background: "#f9f9f9",
+      padding: "10px 14px",
+      borderRadius: "10px",
+      border: "1px solid #eee",
+    },
+    descriptionText: {
+      fontSize: "12px",
+      color: "#777",
+      marginTop: "4px",
+      marginLeft: "24px",
+      display: "block",
+    },
     primaryBtn: {
-      backgroundColor: '#0070f3',
-      color: 'white',
-      border: 'none',
-      borderRadius: '20px',
-      padding: '8px 16px',
-      fontSize: '12px',
-      cursor: 'pointer'
+      backgroundColor: "#0070f3",
+      color: "white",
+      border: "none",
+      borderRadius: "20px",
+      padding: "6px 20px",
+      fontSize: "13px",
+      fontWeight: 500,
     },
     secondaryBtn: {
-      backgroundColor: 'white',
-      color: '#0070f3',
-      border: '1px solid #ccc',
-      borderRadius: '20px',
-      padding: '8px 16px',
-      fontSize: '12px',
-      cursor: 'pointer'
-    }
+      backgroundColor: "white",
+      color: "#0070f3",
+      border: "1px solid #ccc",
+      borderRadius: "20px",
+      padding: "6px 20px",
+      fontSize: "13px",
+      fontWeight: 500,
+    },
   };
  
   return (
     <Modal show={show} onHide={onClose} centered size="lg">
-      <Modal.Header closeButton>
-        <Modal.Title>WhatsApp Template</Modal.Title>
+      <Modal.Header closeButton style={{ background: "#f8f9fa", borderBottom: "none" }}>
+        <Modal.Title style={{ fontWeight: 600, fontSize: "17px" }}>
+          WhatsApp Template
+        </Modal.Title>
       </Modal.Header>
-      <Modal.Body style={{ padding: "1.5rem" }}>
-        <h4 style={styles.sectionTitle}>Set up your template</h4>
-        <p style={{ fontSize: '12px' }}>
+ 
+      <Modal.Body style={{ padding: "2rem", background: "#fff" }}>
+        <h5 style={styles.sectionTitle}>Set up your template</h5>
+        <p style={{ fontSize: "13px", color: "#666", marginBottom: "20px" }}>
           Choose the category that best describes your message template. Then, select the type of message that you want to send.
         </p>
+ 
         <div style={styles.categoryTabs}>
           {["Marketing", "Utility", "Authentication"].map((cat) => (
             <div
@@ -510,28 +538,30 @@ function Meta({ show, onClose }) {
             </div>
           ))}
         </div>
-        <div style={styles.checkboxRow}>
+ 
+        <div>
           {getOptions().map((opt) => (
-            <label key={opt} style={{ fontSize: '12px' }}>
+            <label key={opt} style={styles.checkboxLabel}>
               <input
                 type="checkbox"
                 checked={!!selectedOptions[opt]}
                 onChange={() => handleCheckboxChange(opt)}
                 disabled={selectedCategory === "Marketing" && opt !== "Custom"}
-              />{" "}
-              <strong>{opt}</strong><br />
+                style={{ marginRight: "10px" }}
+              />
+              <strong>{opt}</strong>
               {opt === "Custom" && selectedCategory === "Marketing" && (
-                <span style={{ fontSize: '11px', color: '#555' }}>
+                <span style={styles.descriptionText}>
                   Send promotions or announcements to increase awareness and engagement.
                 </span>
               )}
               {opt === "Catalogue" && selectedCategory === "Marketing" && (
-                <span style={{ fontSize: '11px', color: '#999' }}>
+                <span style={styles.descriptionText}>
                   Send messages about your entire catalogue or multiple products from it.
                 </span>
               )}
               {opt === "Calling permissions request" && selectedCategory === "Marketing" && (
-                <span style={{ fontSize: '11px', color: '#999' }}>
+                <span style={styles.descriptionText}>
                   Ask customers if you can call them on WhatsApp.
                 </span>
               )}
@@ -539,14 +569,23 @@ function Meta({ show, onClose }) {
           ))}
         </div>
       </Modal.Body>
-      <Modal.Footer className="d-flex flex-column flex-md-row justify-content-end gap-2">
+ 
+      <Modal.Footer className="d-flex flex-column flex-md-row justify-content-end gap-2" style={{ background: "#f8f9fa", borderTop: "none" }}>
         <Button variant="outline-primary" style={styles.secondaryBtn} onClick={onClose}>
           Cancel
         </Button>
         <Button variant="outline-primary" style={styles.secondaryBtn} onClick={handleSaveAndNew}>
           Save & New
         </Button>
-        <Button variant="primary" style={styles.primaryBtn} onClick={handleSave}>
+        <Button variant="primary" style={styles.primaryBtn} onClick={handleSave}   style={{
+              borderRadius: "20px",
+              padding: "6px 20px",
+              fontSize: "14px",
+              fontWeight: 600,
+              background: "linear-gradient(90deg, #1e2a5a 0%, #1852a1 100%)",
+              border: "none",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+            }}>
           Save
         </Button>
       </Modal.Footer>
@@ -558,3 +597,4 @@ function Meta({ show, onClose }) {
  
  
 export default App;
+ 

@@ -181,123 +181,168 @@ function App() {
       handleClose();
     };
   
+    // Shorter, modern input style
+    const inputStyle = {
+      borderRadius: "10px",
+      padding: "6px 12px",
+      fontSize: "14px",
+      height: "36px",
+      border: "1px solid #ced4da",
+      boxShadow: "none",
+      transition: "all 0.2s ease-in-out",
+    };
+  
+    const labelStyle = {
+      fontWeight: 500,
+      color: "#333",
+      fontSize: "14px",
+    };
+  
+    const placeholderStyle = {
+      fontStyle: "normal",
+      color: "#999",
+      fontSize: "13px",
+    };
+  
     return (
       <Modal show={show} onHide={handleClose} size="lg" centered>
-        <Modal.Header closeButton>
-          <Modal.Title>New WhatsApp User</Modal.Title>
+        <Modal.Header closeButton style={{ background: "#f8f9fa", borderBottom: "none" }}>
+          <Modal.Title style={{ fontWeight: 600, fontSize: "18px" }}>
+            New WhatsApp User
+          </Modal.Title>
         </Modal.Header>
   
-        <Modal.Body>
-          <p className="fw-semibold" style={{ fontSize: "15px" }}>
-            User Information
-          </p>
-  
+        <Modal.Body
+          style={{
+            padding: "2rem",
+            background: "rgba(255, 255, 255, 0.9)",
+            backdropFilter: "blur(6px)",
+            borderRadius: "12px",
+          }}
+        >
           <Form>
-            <Form.Group as={Row} className="mb-3">
-              <Form.Label column sm={4}>
-                Customer Name
-              </Form.Label>
-              <Col sm={8}>
+            <Row className="mb-3">
+              <Col md={4} className="mb-2 mb-md-0">
+                <Form.Label style={labelStyle}>Customer Name</Form.Label>
+              </Col>
+              <Col md={8}>
                 <Form.Control
-                  size="sm"
                   type="text"
                   name="customerName"
+                  placeholder="Enter name"
                   value={formData.customerName}
                   onChange={handleChange}
-                  placeholder="Enter name"
+                  style={inputStyle}
                 />
               </Col>
-            </Form.Group>
+            </Row>
   
-            <Form.Group as={Row} className="mb-3">
-              <Form.Label column sm={4}>
-                Customer Phone
-              </Form.Label>
-              <Col sm={8}>
+            <Row className="mb-3">
+              <Col md={4} className="mb-2 mb-md-0">
+                <Form.Label style={labelStyle}>Customer Phone</Form.Label>
+              </Col>
+              <Col md={8}>
                 <Form.Control
-                  size="sm"
                   type="text"
                   name="customerPhone"
+                  placeholder="Enter phone"
                   value={formData.customerPhone}
                   onChange={handleChange}
-                  placeholder="Enter phone"
+                  style={inputStyle}
                 />
               </Col>
-            </Form.Group>
+            </Row>
   
-            <Form.Group as={Row} className="mb-3">
-              <Form.Label column sm={4}>
-                Business Number
-              </Form.Label>
-              <Col sm={8}>
+            <Row className="mb-3">
+              <Col md={4} className="mb-2 mb-md-0">
+                <Form.Label style={labelStyle}>Business Number</Form.Label>
+              </Col>
+              <Col md={8}>
                 <Form.Control
-                  size="sm"
                   type="text"
                   name="businessNumber"
+                  placeholder="Enter business number"
                   value={formData.businessNumber}
                   onChange={handleChange}
-                  placeholder="Enter business number"
+                  style={inputStyle}
                 />
               </Col>
-            </Form.Group>
+            </Row>
   
-            <Form.Group as={Row} className="mb-3">
-              <Form.Label column sm={4}>
-                Latest DateTime
-              </Form.Label>
-              <Col sm={4} className="mb-2 mb-sm-0">
+            <Row className="mb-3">
+              <Col md={4}>
+                <Form.Label style={labelStyle}>Latest Date & Time</Form.Label>
+              </Col>
+              <Col xs={6} md={4}>
                 <Form.Control
-                  size="sm"
                   type="date"
                   name="latestDate"
                   value={formData.latestDate}
                   onChange={handleChange}
+                  style={inputStyle}
                 />
               </Col>
-              <Col sm={4}>
+              <Col xs={6} md={4}>
                 <Form.Control
-                  size="sm"
                   type="time"
                   name="latestTime"
                   value={formData.latestTime}
                   onChange={handleChange}
+                  style={inputStyle}
                 />
               </Col>
-            </Form.Group>
+            </Row>
   
-            <Form.Group as={Row} className="mb-3">
-              <Form.Label column sm={4}>
-                Status
-              </Form.Label>
-              <Col sm={8}>
+            <Row className="mb-3">
+              <Col md={4} className="mb-2 mb-md-0">
+                <Form.Label style={labelStyle}>Status</Form.Label>
+              </Col>
+              <Col md={8}>
                 <Form.Select
-                  size="sm"
                   name="status"
                   value={formData.status}
                   onChange={handleChange}
+                  style={inputStyle}
                 >
                   <option value="Active">Active</option>
                   <option value="Inactive">Inactive</option>
                 </Form.Select>
               </Col>
-            </Form.Group>
+            </Row>
           </Form>
         </Modal.Body>
   
-        <Modal.Footer>
+        <Modal.Footer
+          style={{
+            background: "#f8f9fa",
+            borderTop: "none",
+            padding: "1rem 2rem",
+          }}
+        >
           <Button
-            variant="outline-primary"
-            size="sm"
-            className="rounded-pill"
+            variant="outline-secondary"
             onClick={handleClose}
+            style={{
+              borderRadius: "20px",
+              padding: "6px 20px",
+              fontSize: "14px",
+              fontWeight: 500,
+            }}
           >
             Cancel
           </Button>
           <Button
             variant="primary"
-            size="sm"
-            className="rounded-pill"
             onClick={handleSaveUser}
+            style={{
+              borderRadius: "20px",
+              padding: "6px 20px",
+              fontSize: "14px",
+              fontWeight: 600,
+              background: "linear-gradient(90deg, #1e2a5a 0%, #1852a1 100%)",
+              border: "none",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+            }}
           >
             Save
           </Button>
@@ -305,6 +350,7 @@ function App() {
       </Modal>
     );
   };
+  
   
   
  
@@ -601,4 +647,5 @@ function App() {
 }
  
 export default App;
+ 
  

@@ -152,309 +152,337 @@ function Message() {
   const totalPages = Math.ceil(filteredData.length / usersPerPage);
  
  
-  const UserForm = ({ show, setShowForm }) => {
-   const [formData, setFormData] = useState({
-  owner: "",
-  lead: "",
-  account: "",
-  contact: "",
-  phoneNoId: "",
-  chatStatus: "Active", // default value like before
-});
- 
+  const ModalMessages = ({ show, setShowForm }) => {
+    const [formData, setFormData] = useState({
+      owner: "",
+      lead: "",
+      account: "",
+      contact: "",
+      phoneNoId: "",
+      chatStatus: "Active",
+    });
+  
     const handleClose = () => setShowForm(false);
- 
+  
     const handleChange = (e) => {
       const { name, value } = e.target;
       setFormData((prev) => ({ ...prev, [name]: value }));
     };
- 
+  
+    const handleChangeCheckbox = (e) => {
+      setFormData((prev) => ({
+        ...prev,
+        [e.target.name]: e.target.checked,
+      }));
+    };
+  
     const handleSaveUser = () => {
       console.log("Saved Data:", formData);
       handleClose();
     };
-     const handleChangeCheckbox = (e) => {
-  setFormData({
-    ...formData,
-    [e.target.name]: e.target.checked,
-  });
-};
- 
- 
+  
+    const inputStyle = {
+      borderRadius: "10px",
+      padding: "6px 12px",
+      fontSize: "14px",
+      height: "36px",
+      border: "1px solid #ced4da",
+      boxShadow: "none",
+      transition: "all 0.2s ease-in-out",
+    };
+  
+    const labelStyle = {
+      fontWeight: 500,
+      color: "#333",
+      fontSize: "14px",
+    };
+  
     return (
-     <Modal show={show} onHide={handleClose} size="lg" centered>
-  <Modal.Header closeButton>
-    <Modal.Title className="w-100 text-center">New WhatsApp User</Modal.Title>
-  </Modal.Header>
- 
-  <Modal.Body style={{height:'70vh',overflow:'scroll',scrollbarWidth:'none'}}>
-    {/* User Info */}
-   {/* User Information */}
-<p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Information</p>
-<Form>
-  <Row className="mb-3">
-    <Col sm={6}>
-      <Form.Label>WhatsApp Message Name</Form.Label>
-      <Form.Control size="sm" type="text" name="whatsappMessageName" />
-    </Col>
-    <Col sm={6}>
-      <Form.Label>Owner</Form.Label>
-      <Form.Control size="sm" type="text" readOnly defaultValue="Sumeet Kendre" />
-    </Col>
-  </Row>
- 
-  <Row className="mb-3">
-    <Col sm={6}>
-      <Form.Label>BusinessPhoneNumber</Form.Label>
-      <Form.Control size="sm" type="text" name="businessPhoneNumber" />
-    </Col>
-    <Col sm={6}>
-      <Form.Label>Lead</Form.Label>
-      <Form.Control size="sm" type="text" placeholder="Search Leads..." />
-    </Col>
-  </Row>
- 
-  <Row className="mb-3">
-    <Col sm={6}>
-      <Form.Label>Phone number Id</Form.Label>
-      <Form.Control size="sm" type="text" name="phoneNumberId" />
-    </Col>
-    <Col sm={6}>
-      <Form.Label>Account</Form.Label>
-      <Form.Control size="sm" type="text" placeholder="Search Accounts..." />
-    </Col>
-  </Row>
- 
-  <Row className="mb-3">
-    <Col sm={6}>
-      <Form.Label>CustomerName</Form.Label>
-      <Form.Control size="sm" type="text" name="customerName" />
-    </Col>
-    <Col sm={6}>
-      <Form.Label>Contact</Form.Label>
-      <Form.Control size="sm" type="text" placeholder="Search Contacts..." />
-    </Col>
-  </Row>
- 
-  <Row className="mb-3">
-    <Col sm={6}>
-      <Form.Label>CustomerPhone</Form.Label>
-      <Form.Control size="sm" type="text" name="customerPhone" />
-    </Col>
-  </Row>
- 
-  <Row className="mb-3">
-    <Col sm={6}>
-      <Form.Check label="Chat Status" name="chatStatus" />
-    </Col>
-    <Col sm={6}>
-      <Form.Check label="Viewed By Agent" name="viewedByAgent" />
-    </Col>
-  </Row>
- 
- 
-      {/* Message Content */}
-      <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Message Content</p>
-      <Row className="mb-3">
-        <Col sm={6}>
-          <Form.Label>WhatsApp User</Form.Label>
-          <Form.Control size="sm" type="text" placeholder="Search WhatsApp Users..." />
-        </Col>
-        <Col sm={6}>
-          <Form.Label>Messaging Session</Form.Label>
-          <Form.Control size="sm" type="text" placeholder="Search Messaging Sessions..." />
-        </Col>
-      </Row>
-      <Row className="mb-3">
-        <Col sm={6}>
-          <Form.Label>WhatsApp Messaging Session</Form.Label>
-          <Form.Control size="sm" type="text" placeholder="Search WhatsApp Messaging Sessions..." />
-        </Col>
-      </Row>
-      <Row className="mb-3">
-        <Col sm={6}>
-          <Form.Label>Message ID</Form.Label>
-          <Form.Control size="sm" type="text" name="messageId" />
-        </Col>
-        <Col sm={6}>
-          <Form.Label>Message Content</Form.Label>
-          <Form.Control as="textarea" rows={2} size="sm" name="messageContent" />
-        </Col>
-      </Row>
- 
-      {/* Message Info */}
-      <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Message Info</p>
-      <Row className="mb-3">
-        <Col sm={6}>
-          <Form.Label>Parent Message ID</Form.Label>
-          <Form.Control size="sm" type="text" />
-        </Col>
-        <Col sm={6}>
-          <Form.Label>Message Type</Form.Label>
-          <Form.Control size="sm" type="text" />
-        </Col>
-      </Row>
-      <Row className="mb-3">
-        <Col sm={6}>
-          <Form.Label>Message Send Type</Form.Label>
-          <Form.Select size="sm">
-            <option>--None--</option>
-          </Form.Select>
-        </Col>
-        <Col sm={3}>
-          <Form.Label>Sent Date</Form.Label>
-          <Form.Control size="sm" type="date" />
-        </Col>
-        <Col sm={3}>
-          <Form.Label>Sent Time</Form.Label>
-          <Form.Control size="sm" type="time" />
-        </Col>
-      </Row>
- 
-      {/* Media Section */}
-      <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Media</p>
-      <Row className="mb-3">
-        <Col sm={6}>
-          <Form.Label>Media ID</Form.Label>
-          <Form.Control size="sm" type="text" />
-        </Col>
-        <Col sm={6}>
-          <Form.Label>Media SHA256</Form.Label>
-          <Form.Control size="sm" type="text" />
-        </Col>
-      </Row>
-      <Row className="mb-3">
-        <Col sm={6}>
-          <Form.Label>Media Type</Form.Label>
-          <Form.Control size="sm" type="text" />
-        </Col>
-        <Col sm={6}>
-          <Form.Label>Media Animated</Form.Label>
-          <Form.Control size="sm" type="text" />
-        </Col>
-      </Row>
-      <Row className="mb-3">
-        <Col sm={6}>
-          <Form.Label>Reaction</Form.Label>
-          <Form.Control size="sm" type="text" />
-        </Col>
-        <Col sm={6}>
-          <Form.Label>Media Link</Form.Label>
-          <Form.Control size="sm" type="text" />
-        </Col>
-      </Row>
-      <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Template</p>
-  <Row className="mb-3">
-    <Col sm={6}>
-      <Form.Label>Template Name</Form.Label>
-      <Form.Control size="sm" type="text" name="templateName" />
-    </Col>
-    <Col sm={6}>
-      <Form.Label>Order Number</Form.Label>
-      <Form.Control size="sm" type="text" name="orderNumber" />
-    </Col>
-  </Row>
- 
-  <Row className="mb-3">
-    <Col sm={6}>
-      <Form.Label>Template Language</Form.Label>
-      <Form.Control size="sm" type="text" name="templateLanguage" />
-    </Col>
-    <Col sm={6}>
-      <Form.Label>Template Header URL</Form.Label>
-      <Form.Control size="sm" type="text" name="templateHeaderUrl" />
-    </Col>
-  </Row>
- 
-  <Row className="mb-3">
-    <Col sm={6}>
-      <Form.Label>Template Header Type</Form.Label>
-      <Form.Control size="sm" type="text" name="templateHeaderType" />
-    </Col>
-    <Col sm={6}>
-      <Form.Label>Template Button Payload</Form.Label>
-      <Form.Control size="sm" type="text" name="templateButtonPayload" />
-    </Col>
-  </Row>
- 
-  <Row className="mb-3">
-    <Col sm={6}>
-      <Form.Label>Template Button Text</Form.Label>
-      <Form.Control size="sm" type="text" name="templateButtonText" />
-    </Col>
-  </Row>
- 
-      {/* Order / Interactive */}
-      <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Order / Interactive</p>
-      <Row className="mb-3">
-        <Col sm={6}>
-          <Form.Label>Order Detail</Form.Label>
-          <Form.Control as="textarea" rows={2} size="sm" />
-        </Col>
-        <Col sm={6}>
-          <Form.Label>Interactive Detail</Form.Label>
-          <Form.Control as="textarea" rows={2} size="sm" />
-        </Col>
-      </Row>
- 
-      {/* Status Details */}
-      <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Status Details</p>
-      <Row className="mb-3">
-        <Col sm={6}>
-          <Form.Label>Message Status</Form.Label>
-          <Form.Control size="sm" type="text" />
-        </Col>
-        <Col sm={6}>
-          <Form.Label>Timestamp</Form.Label>
-          <Form.Control size="sm" type="text" />
-        </Col>
-      </Row>
-      <Row className="mb-3">
-        <Col sm={6}>
-          <Form.Label>Conversation ID</Form.Label>
-          <Form.Control size="sm" type="text" />
-        </Col>
-        <Col sm={6}>
-          <Form.Label>Pricing Billable</Form.Label>
-          <Form.Check type="checkbox" className="mt-2" />
-        </Col>
-      </Row>
-      <Row className="mb-3">
-        <Col sm={6}>
-          <Form.Label>Conversation Expiration</Form.Label>
-          <Form.Control size="sm" type="text" />
-        </Col>
-        <Col sm={6}>
-          <Form.Label>Pricing Model</Form.Label>
-          <Form.Control size="sm" type="text" />
-        </Col>
-      </Row>
-      <Row className="mb-3">
-        <Col sm={6}>
-          <Form.Label>Conversation Origin</Form.Label>
-          <Form.Control size="sm" type="text" />
-        </Col>
-        <Col sm={6}>
-          <Form.Label>Pricing Category</Form.Label>
-          <Form.Control size="sm" type="text" />
-        </Col>
-      </Row>
-    </Form>
-  </Modal.Body>
- 
-  <Modal.Footer>
-    <Button variant="outline-primary" size="sm" className="rounded-pill" onClick={handleClose}>
-      Cancel
-    </Button>
-    <Button variant="primary" size="sm" className="rounded-pill" onClick={handleSaveUser}>
-      Save
-    </Button>
-  </Modal.Footer>
-</Modal>
- 
- 
+      <Modal show={show} onHide={handleClose} size="lg" centered>
+        <Modal.Header closeButton style={{ background: "#f8f9fa", borderBottom: "none" }}>
+          <Modal.Title className="w-100 text-center" style={{ fontWeight: 600, fontSize: "18px" }}>
+            New WhatsApp Message
+          </Modal.Title>
+        </Modal.Header>
+  
+        <Modal.Body
+          style={{
+            height: "70vh",
+            overflow: "scroll",
+            background: "rgba(255,255,255,0.9)",
+            backdropFilter: "blur(6px)",
+            padding: "2rem",
+          }}
+        >
+          <Form>
+            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Information</p>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>WhatsApp Message Name</Form.Label>
+                <Form.Control size="sm" type="text" name="whatsappMessageName" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Owner</Form.Label>
+                <Form.Control size="sm" type="text" readOnly defaultValue="Sumeet Kendre" style={inputStyle} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>BusinessPhoneNumber</Form.Label>
+                <Form.Control size="sm" type="text" name="businessPhoneNumber" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Lead</Form.Label>
+                <Form.Control size="sm" type="text" placeholder="Search Leads..." style={inputStyle} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Phone number Id</Form.Label>
+                <Form.Control size="sm" type="text" name="phoneNumberId" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Account</Form.Label>
+                <Form.Control size="sm" type="text" placeholder="Search Accounts..." style={inputStyle} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>CustomerName</Form.Label>
+                <Form.Control size="sm" type="text" name="customerName" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Contact</Form.Label>
+                <Form.Control size="sm" type="text" placeholder="Search Contacts..." style={inputStyle} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>CustomerPhone</Form.Label>
+                <Form.Control size="sm" type="text" name="customerPhone" style={inputStyle} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Check label="Chat Status" name="chatStatus" onChange={handleChangeCheckbox} />
+              </Col>
+              <Col sm={6}>
+                <Form.Check label="Viewed By Agent" name="viewedByAgent" onChange={handleChangeCheckbox} />
+              </Col>
+            </Row>
+  
+            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Message Content</p>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>WhatsApp User</Form.Label>
+                <Form.Control size="sm" type="text" placeholder="Search WhatsApp Users..." style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Messaging Session</Form.Label>
+                <Form.Control size="sm" type="text" placeholder="Search Messaging Sessions..." style={inputStyle} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>WhatsApp Messaging Session</Form.Label>
+                <Form.Control size="sm" type="text" placeholder="Search WhatsApp Messaging Sessions..." style={inputStyle} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Message ID</Form.Label>
+                <Form.Control size="sm" type="text" name="messageId" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Message Content</Form.Label>
+                <Form.Control as="textarea" rows={2} size="sm" name="messageContent" style={inputStyle} />
+              </Col>
+            </Row>
+  
+            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Message Info</p>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Parent Message ID</Form.Label>
+                <Form.Control size="sm" type="text" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Message Type</Form.Label>
+                <Form.Control size="sm" type="text" style={inputStyle} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Message Send Type</Form.Label>
+                <Form.Select size="sm" style={inputStyle}>
+                  <option>--None--</option>
+                </Form.Select>
+              </Col>
+              <Col sm={3}>
+                <Form.Label style={labelStyle}>Sent Date</Form.Label>
+                <Form.Control size="sm" type="date" style={inputStyle} />
+              </Col>
+              <Col sm={3}>
+                <Form.Label style={labelStyle}>Sent Time</Form.Label>
+                <Form.Control size="sm" type="time" style={inputStyle} />
+              </Col>
+            </Row>
+  
+            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Media</p>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Media ID</Form.Label>
+                <Form.Control size="sm" type="text" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Media SHA256</Form.Label>
+                <Form.Control size="sm" type="text" style={inputStyle} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Media Type</Form.Label>
+                <Form.Control size="sm" type="text" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Media Animated</Form.Label>
+                <Form.Control size="sm" type="text" style={inputStyle} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Reaction</Form.Label>
+                <Form.Control size="sm" type="text" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Media Link</Form.Label>
+                <Form.Control size="sm" type="text" style={inputStyle} />
+              </Col>
+            </Row>
+  
+            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Template</p>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Template Name</Form.Label>
+                <Form.Control size="sm" type="text" name="templateName" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Order Number</Form.Label>
+                <Form.Control size="sm" type="text" name="orderNumber" style={inputStyle} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Template Language</Form.Label>
+                <Form.Control size="sm" type="text" name="templateLanguage" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Template Header URL</Form.Label>
+                <Form.Control size="sm" type="text" name="templateHeaderUrl" style={inputStyle} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Template Header Type</Form.Label>
+                <Form.Control size="sm" type="text" name="templateHeaderType" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Template Button Payload</Form.Label>
+                <Form.Control size="sm" type="text" name="templateButtonPayload" style={inputStyle} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Template Button Text</Form.Label>
+                <Form.Control size="sm" type="text" name="templateButtonText" style={inputStyle} />
+              </Col>
+            </Row>
+  
+            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Order / Interactive</p>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Order Detail</Form.Label>
+                <Form.Control as="textarea" rows={2} size="sm" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Interactive Detail</Form.Label>
+                <Form.Control as="textarea" rows={2} size="sm" style={inputStyle} />
+              </Col>
+            </Row>
+  
+            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Status Details</p>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Message Status</Form.Label>
+                <Form.Control size="sm" type="text" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Timestamp</Form.Label>
+                <Form.Control size="sm" type="text" style={inputStyle} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Conversation ID</Form.Label>
+                <Form.Control size="sm" type="text" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Pricing Billable</Form.Label>
+                <Form.Check type="checkbox" className="mt-2" />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Conversation Expiration</Form.Label>
+                <Form.Control size="sm" type="text" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Pricing Model</Form.Label>
+                <Form.Control size="sm" type="text" style={inputStyle} />
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Conversation Origin</Form.Label>
+                <Form.Control size="sm" type="text" style={inputStyle} />
+              </Col>
+              <Col sm={6}>
+                <Form.Label style={labelStyle}>Pricing Category</Form.Label>
+                <Form.Control size="sm" type="text" style={inputStyle} />
+              </Col>
+            </Row>
+          </Form>
+        </Modal.Body>
+  
+        <Modal.Footer style={{ background: "#f8f9fa", borderTop: "none", padding: "1rem 2rem" }}>
+          <Button
+            variant="outline-secondary"
+            onClick={handleClose}
+            style={{ borderRadius: "20px", padding: "6px 20px", fontSize: "14px", fontWeight: 500 }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleSaveUser}
+            style={{
+              borderRadius: "20px",
+              padding: "6px 20px",
+              fontSize: "14px",
+              fontWeight: 600,
+              background: "linear-gradient(90deg, #1e2a5a 0%, #1852a1 100%)",
+              border: "none",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+            }}
+          >
+            Save
+          </Button>
+        </Modal.Footer>
+      </Modal>
     );
   };
+  
+  
+  
  
  
  
@@ -747,7 +775,7 @@ function Message() {
           </div>
         </div>
  
-        <UserForm show={showModal} setShowForm={setShowModal} />
+        <ModalMessages show={showModal} setShowForm={setShowModal} />
       </div>
     </>
   );
@@ -756,3 +784,4 @@ function Message() {
 }
  
 export default Message;
+ 

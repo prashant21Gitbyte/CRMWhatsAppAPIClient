@@ -177,92 +177,160 @@ function App() {
   
  
   const TemplateAnalyticsModal = ({ show, setShowModal, formData, handleFormChange, handleSave }) => {
+    const handleClose = () => setShowModal(false);
+  
+    const inputStyle = {
+      borderRadius: "10px",
+      padding: "6px 12px",
+      fontSize: "14px",
+      height: "36px",
+      border: "1px solid #ced4da",
+      boxShadow: "none",
+      transition: "all 0.2s ease-in-out",
+    };
+  
+    const labelStyle = {
+      fontWeight: 500,
+      color: "#333",
+      fontSize: "14px",
+    };
+  
     return (
-      <Modal show={show} onHide={() => setShowModal(false)} centered backdrop="static">
-         <div className="modal-content border-0 rounded-3 shadow">
-            
-            {/* Modal Header */}
-            <div className="modal-header d-flex justify-content-between align-items-center">
-              <h5 className="modal-title">New Template Analytics</h5>
-              <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
-            </div>
+      <Modal show={show} onHide={handleClose} size="lg" centered>
+        {/* Header */}
+        <Modal.Header closeButton style={{ background: "#f8f9fa", borderBottom: "none" }}>
+          <Modal.Title style={{ fontWeight: 600, fontSize: "18px" }}>
+            New Template Analytics
+          </Modal.Title>
+        </Modal.Header>
   
-            {/* Modal Body */}
-            <div className="modal-body">
-              <form className="row g-3">
-                {/* Row 1 */}
-                <div className="col-12 col-md-6">
-                  <label className="form-label fw-semibold">Analytics Name</label>
-                  <input
+        {/* Body */}
+        <Modal.Body
+          style={{
+            padding: "2rem",
+            background: "rgba(255, 255, 255, 0.9)",
+            backdropFilter: "blur(6px)",
+            borderRadius: "12px",
+          }}
+        >
+          <Form>
+            <Row className="mb-3">
+              <Col md={4} className="mb-2 mb-md-0">
+                <Form.Label style={labelStyle}>Analytics Name</Form.Label>
+              </Col>
+              <Col md={8}>
+                <Form.Control
+                  type="text"
+                  name="name"
+                  placeholder="Enter analytics name"
+                  value={formData.name}
+                  onChange={handleFormChange}
+                  style={inputStyle}
+                />
+              </Col>
+            </Row>
+  
+            <Row className="mb-3">
+              <Col md={4} className="mb-2 mb-md-0">
+                <Form.Label style={labelStyle}>Template ID</Form.Label>
+              </Col>
+              <Col md={8}>
+                <Form.Control
+                  type="text"
+                  name="templateId"
+                  placeholder="Enter template ID"
+                  value={formData.templateId}
+                  onChange={handleFormChange}
+                  style={inputStyle}
+                />
+              </Col>
+            </Row>
+  
+            <Row className="mb-3">
+              <Col md={4}>
+                <Form.Label style={labelStyle}>Start & End Date</Form.Label>
+              </Col>
+              <Col xs={6} md={4}>
+                <Form.Control
+                  type="date"
+                  name="startDate"
+                  value={formData.startDate}
+                  onChange={handleFormChange}
+                  style={inputStyle}
+                />
+              </Col>
+              <Col xs={6} md={4}>
+                <Form.Control
+                  type="date"
+                  name="endDate"
+                  value={formData.endDate}
+                  onChange={handleFormChange}
+                  style={inputStyle}
+                />
+              </Col>
+            </Row>
+  
+            {["sent", "delivered", "read", "amountSpent", "costPerClick"].map((field, idx) => (
+              <Row className="mb-3" key={idx}>
+                <Col md={4} className="mb-2 mb-md-0">
+                  <Form.Label style={labelStyle}>{field.charAt(0).toUpperCase() + field.slice(1)}</Form.Label>
+                </Col>
+                <Col md={8}>
+                  <Form.Control
                     type="text"
-                    className="form-control"
-                    name="name"
-                    value={formData.name}
+                    name={field}
+                    placeholder={`Enter ${field}`}
+                    value={formData[field]}
                     onChange={handleFormChange}
+                    style={inputStyle}
                   />
-                </div>
-                <div className="col-12 col-md-6">
-                  <label className="form-label fw-semibold">Template ID</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="templateId"
-                    value={formData.templateId}
-                    onChange={handleFormChange}
-                  />
-                </div>
+                </Col>
+              </Row>
+            ))}
+          </Form>
+        </Modal.Body>
   
-                {/* Row 2 */}
-                <div className="col-12 col-md-6">
-                  <label className="form-label fw-semibold">Start Date</label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    name="startDate"
-                    value={formData.startDate}
-                    onChange={handleFormChange}
-                  />
-                </div>
-                <div className="col-12 col-md-6">
-                  <label className="form-label fw-semibold">End Date</label>
-                  <input
-                    type="date"
-                    className="form-control"
-                    name="endDate"
-                    value={formData.endDate}
-                    onChange={handleFormChange}
-                  />
-                </div>
-  
-                {/* Dynamic Fields */}
-                {["sent", "delivered", "read", "amountSpent", "costPerClick"].map((field, idx) => (
-                  <div className="col-12 col-md-6" key={idx}>
-                    <label className="form-label fw-semibold text-capitalize">{field}</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name={field}
-                      value={formData[field]}
-                      onChange={handleFormChange}
-                    />
-                  </div>
-                ))}
-              </form>
-            </div>
-  
-            {/* Modal Footer */}
-            <div className="modal-footer d-flex justify-content-end bg-light">
-              <button className="btn btn-outline-primary rounded-pill px-3" onClick={() => setShowModal(false)}>
-                Cancel
-              </button>
-              <button className="btn btn-primary rounded-pill px-3" onClick={handleSave}>
-                Save
-              </button>
-            </div>
-          </div>
+        {/* Footer */}
+        <Modal.Footer
+          style={{
+            background: "#f8f9fa",
+            borderTop: "none",
+            padding: "1rem 2rem",
+          }}
+        >
+          <Button
+            variant="outline-secondary"
+            onClick={handleClose}
+            style={{
+              borderRadius: "20px",
+              padding: "6px 20px",
+              fontSize: "14px",
+              fontWeight: 500,
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleSave}
+            style={{
+              borderRadius: "20px",
+              padding: "6px 20px",
+              fontSize: "14px",
+              fontWeight: 600,
+              background: "linear-gradient(90deg, #1e2a5a 0%, #1852a1 100%)",
+              border: "none",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+            }}
+          >
+            Save
+          </Button>
+        </Modal.Footer>
       </Modal>
     );
   };
+  
+  
   
  
  
@@ -271,7 +339,7 @@ function App() {
     <div className="table-wrapper mt-5  pt-5 pt-lg-0">
       <div>
  
-      <h5 className="text-center text-dark">Whatsapp Templates</h5>
+      <h5 className="text-center text-dark">Template Analytics</h5>
       <style>{`
         .table-wrapper {
           padding: 2rem;
@@ -550,4 +618,5 @@ function App() {
 }
  
 export default App;
+ 
  
