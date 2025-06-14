@@ -2,14 +2,18 @@ import React from 'react';
 import Topbar from '../components/Topbar/Topbar';
 import Sidebar from '../components/Sidebar';
 import { Outlet } from 'react-router-dom';
+import Slidemenu from '../components/Topbar/Slidemenu';
+import './Layout.css'; 
 
 const Layout = () => {
   return (
     <div>
       <Topbar />
-      <div style={{ display: 'flex' }}>
+      <Slidemenu />
+
+      <div style={{ display: 'flex',backgroundColor:'white' }}>
         <Sidebar />
-        <div className='container' style={{ padding: '20px', display: 'flex', justifyContent: 'center', marginTop : '-230px', flexGrow: 1 }}>
+        <div className='container-fluid setcontainer'>
           <Outlet />
         </div>
       </div>

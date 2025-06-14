@@ -68,10 +68,10 @@ const DonutChart = () => {
  
   return (
     <div
-      className="position-relative w-100"
-      style={{ height: '350px', minHeight: '300px' }}
+      className="position-relative"
+      // style={{ height: '350px', minHeight: '300px' }}
     >
-      <canvas ref={chartRef} className="w-100 h-100" />
+      <canvas ref={chartRef} className="" />
     </div>
   );
 };

@@ -1,3 +1,21 @@
+/* Padding below sticky/fixed header */
+.responsive-padding {
+  padding-top: 100px; /* Always keep enough top space */
+}
+.table-wrapper {
+ 
+  height: 500px !important;
+}
+  .heading {
+    margin-top: 1px;
+  }
+/* Fix sticky header overlap for all screen sizes */
+@media (max-width: 1300px) {
+  .responsive-padding {
+    padding-top: 100px !important;
+  }
+}
+ 
 .stat-card.active {
   border: 2px solid #007bff;
 }
@@ -8,6 +26,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   gap: 12px;
+  justify-content: space-evenly;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 4px;
   scroll-snap-type: x mandatory;
@@ -27,6 +46,7 @@
   height: 120px;
   flex-shrink: 0;
   scroll-snap-align: start;
+  margin-bottom: 12px;
 }
  
 .stat-card-small .card {
@@ -55,15 +75,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   height: 100%;
-}
- 
-.form-section {
-  flex: 1;
-  max-width: 400px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
-  background-color: #fff;
-  height: 100%;
+  overflow-x: auto;
 }
  
 input {
@@ -72,4 +84,50 @@ input {
   border: 1px solid #aaa;
   border-radius: 5px;
 }
+.analysis-layout .card {
+    width: 30%;
+  }
+/* Responsive layout */
+@media (max-width: 1300px) {
  
+  /* .heading {
+    margin-top: 100px;
+  } */
+  .stat-scroll-wrapper {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    justify-content: center;
+ 
+  }
+ 
+  .stat-card-small {
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+ 
+  .analysis-layout {
+    flex-direction: column;
+  }
+ 
+  .table-section {
+    width: 100%;
+    max-width: 100%;
+  }
+ 
+  .analysis-layout .card {
+    width: 100%;
+  }
+}
+/* @media (max-width: 1850px) {
+ 
+  .heading {
+    margin-top: 70px;
+  }
+} */
+@media (max-width: 1300px) {
+ 
+  .heading {
+    margin-top: 130px;
+  }
+}

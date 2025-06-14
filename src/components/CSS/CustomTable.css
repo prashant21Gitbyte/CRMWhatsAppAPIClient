@@ -1,38 +1,54 @@
 .table-wrapper {
-  /* padding: 2rem; */
   background: #f9fafb;
-  min-height: 48vh;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
- 
-.table-container {
-  max-height: 64vh; /* Set height where scrolling should begin */
-  overflow-y: auto;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* padding: 1rem; */
 }
  
+/* Outer table container to allow horizontal scroll if needed */
+.table-container {
+  overflow-x: auto;
+}
+ 
+/* Style for the entire table */
 table {
   width: 100%;
   border-collapse: collapse;
   background-color: #ffffff;
+  table-layout: fixed;
 }
  
-/* Fix the header row */
-thead th {
-  position: sticky;
-  top: 0;
+/* Header */
+thead, thead tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
   background-color: #f1f5f9;
-  z-index: 2;
 }
  
-th {
+thead th {
   padding: 0.85rem 1.2rem;
   text-align: left;
   font-weight: 600;
   color: #374151;
   font-size: 0.875rem;
   border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+ 
+/* Scrollable table body */
+tbody {
+  display: block;
+  max-height: 400px; /* Adjust height as needed */
+  overflow-y: auto;
+  width: 100%;
+}
+ 
+tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }
  
 td {
@@ -40,22 +56,18 @@ td {
   font-size: 0.875rem;
   color: #4b5563;
   border-bottom: 1px solid #f1f5f9;
+  white-space: nowrap;
 }
  
 tbody tr:nth-child(even) {
   background-color: #f9fafb;
 }
  
-/* Scrollbar styling */
-.table-container::-webkit-scrollbar {
-  width: 8px;
+tbody tr:hover {
+  background-color: #eef2f7;
 }
  
-.table-container::-webkit-scrollbar-thumb {
-  background-color: #cbd5e1;
-  border-radius: 4px;
-}
- 
+/* Kebab menu */
 .kebab-menu {
   background: transparent;
   border: none;
@@ -64,6 +76,19 @@ tbody tr:nth-child(even) {
   cursor: pointer;
   color: #4b5563;
 }
+ 
 .kebab-menu:hover {
   color: #1f2937;
 }
+ 
+/* Scrollbar styling */
+tbody::-webkit-scrollbar {
+  width: 8px;
+}
+ 
+tbody::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 4px;
+}
+ 
+ 

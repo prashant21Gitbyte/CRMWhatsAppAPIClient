@@ -3,14 +3,13 @@ import { users as initialUsers } from "../data/users";
 import UserCard from "../components/UserCard";
 import EditUser from "../components/EditUser";
 import "../App.css";
-import ExportButton from "../components/Topbar/ExportData";
  
 function App() {
   const [userList, setUserList] = useState(initialUsers);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editUser, setEditUser] = useState(null);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState(initialUsers);
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
@@ -24,12 +23,14 @@ function App() {
     const keyword = e.target.value.toLowerCase();
     setSearch(keyword);
     setCurrentPage(1);
-    if (keyword === '') {
+    if (keyword === "") {
       setFilteredData(userList);
     } else {
-      const result = userList.filter(user =>
-        (`${user.firstName} ${user.lastName}`.toLowerCase().includes(keyword)) ||
-        (user.email?.toLowerCase().includes(keyword))
+      const result = userList.filter(
+        (user) =>
+          user.customerName.toLowerCase().includes(keyword) ||
+          user.whatsappName?.toLowerCase().includes(keyword) ||
+          user.customerPhone?.toLowerCase().includes(keyword)
       );
       setFilteredData(result);
     }
@@ -54,28 +55,27 @@ function App() {
   };
  
   const handleSaveUser = (formData) => {
-  const fullName = `${formData.firstName} ${formData.lastName}`;
-  
-  if (editUser) {
-    setUserList((prev) =>
-      prev.map((user) =>
-        user.id === editUser.id ? { ...user, ...formData, name: fullName } : user
-      )
-    );
-  } else {
-    const newUser = {
-      id: Date.now().toString(),
-      ...formData,
-      name: fullName,
-      profileCompletion: 0,
-      joinedDate: new Date().toLocaleDateString(),
-      status: "Active",
-    };
-    setUserList((prev) => [...prev, newUser]);
-  }
-  setShowModal(false);
-};
- 
+    if (editUser) {
+      setUserList((prev) =>
+        prev.map((user) =>
+          user.id === editUser.id ? { ...user, ...formData } : user
+        )
+      );
+    } else {
+      const newUser = {
+        id: Date.now().toString(),
+        ...formData,
+        profileCompletion: 0,
+        joinedDate: new Date().toLocaleDateString(),
+        status: "Active",
+        avatar:
+          formData.avatar ||
+          `https://i.pravatar.cc/100?img=${Math.floor(Math.random() * 70) + 1}`,
+      };
+      setUserList((prev) => [...prev, newUser]);
+    }
+    setShowModal(false);
+  };
  
   const isAllSelected =
     filteredData.length > 0 && selectedUsers.length === filteredData.length;
@@ -96,8 +96,7 @@ function App() {
           onChange={handleSearch}
         />
         <div className="actions">
-          {/* <button className="export-btn">Export</button> */}
-          <ExportButton />
+          <button className="export-btn">Export</button>
           <button
             className="add-btn"
             onClick={() => {
@@ -121,11 +120,12 @@ function App() {
                   onChange={handleSelectAll}
                 />
               </th>
-              <th>Name</th>
-              <th>Position</th>
-              <th>Profile Completeness</th>
+              <th>Customer Name</th>
+              <th>Phone</th>
+              <th>Business Number</th>
+              <th>Latest Date</th>
+              <th>Latest Time</th>
               <th>Status</th>
-              <th>Joined Date</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -179,4 +179,3 @@ function App() {
 }
  
 export default App;
- 

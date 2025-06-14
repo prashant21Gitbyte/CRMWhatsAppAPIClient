@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { MessagesSquare, Users } from 'lucide-react';
- 
- 
- 
+
+
+
 const ContactTabs = ({ activeTab, onTabChange }) => {
   return (
     <div style={styles.wrapper}>
@@ -21,9 +21,9 @@ const ContactTabs = ({ activeTab, onTabChange }) => {
         <span style={activeTab === 'chats' ? styles.labelActive : styles.labelInactive}>
           Chats
         </span>
-        {activeTab === 'chats' && <span style={styles.badge}>13</span>}
+        {/* {activeTab === 'chats' && <span style={styles.badge}>13</span>} */}
       </div>
- 
+
       {/* Contacts Tab */}
       <div
         onClick={() => onTabChange('contacts')}
@@ -37,15 +37,16 @@ const ContactTabs = ({ activeTab, onTabChange }) => {
           style={activeTab === 'contacts' ? styles.iconActive : styles.iconInactive}
         />
         <span style={activeTab === 'contacts' ? styles.labelActive : styles.labelInactive}>
+          
           Contacts
         </span>
       </div>
     </div>
   );
 };
- 
+
 export default ContactTabs;
- 
+
 const styles = {
   wrapper: {
     padding: '4px',
@@ -54,6 +55,7 @@ const styles = {
     boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
     display: 'flex',
     width: 'fit-content',
+    marginLeft:20,
   },
   tab: {
     display: 'flex',
@@ -74,6 +76,7 @@ const styles = {
     color: '#9ca3af',
   },
   labelActive: {
+    height:'60%',
     fontSize: '0.875rem',
     fontWeight: '500',
     color: '#000000',
@@ -92,4 +95,3 @@ const styles = {
     fontWeight: '700',
   },
 };
- 

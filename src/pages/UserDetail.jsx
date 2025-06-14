@@ -88,7 +88,7 @@ export default function WhatsappUserPage() {
     <div style={styles.container}>
       {/* Header */}
       <div style={styles.header}>
-        <img src="/images/avatar/avatar-7.jpg" alt="logo" width="30" height="30" style={{ borderRadius: '50%' }} />
+        <img src="/assets/chess.jpg" alt="logo" width="30" height="30" style={{ borderRadius: '50%' }} />
         <span>Whatsapp User</span>
         <span style={{ fontWeight: 'normal', color: '#004de5' }}>W-1086</span>
       </div>

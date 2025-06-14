@@ -80,44 +80,54 @@ const Sidebar = () => {
           </div>
           <div className="indicator" id="indicator" ref={indicatorRef}></div>
           <ul>
-            <li style={{ marginLeft: 8 }}>
-              <NavLink to="/" className="list-item">
+            <NavLink to="/" className="list-item textd" >
+              <li style={{ marginLeft: 8 }}>
                 <FontAwesomeIcon icon={faHouse} className="faicon" />
                 <span style={{ fontSize: 16 }}>WhlatsApp Anaysis</span>
-              </NavLink>
-            </li>
-            <li style={{ marginLeft: 8 }}>
-              <NavLink to="/conversation" className="list-item">
+              </li>
+            </NavLink>
+            <NavLink to="/conversation" className="list-item textd">
+              <li style={{ marginLeft: 8 }}>
                 <FontAwesomeIcon icon={faEnvelope} className="faicon" />
                 <span style={{ fontSize: 16 }}>WhatsApp Conversation</span>
-              </NavLink>
-            </li>
-
-            <li style={{ marginLeft: 8 }}>
-              <NavLink to="/whatsappusers" className="list-item">
+              </li>
+            </NavLink>
+            <NavLink to="/whatsappusers" className="list-item textd" >
+              <li style={{ marginLeft: 8 }}>
                 <FontAwesomeIcon icon={faGem} className="faicon" />
                 <span style={{ fontSize: 16 }}>WhatsApp Users</span>
-              </NavLink>
-            </li>
-            <li style={{ marginLeft: 8 }}>
-              <NavLink to="/whatsappmeta" className="list-item">
+              </li>
+            </NavLink>
+            <NavLink to="/whatsappmeta" className="list-item textd" >
+              <li style={{ marginLeft: 8 }}>
                 <FontAwesomeIcon icon={faGem} className="faicon" />
-                <span style={{ fontSize: 16 }}>Meta Temolates</span>
-              </NavLink>
-            </li>
-            <li style={{ marginLeft: 8 }}>
-              <NavLink to="/whatsappanalytics" className="list-item">
+                <span style={{ fontSize: 16 }}>Meta Template</span>
+              </li>
+            </NavLink>
+            <NavLink to="/whatsappanalytics" className="list-item textd">
+              <li style={{ marginLeft: 8 }}>
                 <FontAwesomeIcon icon={faGem} className="faicon" />
                 <span style={{ fontSize: 16 }}>Template Analytics</span>
-              </NavLink>
-            </li>
-
-            <li style={{ marginLeft: 8 }}>
-              <NavLink to="/" className="list-item">
+              </li>
+            </NavLink>
+            <NavLink to="/MessageLogs" className="list-item textd">
+              <li style={{ marginLeft: 8 }}>
+                <FontAwesomeIcon icon={faGem} className="faicon" />
+                <span style={{ fontSize: 16 }}>Message Logs</span>
+              </li>
+            </NavLink>
+            <NavLink to="/whatsappanalytics" className="list-item textd">
+              <li style={{ marginLeft: 8 }}>
+                <FontAwesomeIcon icon={faGem} className="faicon" />
+                <span style={{ fontSize: 16 }}>WhatsApp Messaegs</span>
+              </li>
+            </NavLink>
+            <NavLink to="/" className="list-item textd">
+              <li style={{ marginLeft: 8 }}>
                 <FontAwesomeIcon icon={faRightFromBracket} className="faicon" />
                 <span style={{ fontSize: 16 }}>Logout</span>
-              </NavLink>
-            </li>
+              </li>
+            </NavLink>
           </ul>
         </div>
         <button className="toggle-btn" id="toggleBtn" onClick={toggleSidebar}>

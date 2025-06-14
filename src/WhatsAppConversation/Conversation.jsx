@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Search, CheckCheck, Pin, Eye, Phone, Mail, MoveRight, Play, MoreVertical, Send, ArrowLeft, Users, User } from 'lucide-react';
-import ContactTabs from '../components/ConversationTabs';
+import ContactTabs from './ConversationTabs.jsx';
+import ChatAttachmentMenu from './uploadFile.jsx';
+import ChatRecorder from './AudioR.jsx';
+import ChatWindow from './ChatWindow.jsx';
  
 const data = [
   { name: 'Kumar Pulkesin', phone: '919910181368' },
@@ -62,6 +65,11 @@ const ChatPage = () => {
   const [showNewForm, setShowNewForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [visible, setVisible] = useState(true);
+  const [search, setSearch] = useState('');
+ 
+  const filteredUsers = users.filter(user =>
+    (user.name || '').toLowerCase().includes(search.trim().toLowerCase())
+  );
  
   const filteredData = data.filter(item =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -109,9 +117,9 @@ const ChatPage = () => {
       { id: 3, name: 'Cate Blanchett', message: 'Hi James!', time: '03:00 PM', unread: 4, pinned: true, avatar: '/assets/pic.jpg' },
       { id: 4, name: 'Brad Pitt', message: "Not yet, but I'm thinking of going hiking.", time: '07:30 PM', seen: true, avatar: '/assets/rocket.png' },
       { id: 5, name: 'Angelina Jolie', message: 'Hello there!', time: '09:00 AM', seen: true, pinned: true, avatar: '/assets/images.jpg' },
-      { id: 6, name: 'Cate Blanchett', message: 'Hi James!', time: '03:00 PM', unread: 4, pinned: true, avatar: '/assets/pic.jpg' },
-      { id: 7, name: 'Brad Pitt', message: "Not yet, but I'm thinking of going hiking.", time: '07:30 PM', seen: true, avatar: '/assets/rocket.png' },
-      { id: 8, name: 'Angelina Jolie', message: 'Hello there!', time: '09:00 AM', seen: true, pinned: true, avatar: '/assets/images.jpg' },
+      { id: 6, name: 'Divya Sharma', message: 'Hi James!', time: '03:00 PM', unread: 4, pinned: true, avatar: '/assets/pic.jpg' },
+      { id: 7, name: 'Harshita ', message: "Not yet, but I'm thinking of going hiking.", time: '07:30 PM', seen: true, avatar: '/assets/rocket.png' },
+      { id: 8, name: 'Abhilasha Battu', message: 'Hello there!', time: '09:00 AM', seen: true, pinned: true, avatar: '/assets/images.jpg' },
     ];
  
     const initialMessages = [
@@ -119,7 +127,6 @@ const ChatPage = () => {
       { id: 2, sender: 'me', text: 'Any plans for the weekend?', time: '03:00 PM', views: 6, audio: true },
       { id: 3, sender: 'them', text: 'Good morning!', time: '10:00 AM', views: 3, img: true },
     ];
- 
  
     setUsers(initialUsers);
     setMessages(initialMessages);
@@ -140,159 +147,208 @@ const ChatPage = () => {
     setMessages([...messages, newMsg]);
     setNewMessage('');
   };
+ 
+  const handleAttach = (type, file) => {
+    if (!file || !type) return;
+ 
+    if (type === 'image') {
+      const imageUrl = URL.createObjectURL(file);
+      const newMsg = {
+        id: Date.now(),
+        sender: 'me',
+        img: true,
+        imgUrl: imageUrl,
+        text: '',
+        views: 0,
+        time: 'Now'
+      };
+      setMessages(prev => [...prev, newMsg]);
+    }
+ 
+    if (type === 'document') {
+      const docUrl = URL.createObjectURL(file);
+      const newMsg = {
+        id: Date.now(),
+        sender: 'me',
+        document: docUrl,
+        text: file.name,
+        views: 0,
+        time: 'Now'
+      };
+      setMessages(prev => [...prev, newMsg]);
+    }
+ 
+    if (type === 'audio') {
+      const audioUrl = URL.createObjectURL(file);
+      const newMsg = {
+        id: Date.now(),
+        sender: 'me',
+        audio: true,
+        audioUrl: audioUrl,
+        text: '',
+        views: 0,
+        time: 'Now'
+      };
+      setMessages(prev => [...prev, newMsg]);
+    }
+  };
+ 
+ 
+  const handleAudioRecorded = (file, audioUrl) => {
+    const newMsg = {
+      id: messages.length + 1,
+      sender: 'me',
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      views: 0,
+      text: '',
+      audio: true,
+      audioUrl: audioUrl,
+    };
+    setMessages((prev) => [...prev, newMsg]);
+  };
+ 
   if (!visible) return null;
   return (
     <>
-      <div style={styles.container(isMobile, showChat)}>
-        {(!isMobile || !showChat) && (
-          <div style={styles.sidebar(isMobile)}>
+      {/* <UserDetail/> */}
+      <div>
+    <div
+  style={{
+    ...(styles.container?.(isMobile, showChat) || {}),
+    height: '100vh',
+    flex:1,
+    display: 'flex',
+    flexDirection: 'row',
+    boxSizing: 'border-box',
+    width:'100%',
+  }}
+  className="mt-5 pt-5 pt-lg-0"
+>
+  {(!isMobile || !showChat) && (
+    <div
+      style={{
+        ...styles.sidebar?.(isMobile),
+        //width: isMobile ? '100%' : '30%',
+        maxWidth: 450,
+        minWidth: 250,
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        borderRight: '1px solid #e5e7eb',
+        backgroundColor: '#fff',
+        boxSizing: 'border-box',
+        flexShrink: 0,
+      }}
+    >
+      {/* Fixed Header */}
+      <div
+        style={{
+          flexShrink: 0,
+          padding: '8px 0',
+          borderBottom: '1px solid #e5e7eb',
+          backgroundColor: '#fff',
+        }}
+      >
+        <ContactTabs activeTab={activeTab} onTabChange={setActiveTab} />
+      </div>
  
-            {/* Fixed Header */}
-            <div style={{
-              flexShrink: 0,
-              padding: '8px 0',
-              borderBottom: '1px solid #e5e7eb',
-              backgroundColor: '#fff',
-            }}>
-              <ContactTabs activeTab={activeTab} onTabChange={setActiveTab} />
-            </div>
- 
-            {/* Scrollable Content */}
-            <div style={{ flex: 1, overflowY: 'auto', padding: 10, scrollbarWidth: 'none', msOverflowStyle: 'none', }}>
-              {activeTab === 'chats' && (
-                <>
-                  <div style={styles.searchWrapper}>
-                    <Search style={styles.searchIcon} />
-                    <input type="text" placeholder="Search contact" style={styles.searchInput} />
-                  </div>
-                  {users.map((user) => (
-                    <ChatUser
-                      key={user.id}
-                      {...user}
-                      isActive={activeUser?.id === user.id}
-                      onClick={() => {
-                        setActiveUser(user);
-                        if (isMobile) setShowChat(true);
-                      }}
-                    />
-                  ))}
-                </>
-              )}
- 
-              {activeTab === 'contacts' && (
-                <div style={{ padding: '1rem', color: '#6b7280' }}>
-                  <p style={{ fontSize: '14px', textAlign: 'center' }}>Contacts section coming soon...</p>
-                </div>
-              )}
-            </div>
- 
-            {/* Fixed Footer */}
-            <div style={{
-              flexShrink: 0,
-              display: 'flex',
-              justifyContent: 'space-around',
-              padding: 5,
-              borderTop: '1px solid #ddd',
-              backgroundColor: '#f5f5f5',
-            }}>
-              <div onClick={() => setShowBulkForm(true)} style={{ textAlign: 'center', cursor: 'pointer' }}>
-                <div style={{
-                  backgroundColor: '#6366f1',
-                  borderRadius: '50%',
-                  width: 25,
-                  height: 25,
-                  margin: '0 auto',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                  <Users color="#fff" />
-                </div>
-                <div style={{ fontSize: 12, marginTop: 4 }}>Bulk Chat</div>
-              </div>
-              <div onClick={() => setShowNewForm(true)} style={{ textAlign: 'center', cursor: 'pointer' }}>
-                <div style={{
-                  backgroundColor: '#6366f1',
-                  borderRadius: '50%',
-                  width: 25,
-                  height: 25,
-                  margin: '0 auto',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                  <User color="#fff" />
-                </div>
-                <div style={{ fontSize: 12, marginTop: 4 }}>New Chat</div>
-              </div>
-            </div>
- 
-          </div>
-        )}
- 
-        {(!isMobile || showChat) && activeUser && (
-          <div style={styles.chatWindow}>
-            <div style={styles.chatHeader}>
-              {isMobile && (
-                <button onClick={() => setShowChat(false)} style={{ background: 'transparent', border: 'none' }}>
-                  <ArrowLeft size={24} />
-                </button>
-              )}
-              <img src={activeUser.avatar} alt={activeUser.name} style={styles.avatar} />
-              <div style={styles.headerNameSection}>
-                <div style={styles.headerName}>{activeUser.name}</div>
-                <div style={styles.headerRole}>Data Analyst</div>
-              </div>
-              <div style={styles.headerIconsWrapper}>
-                <div style={styles.headerIconCircle}><Phone size={16} /></div>
-                <div style={styles.headerIconCircle}><Mail size={16} /></div>
-              </div>
-            </div>
- 
-            <div style={styles.messagesContainer} className="hide-scrollbar">
-              {messages.map(({ id, sender, text, time, views, img, audio }) => (
-                <div key={id} style={styles.messageRow(sender)}>
-                  {sender === 'them' && <img src={activeUser.avatar} alt="user" style={styles.messageAvatar} />}
-                  <div>
-                    <div style={styles.messageBubble(sender)}>
-                      <div style={styles.messageMoreIcon(sender)}><MoreVertical size={16} color="#94a3b8" /></div>
-                      <div>{text}</div>
-                      {img && <img src="/assets/cat.jpg" alt="chat" style={styles.chatImage} />}
-                      {audio && (
-                        <div style={styles.audioWrapper}>
-                          <button style={styles.audioPlayButton}><Play size={16} /></button>
-                          <image src="/assets/audio.jpg" alt="audio" style={styles.audio} />
-                          <div style={styles.audioLabel}><MoveRight size={12} /> A</div>
-                        </div>
-                      )}
-                      <div style={styles.viewersWrapper}>
-                        {[1, 2, 3].map((n) => (
-                          <img key={n} src={'/assets/pic.jpg'} alt="user" style={styles.viewerAvatar} />
-                        ))}
-                        <div style={styles.messageMeta}><Eye size={14} /> {views} • {time}</div>
-                      </div>
- 
-                    </div>
-                  </div>
-                  {sender === 'me' && <img src={'/assets/chess.jpg'} alt="user" style={styles.messageAvatar} />}
-                </div>
-              ))}
-            </div>
- 
-            <div style={styles.messageInputContainer}>
+      {/* Scrollable Content */}
+      <div
+        style={{
+          flex: 1,
+          overflowY: 'auto',
+          padding: 10,
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+        }}
+      >
+        {activeTab === 'chats' && (
+          <>
+            <div style={styles.searchWrapper}>
+              <Search style={styles.searchIcon} />
               <input
                 type="text"
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-                placeholder="Type a message..."
-                style={styles.messageInput}
+                placeholder="Search contact"
+                style={styles.searchInput}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
-              <button onClick={handleSendMessage} style={styles.sendButton}>
-                <Send />
-              </button>
             </div>
+            {filteredUsers.map((user) => (
+              <ChatUser
+                key={user.id}
+                {...user}
+                isActive={activeUser?.id === user.id}
+                onClick={() => {
+                  setActiveUser(user);
+                  if (isMobile) setShowChat(true);
+                }}
+              />
+            ))}
+          </>
+        )}
+ 
+        {activeTab === 'contacts' && (
+          <div style={styles.contactListWrapper}>
+            {data.map((contact, index) => (
+              <div key={index} style={styles.contactRow}>
+                <div style={styles.contactAvatar}>
+                  {contact.name.charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <div style={styles.contactName}>{contact.name}</div>
+                  <div style={styles.contactPhone}>+{contact.phone}</div>
+                </div>
+              </div>
+            ))}
           </div>
         )}
+      </div>
+ 
+      {/* Footer */}
+      <div
+        style={{
+          flexShrink: 0,
+          display: 'flex',
+          justifyContent: 'space-around',
+          padding: 5,
+          borderTop: '1px solid #ddd',
+          backgroundColor: '#f5f5f5',
+        }}
+      >
+        <div
+          onClick={() => setShowBulkForm(true)}
+          style={{ textAlign: 'center', cursor: 'pointer' }}
+        >
+          <div style={fabStyle}><Users color="#fff" /></div>
+          <div style={{ fontSize: 12, marginTop: 4 }}>Bulk Chat</div>
+        </div>
+        <div
+          onClick={() => setShowNewForm(true)}
+          style={{ textAlign: 'center', cursor: 'pointer' }}
+        >
+          <div style={fabStyle}><User color="#fff" /></div>
+          <div style={{ fontSize: 12, marginTop: 4 }}>New Chat</div>
+        </div>
+      </div>
+    </div>
+  )}
+ 
+  {/* Chat Window */}
+  <ChatWindow
+    isMobile={isMobile}
+    showChat={showChat}
+    setShowChat={setShowChat}
+    activeUser={activeUser}
+    messages={messages}
+    newMessage={newMessage}
+    setNewMessage={setNewMessage}
+    handleSendMessage={handleSendMessage}
+    handleAttach={handleAttach}
+    handleAudioRecorded={handleAudioRecorded}
+    styles={styles}
+  />
+</div>
  
       </div>
       {/* Bulk Chat Form */}
@@ -407,8 +463,143 @@ const ChatPage = () => {
  
 export default ChatPage;
  
+const fabStyle = {
+  backgroundColor: '#6366f1',
+  borderRadius: '50%',
+  width: 25,
+  height: 25,
+  margin: '0 auto',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+};
  
 const styles = {
+ 
+   container: (isMobile, showChat) => ({
+    display: 'flex',
+    height: '100vh',
+    fontFamily: 'Arial, sans-serif',
+    flexDirection: isMobile && showChat ? 'column' : 'row',
+    padding: 16,
+    gap: 16,
+    //marginLeft:30,
+    width:'100%',
+  }),
+ 
+  sidebar: (isMobile) => ({
+    width: isMobile ? '100%' : 380,
+    borderRadius: 16,
+    background: '#ffffff',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.07)',
+    border: '1px solid #e2e8f0',
+    height: '100%',
+    //flex:1,
+    display: 'flex',
+     maxHeight: '90vh',
+    flexDirection: 'column',
+    overflow: 'hidden',
+    padding: 16,
+    flexShrink: 0,
+  }),
+ 
+   chatWindow: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    height: '100%',
+    maxHeight: '90vh',
+    overflow: 'hidden',
+    border: '1px solid #e2e8f0',
+    borderRadius: 16,
+    background: '#fff',
+    scrollbarWidth: 'none',
+    msOverflowStyle: 'none',
+  },
+ 
+  chatHeader: {
+    height: 60,
+    padding: '0 16px',
+    borderBottom: '1px solid #e2e8f0',
+    display: 'flex',
+    alignItems: 'center',
+    background: '#f9fafb',
+    flexShrink: 0,
+  },
+ 
+ 
+  messagesContainer: {
+    flex: 1,
+    overflowY: 'auto',
+    padding: 16,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 12,
+    img: {
+      maxWidth: '100%',
+      height: 'auto',
+    },
+    scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+  },
+ 
+  messageInputContainer: {
+    height: 80,
+    padding: 16,
+    borderTop: '1px solid #e2e8f0',
+    display: 'flex',
+    alignItems: 'center',
+    background: '#f9fafb',
+    flexShrink: 0,
+  },
+ 
+  messageInput: {
+    flex: 1,
+    padding: '10px 16px',
+    border: '1px solid #d1d5db',
+    borderRadius: 9999,
+    fontSize: 14,
+    outline: 'none',
+  },
+ 
+  sendButton: {
+    background: '#6366f1',
+    color: 'white',
+    padding: 10,
+    borderRadius: '50%',
+    border: 'none',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+ 
+  chatUserContainer: (isActive, isHover) => ({
+    display: 'flex',
+    alignItems: 'center',
+    gap: 16,
+    padding: '8px 16px',
+    borderRadius: 8,
+    cursor: 'pointer',
+    background: isActive ? '#dfefff' : isHover ? '#f1f5f9' : 'transparent',
+    transition: 'background 0.2s, transform 0.2s',
+    boxShadow: isHover ? '0 2px 8px rgba(0,0,0,0.05)' : 'none',
+  }),
+ 
+  messagesScrollFix: {
+    '&::-webkit-scrollbar': { display: 'none' },
+    scrollbarWidth: 'none',
+  },
+ 
+  responsiveChatWindow: () => {
+    const isMobile = window.innerWidth < 768;
+    return {
+      ...styles.chatWindow,
+      height: isMobile ? 'calc(100vh - 60px)' : '100vh',
+    };
+  },
+ 
  
   overlay: {
     position: 'fixed',
@@ -596,22 +787,6 @@ const styles = {
     borderRadius: 20,
     margin: 10,
   },
-  chatUserContainer: (isActive, isHover) => ({
-    display: 'flex',
-    alignItems: 'center',
-    gap: 16,
-    padding: '8px 16px',
-    borderRadius: 8,
-    cursor: 'pointer',
-    background: isActive ? '#dfefff' : isHover ? '#f1f5f9' : 'transparent',
-    transition: 'background 0.2s, transform 0.2s',
-    boxShadow: isHover ? '0 2px 8px rgba(0,0,0,0.05)' : 'none',
-    '&:hover': {
-      transform: 'translateY(-1px)',
-    },
-     scrollbarWidth: 'none',        
-  msOverflowStyle: 'none',
-  }),
   avatarWrapper: {
     position: 'relative',
     height: 40,
@@ -670,33 +845,6 @@ const styles = {
     borderRadius: '20px',
     padding: '2px 8px',
   },
-  container: (isMobile, showChat) => ({
-    width: '90%',
-    display: 'flex',
-    height: '83vh',
-    fontFamily: 'Arial, sans-serif',
-   
-    justifyContent:'center',
-    flexDirection: isMobile && showChat ? 'column' : 'row',
-    background: 'transparent',
-    padding: 16,
-    gap: 16,    
-  }),
-  sidebar: (isMobile) => ({
-    width: isMobile ? '100%' : 380,
-    padding: 0,
-    borderRadius: 16,
-    background: '#ffffff',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.07)',
-    border: '1px solid #e2e8f0',
-    
-    display: 'flex',
-    flexDirection: 'column',
-    overflow: 'hidden',
-     scrollbarWidth: 'none',  
-    msOverflowStyle: 'none',
- 
-  }),
   searchWrapper: {
     position: 'relative',
     marginBottom: 16,
@@ -711,7 +859,7 @@ const styles = {
     height: 20,
   },
   searchInput: {
-    width: '85%',
+    width: '99%',
     padding: '10px 16px 10px 44px',
     borderRadius: 9999,
     border: '1px solid #e2e8f0',
@@ -723,24 +871,7 @@ const styles = {
     borderColor: '#6366f1',
     boxShadow: '0 0 0 3px rgba(99, 102, 241, 0.2)',
   },
-  chatWindow: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    background: '#ffffff',
-    borderRadius: 16,
-    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-    border: '1px solid #e2e8f0',
-    overflow: 'hidden',
-  },
-  chatHeader: {
-    padding: 12,
-    borderBottom: '1px solid #e2e8f0',
-    display: 'flex',
-    alignItems: 'center',
-    gap: 12,
-    background: '#f9fafb',
-  },
+ 
   avatar: {
     height: 40,
     width: 40,
@@ -779,18 +910,7 @@ const styles = {
       background: '#dbeafe',
     },
   },
-  messagesContainer: {
-    flex: 1,
-    padding: 20,
-    overflowY: 'auto',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 14,
-    scrollbarWidth: 'none',
-    '&::-webkit-scrollbar': {
-      display: 'none',
-    },
-  },
+ 
   messageRow: (sender) => ({
     display: 'flex',
     justifyContent: sender === 'me' ? 'flex-end' : 'flex-start',
@@ -837,7 +957,7 @@ const styles = {
     marginTop: 2,
     borderRadius: 10,
     width: '180px',
-    height: '110px',
+    height: '90px',
     objectFit: 'cover',
     boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
   },
@@ -890,40 +1010,47 @@ const styles = {
     alignItems: 'center',
     gap: 4,
   },
-  messageInputContainer: {
-    padding: 16,
-    borderTop: '1px solid #e2e8f0',
-    display: 'flex',
-    gap: 12,
-    alignItems: 'center',
-    background: '#f9fafb',
-  },
-  messageInput: {
-    flex: 1,
-    padding: '10px 16px',
-    border: '1px solid #d1d5db',
-    borderRadius: 9999,
-    fontSize: 14,
-    outline: 'none',
-    transition: 'border-color 0.2s, box-shadow 0.2s',
-  },
   messageInputFocus: {
     borderColor: '#6366f1',
     boxShadow: '0 0 0 3px rgba(99, 102, 241, 0.2)',
   },
-  sendButton: {
-    background: '#6366f1',
-    color: 'white',
-    padding: 10,
-    borderRadius: '50%',
-    border: 'none',
+ 
+  contactListWrapper: {
+  scrollbarWidth: 'none',
+  // msOverflowStyle: 'none',
+   flex: 1,
+  overflowY: 'auto',
+  height: '100%',
+  padding: '1rem',
+},
+  contactRow: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0.75rem',
+    borderBottom: '1px solid #e5e7eb',
     cursor: 'pointer',
+    gap: '1rem',
+    transition: 'background 0.2s',
+  },
+  contactAvatar: {
+    width: 40,
+    height: 40,
+    borderRadius: '50%',
+    backgroundColor: '#e0e7ff',
+    color: '#4338ca',
+    fontWeight: 'bold',
+    fontSize: 16,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    transition: 'background 0.2s',
-    '&:hover': {
-      background: '#4f46e5',
-    },
+  },
+  contactName: {
+    fontWeight: '500',
+    fontSize: 15,
+    color: '#111827',
+  },
+  contactPhone: {
+    fontSize: 13,
+    color: '#6b7280',
   },
 };

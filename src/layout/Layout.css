@@ -1,0 +1,17 @@
+/* Layout.css */
+
+.setcontainer {
+background-color: white;
+     padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Apply padding-left & right = 20px for screens 640px and wider */
+@media (min-width: 786px) {
+  .setcontainer {
+    background-color: white;
+    margin-top: 76px;
+          padding-left: 4.25rem !important; /* 20px */
+    padding-right: 4.25rem !important;
+  }
+}

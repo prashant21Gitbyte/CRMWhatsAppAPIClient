@@ -3,7 +3,7 @@ import { Container, Card } from 'react-bootstrap';
 import 'chart.js/auto';
 import '../pages/CSS/Dashboard.css';
 import CustomTable from '../components/CustomTable';
-import DonutChart from '../pages/DonutChart';
+import DonutChart from './DonutChart';
  
 const stats = [
   {
@@ -49,22 +49,10 @@ const stats = [
 ];
  
 const MessageAnalysis = () => {
-  const doughnutData = {
-    labels: ['All Messages', 'Text Messages', 'Media Messages'],
-    datasets: [
-      {
-        data: [90, 4, 6],
-        backgroundColor: ['#004d40', '#00c853', '#03a9f4'],
-        borderWidth: 0,
-      },
-    ],
-  };
- 
   return (
-    <Container fluid className="p-4">
-      <h4 className="mb-4 text-white">Message Analysis</h4>
+    <Container fluid className="p-4 responsive-padding">
+      <h4 className="heading mb-4 text-black">Message Analysis</h4>
  
-      {/* Top Scrollable Stat Cards */}
       <div className="stat-scroll-wrapper">
         {stats.map((stat, idx) => (
           <div className="stat-card-small" key={stat.title}>
@@ -89,27 +77,27 @@ const MessageAnalysis = () => {
         ))}
  
         {/* Start Date */}
-        <div className="stat-card-small">
+        {/* <div className="stat-card-small">
           <div className="card h-100 shadow-sm">
             <div className="card-body d-flex flex-column align-items-start p-3">
               <div className="text-muted small mb-1">Start Date</div>
               <input type="date" className="form-control form-control-sm" />
             </div>
           </div>
-        </div>
+        </div> */}
  
         {/* End Date */}
-        <div className="stat-card-small">
+        {/* <div className="stat-card-small">
           <div className="card h-100 shadow-sm">
             <div className="card-body d-flex flex-column align-items-start p-3">
               <div className="text-muted small mb-1">End Date</div>
               <input type="date" className="form-control form-control-sm" />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
  
-      {/* Table and Chart Layout */}
+      {/* Layout */}
       <div className="analysis-layout mt-4">
         <div className="table-section">
           <CustomTable
@@ -123,35 +111,22 @@ const MessageAnalysis = () => {
               { Name: 'Ethan', SentMesseages: 7, ReadMessages: 5, NotDelivered: 2 },
               { Name: 'Fiona', SentMesseages: 4, ReadMessages: 2, NotDelivered: 2 },
               { Name: 'George', SentMesseages: 12, ReadMessages: 10, NotDelivered: 2 },
-              { Name: 'Hannah', SentMesseages: 6, ReadMessages: 4, NotDelivered: 2 }
-            ]}
-          />
-          <CustomTable
-            headers={['Name', 'Sent Messages', 'Read Messages', 'Not Delivered']}
-            columns={['Name', 'SentMesseages', 'ReadMessages', 'NotDelivered']}
-            data={[
-              { Name: 'Alice', SentMesseages: 3, ReadMessages: 6, NotDelivered: 2 },
-              { Name: 'Bob', SentMesseages: 8, ReadMessages: 7, NotDelivered: 1 },
-              { Name: 'Charlie', SentMesseages: 10, ReadMessages: 9, NotDelivered: 0 },
-              { Name: 'Daisy', SentMesseages: 5, ReadMessages: 3, NotDelivered: 2 },
-              { Name: 'Ethan', SentMesseages: 7, ReadMessages: 5, NotDelivered: 2 },
-              { Name: 'Fiona', SentMesseages: 4, ReadMessages: 2, NotDelivered: 2 },
+              { Name: 'Hannah', SentMesseages: 6, ReadMessages: 4, NotDelivered: 2 },
+                { Name: 'Fiona', SentMesseages: 4, ReadMessages: 2, NotDelivered: 2 },
               { Name: 'George', SentMesseages: 12, ReadMessages: 10, NotDelivered: 2 },
               { Name: 'Hannah', SentMesseages: 6, ReadMessages: 4, NotDelivered: 2 }
             ]}
           />
         </div>
  
- 
- 
-        <Card className="p-3">
-          <DonutChart />
- 
+        <Card className="p-3 table-wrapper" style={{display:'flex' , justifyContent:'center',alignItems:'center'}}>
+         
+       <DonutChart />
         </Card>
       </div>
- 
     </Container>
   );
 };
  
 export default MessageAnalysis;
+ 

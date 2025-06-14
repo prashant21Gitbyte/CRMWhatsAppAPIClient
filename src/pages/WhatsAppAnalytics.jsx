@@ -1,19 +1,101 @@
 import React, { useState, useEffect } from "react";
-import { users as initialUsers } from "../data/users";
-import UserCard from "../components/UserCard";
-import EditUser from "../components/EditUser";
-import "../App.css";
-import ExportButton from "../components/Topbar/ExportData";
  
 function App() {
-  const [userList, setUserList] = useState(initialUsers);
+  const initialTemplates = [
+  {
+    id: "1",
+    templateId: "TMP-001",
+    analyticsName: "Welcome Message",
+    amountSpent: "₹250",
+    delivered: "Yes",
+    avatar: "https://i.pravatar.cc/100?img=1",
+    startDate: "2024-05-01",
+    endDate: "2024-05-02",
+  },
+  {
+    id: "2",
+    templateId: "TMP-002",
+    analyticsName: "Order Confirmation",
+    amountSpent: "₹180",
+    delivered: "Yes",
+    avatar: "https://i.pravatar.cc/100?img=2",
+    startDate: "2024-05-03",
+    endDate: "2024-05-04",
+  },
+  {
+    id: "3",
+    templateId: "TMP-003",
+    analyticsName: "Cart Abandonment",
+    amountSpent: "₹300",
+    delivered: "No",
+    avatar: "https://i.pravatar.cc/100?img=3",
+    startDate: "2024-05-06",
+    endDate: "2024-05-07",
+  },
+  {
+    id: "4",
+    templateId: "TMP-004",
+    analyticsName: "Feedback Request",
+    amountSpent: "₹210",
+    delivered: "Yes",
+    avatar: "https://i.pravatar.cc/100?img=4",
+    startDate: "2024-05-08",
+    endDate: "2024-05-09",
+  },
+  {
+    id: "5",
+    templateId: "TMP-005",
+    analyticsName: "Delivery Update",
+    amountSpent: "₹195",
+    delivered: "Yes",
+    avatar: "https://i.pravatar.cc/100?img=5",
+    startDate: "2024-05-10",
+    endDate: "2024-05-11",
+  },
+  {
+    id: "6",
+    templateId: "TMP-006",
+    analyticsName: "Offer Notification",
+    amountSpent: "₹275",
+    delivered: "No",
+    avatar: "https://i.pravatar.cc/100?img=6",
+    startDate: "2024-05-12",
+    endDate: "2024-05-13",
+  },
+  {
+    id: "7",
+    templateId: "TMP-007",
+    analyticsName: "Thank You Message",
+    amountSpent: "₹220",
+    delivered: "Yes",
+    avatar: "https://i.pravatar.cc/100?img=7",
+    startDate: "2024-05-14",
+    endDate: "2024-05-15",
+  },
+];
+ 
+ 
+  const [userList, setUserList] = useState(initialTemplates);
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [editUser, setEditUser] = useState(null);
-  const [search, setSearch] = useState('');
-  const [filteredData, setFilteredData] = useState(initialUsers);
+  const [search, setSearch] = useState("");
+  const [filteredData, setFilteredData] = useState(initialTemplates);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showModal, setShowModal] = useState(false);
   const usersPerPage = 10;
+ 
+  const [formData, setFormData] = useState({
+    name: "",
+    templateId: "",
+    startDate: "",
+    startTime: "",
+    endDate: "",
+    endTime: "",
+    sent: "",
+    delivered: "",
+    read: "",
+    amountSpent: "",
+    costPerClick: "",
+  });
  
   useEffect(() => {
     setFilteredData(userList);
@@ -24,12 +106,13 @@ function App() {
     const keyword = e.target.value.toLowerCase();
     setSearch(keyword);
     setCurrentPage(1);
-    if (keyword === '') {
+    if (keyword === "") {
       setFilteredData(userList);
     } else {
-      const result = userList.filter(user =>
-        (`${user.firstName} ${user.lastName}`.toLowerCase().includes(keyword)) ||
-        (user.email?.toLowerCase().includes(keyword))
+      const result = userList.filter(
+        (user) =>
+          user.templateId.toLowerCase().includes(keyword) ||
+          user.analyticsName?.toLowerCase().includes(keyword)
       );
       setFilteredData(result);
     }
@@ -49,34 +132,6 @@ function App() {
     );
   };
  
-  const handleDeleteUser = (userToDelete) => {
-    setUserList((prev) => prev.filter((user) => user.id !== userToDelete.id));
-  };
- 
-  const handleSaveUser = (formData) => {
-  const fullName = `${formData.firstName} ${formData.lastName}`;
-  
-  if (editUser) {
-    setUserList((prev) =>
-      prev.map((user) =>
-        user.id === editUser.id ? { ...user, ...formData, name: fullName } : user
-      )
-    );
-  } else {
-    const newUser = {
-      id: Date.now().toString(),
-      ...formData,
-      name: fullName,
-      profileCompletion: 0,
-      joinedDate: new Date().toLocaleDateString(),
-      status: "Active",
-    };
-    setUserList((prev) => [...prev, newUser]);
-  }
-  setShowModal(false);
-};
- 
- 
   const isAllSelected =
     filteredData.length > 0 && selectedUsers.length === filteredData.length;
  
@@ -85,94 +140,382 @@ function App() {
   const currentUsers = filteredData.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(filteredData.length / usersPerPage);
  
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+ 
+  const handleSave = () => {
+    const newTemplate = {
+      id: Date.now().toString(),
+      templateId: formData.templateId,
+      analyticsName: formData.name,
+      amountSpent: formData.amountSpent,
+      delivered: formData.delivered,
+      avatar: "https://i.pravatar.cc/100",
+      startDate: formData.startDate,
+      endDate: formData.endDate,
+    };
+    setUserList([newTemplate, ...userList]);
+    setShowModal(false);
+    setFormData({
+      name: "",
+      templateId: "",
+      startDate: "",
+      startTime: "",
+      endDate: "",
+      endTime: "",
+      sent: "",
+      delivered: "",
+      read: "",
+      amountSpent: "",
+      costPerClick: "",
+    });
+  };
+ 
+  const modalStyles = {
+    overlay: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      height: "100vh",
+      width: "100vw",
+      backgroundColor: "rgba(0, 0, 0, 0.4)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 1000,
+    },
+    modal: {
+      width: "600px",
+      backgroundColor: "#fff",
+      borderRadius: "10px",
+      overflow: "visible",
+      boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+      display: "flex",
+      flexDirection: "column",
+      maxHeight: "95vh",
+    },
+    header: {
+      padding: "14px 20px",
+      borderBottom: "1px solid #ccc",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    body: {
+      padding: "16px 20px",
+      overflowY: "auto",
+    },
+    footer: {
+      display: "flex",
+      justifyContent: "flex-end",
+      padding: "14px 20px",
+      gap: "8px",
+      borderTop: "1px solid #ccc",
+      backgroundColor: "#f9f9f9",
+    },
+    closeBtn: {
+      background: "none",
+      border: "none",
+      fontSize: "16px",
+      cursor: "pointer",
+    },
+    form: {
+      display: "flex",
+      flexDirection: "column",
+      gap: "12px",
+    },
+    row: {
+      display: "flex",
+      gap: "12px",
+    },
+    col: {
+      flex: 1,
+    },
+    label: {
+      fontWeight: "500",
+      fontSize: "13px",
+      color: "#000",
+      marginBottom: "4px",
+    },
+    input: {
+      padding: "6px 8px",
+      fontSize: "13px",
+      borderRadius: "5px",
+      border: "1px solid #ccc",
+      width: "100%",
+    },
+    btnPrimary: {
+      backgroundColor: "#0070f3",
+    color: "#fff",
+    padding: "6px 14px",
+    border: "none",
+    borderRadius: "20px",
+    fontSize: "12px",
+    cursor: "pointer",
+    },
+    btnSecondary: {
+    backgroundColor: "#fff",
+    color: "#0070f3",
+    border: "1px solid #ccc",
+    padding: "6px 14px",
+    borderRadius: "20px",
+    fontSize: "12px",
+    cursor: "pointer",
+  },
+  };
+ 
   return (
-    <div className="table-wrapper">
+    <div className="table-wrapper mt-5">
+      <h5 className="text-center text-dark">Whatsapp Templates</h5>
+      <style>{`
+        .table-wrapper {
+          padding: 2rem;
+          background: #f9fafb;
+          min-height: 100vh;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+ 
+        .table-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 1.5rem;
+        }
+ 
+        .search {
+          padding: 0.5rem 1rem;
+          border: 1px solid #d1d5db;
+          border-radius: 0.375rem;
+          width: 220px;
+          font-size: 0.875rem;
+          background-color: #fff;
+        }
+ 
+        .actions {
+          display: flex;
+          gap: 0.75rem;
+        }
+ 
+        .export-btn,
+        .add-btn {
+          display: flex;
+          align-items: center;
+          background-color: #f8fafc;
+          border: 1px solid #e5e7eb;
+          border-radius: 0.375rem;
+          padding: 0.5rem 0.75rem;
+          font-size: 0.875rem;
+          color: #475569;
+          cursor: pointer;
+          transition: background 0.2s ease;
+        }
+ 
+        .export-btn:hover,
+        .add-btn:hover {
+          background-color: #f1f5f9;
+        }
+ 
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          background-color: #ffffff;
+          border-radius: 8px;
+          overflow: hidden;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+ 
+        thead {
+          background-color: #f1f5f9;
+        }
+ 
+        th {
+          padding: 0.85rem 1.2rem;
+          text-align: left;
+          font-weight: 600;
+          color: #374151;
+          font-size: 0.875rem;
+          border-bottom: 1px solid #e5e7eb;
+        }
+ 
+        td {
+          padding: 0.85rem 1.2rem;
+          font-size: 0.875rem;
+          color: #4b5563;
+          border-bottom: 1px solid #f1f5f9;
+        }
+ 
+        tbody tr:nth-child(even) {
+          background-color: #f9fafb;
+        }
+ 
+        .avatar {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-right: 0.5rem;
+        }
+ 
+        .user-name-cell {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+ 
+        .status-active {
+          color: green;
+        }
+ 
+        .status-inactive {
+          color: red;
+        }
+ 
+        .pagination {
+          margin-top: 16px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 12px;
+          font-size: 14px;
+        }
+ 
+        .pagination button {
+          padding: 6px 12px;
+          background-color: white;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+ 
+        .pagination button:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      `}</style>
+ 
       <div className="table-header">
         <input
           type="text"
-          placeholder="Search users..."
+          placeholder="Search templates..."
           className="search"
           value={search}
           onChange={handleSearch}
         />
         <div className="actions">
-          {/* <button className="export-btn">Export</button> */}
-          <ExportButton />
-          <button
-            className="add-btn"
-            onClick={() => {
-              setEditUser(null);
-              setShowModal(true);
-            }}
-          >
+          <button className="export-btn">Export</button>
+          <button className="add-btn" onClick={() => setShowModal(true)}>
             Add
           </button>
         </div>
       </div>
  
-      <div className="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              <input
+                type="checkbox"
+                checked={isAllSelected}
+                onChange={handleSelectAll}
+              />
+            </th>
+            <th>Template ID</th>
+            <th>Analytics Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Amount Spent</th>
+            <th>Delivered</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {currentUsers.map((user) => (
+            <tr key={user.id}>
+              <td>
                 <input
                   type="checkbox"
-                  checked={isAllSelected}
-                  onChange={handleSelectAll}
+                  checked={selectedUsers.includes(user.id)}
+                  onChange={() => handleSelectUser(user.id)}
                 />
-              </th>
-              <th>Name</th>
-              <th>Position</th>
-              <th>Profile Completeness</th>
-              <th>Status</th>
-              <th>Joined Date</th>
-              <th>Action</th>
+              </td>
+              <td>
+                <div className="user-name-cell">
+                  <img src={user.avatar} alt="avatar" className="avatar" />
+                  {user.templateId}
+                </div>
+              </td>
+              <td>{user.analyticsName}</td>
+              <td>{user.startDate || "-"}</td>
+              <td>{user.endDate || "-"}</td>
+              <td>{user.amountSpent}</td>
+              <td className={user.delivered === "Yes" ? "status-active" : "status-inactive"}>
+                {user.delivered}
+              </td>
+              <td>
+                <button>Edit</button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {currentUsers.map((user) => (
-              <UserCard
-                key={user.id}
-                user={user}
-                isSelected={selectedUsers.includes(user.id)}
-                onSelect={() => handleSelectUser(user.id)}
-                onDelete={handleDeleteUser}
-                onEdit={(user) => {
-                  setEditUser(user);
-                  setShowModal(true);
-                }}
-              />
-            ))}
-          </tbody>
-        </table>
+          ))}
+        </tbody>
+      </table>
  
-        <div className="pagination">
-          <button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            Prev
-          </button>
-          <span>
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            onClick={() =>
-              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-            }
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
-        </div>
+      <div className="pagination">
+        <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
+          Prev
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
+          Next
+        </button>
       </div>
  
       {showModal && (
-        <EditUser
-          user={editUser}
-          onClose={() => setShowModal(false)}
-          onSave={handleSaveUser}
-        />
+        <div style={modalStyles.overlay}>
+          <div style={modalStyles.modal}>
+            <div style={modalStyles.header}>
+              <h3>New Template Analytics</h3>
+              <button style={modalStyles.closeBtn} onClick={() => setShowModal(false)}>✕</button>
+            </div>
+            <div style={modalStyles.body}>
+              <form style={modalStyles.form}>
+                <div style={modalStyles.row}>
+                  <div style={modalStyles.col}>
+                    <label style={modalStyles.label}>Analytics Name</label>
+                    <input style={modalStyles.input} name="name" value={formData.name} onChange={handleFormChange} />
+                  </div>
+                  <div style={modalStyles.col}>
+                    <label style={modalStyles.label}>Template ID</label>
+                    <input style={modalStyles.input} name="templateId" value={formData.templateId} onChange={handleFormChange} />
+                  </div>
+                </div>
+                <div style={modalStyles.row}>
+                  <div style={modalStyles.col}>
+                    <label style={modalStyles.label}>Start Date</label>
+                    <input type="date" style={modalStyles.input} name="startDate" value={formData.startDate} onChange={handleFormChange} />
+                  </div>
+                  <div style={modalStyles.col}>
+                    <label style={modalStyles.label}>End Date</label>
+                    <input type="date" style={modalStyles.input} name="endDate" value={formData.endDate} onChange={handleFormChange} />
+                  </div>
+                </div>
+                {["sent", "delivered", "read", "amountSpent", "costPerClick"].map((field, idx) => (
+                  <div key={idx}>
+                    <label style={modalStyles.label}>{field}</label>
+                    <input style={modalStyles.input} name={field} value={formData[field]} onChange={handleFormChange} />
+                  </div>
+                ))}
+              </form>
+            </div>
+            <div style={modalStyles.footer}>
+              <button style={modalStyles.btnSecondary} onClick={() => setShowModal(false)}>Cancel</button>
+              <button style={modalStyles.btnPrimary} onClick={handleSave}>Save</button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
