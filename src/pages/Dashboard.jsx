@@ -50,7 +50,7 @@ const stats = [
  
 const MessageAnalysis = () => {
   return (
-    <Container fluid className="p-4 responsive-padding">
+    <Container fluid className="p-5 responsive-padding">
       <h4 className="heading mb-4 text-black">Message Analysis</h4>
  
       <div className="stat-scroll-wrapper">
