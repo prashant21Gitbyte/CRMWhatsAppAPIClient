@@ -215,12 +215,13 @@ const ChatPage = () => {
     <div
   style={{
     ...(styles.container?.(isMobile, showChat) || {}),
-    height: '100vh',
+    height: '86vh',
     flex:1,
     display: 'flex',
     flexDirection: 'row',
     boxSizing: 'border-box',
     width:'100%',
+  
   }}
   className="mt-5 pt-5 pt-lg-0"
 >
@@ -600,7 +601,6 @@ const styles = {
     };
   },
  
- 
   overlay: {
     position: 'fixed',
     top: 0,
@@ -614,7 +614,7 @@ const styles = {
     zIndex: 9999,
   },
   modal: {
-    width: '50%',
+    width: '80%',
     maxWidth: 600,
     backgroundColor: '#fff',
     padding: 20,
@@ -738,6 +738,7 @@ const styles = {
   label2: {
     fontSize: '14px',
     fontWeight: '500',
+
     color: '#333',
     marginLeft: 5
   },
@@ -881,16 +882,18 @@ const styles = {
   },
   headerNameSection: {
     flex: 1,
+    marginLeft:10
   },
   headerName: {
     fontSize: 16,
     fontWeight: 500,
     color: '#111827',
+    // marginLeft:6
   },
   headerRole: {
     fontSize: 13,
     color: '#64748b',
-    marginTop: 2,
+    marginTop: -2,
   },
   headerIconsWrapper: {
     display: 'flex',

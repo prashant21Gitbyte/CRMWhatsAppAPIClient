@@ -92,6 +92,13 @@ const Slidemenu = () => {
           <span>Template Analytics</span>
         </li>
       </NavLink>
+            <NavLink to="/whatsappmsg" style={navItemStyle}>
+        <li style={listItemStyle}>
+          <FontAwesomeIcon icon={faGem} style={iconStyle} />
+          <span>WhatsApp Messaegs</span>
+        </li>
+      </NavLink>
+      
       <NavLink to="/messagelogs" style={navItemStyle}>
         <li style={listItemStyle}>
           <FontAwesomeIcon icon={faGem} style={iconStyle} />

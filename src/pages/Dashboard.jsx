@@ -4,6 +4,7 @@ import 'chart.js/auto';
 import '../pages/CSS/Dashboard.css';
 import CustomTable from '../components/CustomTable';
 import DonutChart from './DonutChart';
+import PieChart from "./PieChart";
  
 const stats = [
   {
@@ -50,7 +51,7 @@ const stats = [
  
 const MessageAnalysis = () => {
   return (
-    <Container fluid className="p-4 responsive-padding mt-5 pt-5">
+    <Container fluid className="p-4 responsive-padding mt-5 pt-5 pt-lg-0">
       <h4 className="heading mb-4 text-black">Message Analysis</h4>
  
       <div className="stat-scroll-wrapper">
@@ -128,9 +129,9 @@ const MessageAnalysis = () => {
           />
         </div>
  
-        <Card className="p-3 table-wrapper" style={{display:'flex' , justifyContent:'center',alignItems:'center'}}>
-         
-       <DonutChart />
+        <Card className="p-3 table-wrapper" style={{display:'flex' , justifyContent:'center',alignItems:'center',background:'#EFF2F7'}}>
+           <PieChart />
+           {/* <DonutChart /> */}
         </Card>
       </div>
     </Container>

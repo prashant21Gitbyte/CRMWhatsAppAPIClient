@@ -27,14 +27,14 @@ body {
   position: fixed;
   left: "30px";
   margin-left: 10px;
-  top: 83px;
+  top: 92px;
   z-index: 999;
 }
 
 .sidebar {
-  width: 79px;
-  height: 88vh;
-  background-color: #fffffff0;
+  width: 65px;
+  height: 86vh;
+  background-color: #dfefff;
   transition: width 0.3s ease;
   overflow: hidden;
   border-radius: 10px;
@@ -86,7 +86,7 @@ body {
   height: 55px;
 }
 
-.sidebar.open .profile span,
+.sidebar. .profile span,
 .sidebar:hover .profile span {
   opacity: 1;
 }

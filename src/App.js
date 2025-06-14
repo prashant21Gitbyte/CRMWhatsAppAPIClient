@@ -11,6 +11,7 @@ import Dashboard from './pages/Dashboard'
 import UserDetail from './pages/UserDetail'
 import WhatsAppMeta from './pages/WhatsAppMeta'
 import WhatsAppAnalytics from './pages/WhatsAppAnalytics'
+import WhatsAppMsg from './pages/WhatsappMessages'
 import MessageLogs from './pages/MessageLogs'
 
 import './App.css'
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="whatsappmeta" element={<WhatsAppMeta />} />
               <Route path="whatsappanalytics" element={<WhatsAppAnalytics />} />
                      <Route path="MessageLogs" element={<MessageLogs />} />
+                     <Route path="whatsappmsg" element={<WhatsAppMsg />} />
           <Route path="settings" element={<Settings />} />
           <Route path="/user/:userId" element={<UserDetail />} />
         </Route>

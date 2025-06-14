@@ -136,7 +136,7 @@ const initialTemplates = [
   const totalPages = Math.ceil(filteredData.length / usersPerPage);
  
   return (
-    <div className="table-wrapper mt-5 pt-5">
+    <div className="table-wrapper mt-5 pt-5 pt-lg-0">
       <h5 className="text-center text-dark">Message Logs</h5>
       <style>{`
         .table-wrapper {

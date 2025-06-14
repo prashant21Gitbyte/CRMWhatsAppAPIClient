@@ -268,7 +268,7 @@ function App() {
  
  
   return (
-    <div className="table-wrapper mt-5  pt-5">
+    <div className="table-wrapper mt-5  pt-5 pt-lg-0">
       <div>
  
       <h5 className="text-center text-dark">Whatsapp Templates</h5>

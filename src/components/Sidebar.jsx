@@ -80,52 +80,53 @@ const Sidebar = () => {
           </div>
           <div className="indicator" id="indicator" ref={indicatorRef}></div>
           <ul>
-            <NavLink to="/" className="list-item textd" >
-              <li style={{ marginLeft: 8 }}>
+            <NavLink to="/" className="list-item textd">
+              <li style={{ marginLeft: 2 }}>
                 <FontAwesomeIcon icon={faHouse} className="faicon" />
-                <span style={{ fontSize: 16 }}>WhlatsApp Anaysis</span>
+                <span style={{ fontSize: 15 }}>WhlatsApp Anaysis</span>
               </li>
             </NavLink>
             <NavLink to="/conversation" className="list-item textd">
-              <li style={{ marginLeft: 8 }}>
+              <li style={{ marginLeft: 2 }}>
                 <FontAwesomeIcon icon={faEnvelope} className="faicon" />
-                <span style={{ fontSize: 16 }}>WhatsApp Conversation</span>
+                <span style={{ fontSize: 15 }}>WhatsApp Conversation</span>
               </li>
             </NavLink>
-            <NavLink to="/whatsappusers" className="list-item textd" >
-              <li style={{ marginLeft: 8 }}>
+            <NavLink to="/whatsappusers" className="list-item textd">
+              <li style={{ marginLeft: 2 }}>
                 <FontAwesomeIcon icon={faGem} className="faicon" />
-                <span style={{ fontSize: 16 }}>WhatsApp Users</span>
+                <span style={{ fontSize: 15 }}>WhatsApp Users</span>
               </li>
             </NavLink>
-            <NavLink to="/whatsappmeta" className="list-item textd" >
-              <li style={{ marginLeft: 8 }}>
+            <NavLink to="/whatsappmeta" className="list-item textd">
+              <li style={{ marginLeft: 2 }}>
                 <FontAwesomeIcon icon={faGem} className="faicon" />
-                <span style={{ fontSize: 16 }}>Meta Template</span>
+                <span style={{ fontSize: 15 }}>Meta Template</span>
               </li>
             </NavLink>
             <NavLink to="/whatsappanalytics" className="list-item textd">
-              <li style={{ marginLeft: 8 }}>
+              <li style={{ marginLeft: 2 }}>
                 <FontAwesomeIcon icon={faGem} className="faicon" />
-                <span style={{ fontSize: 16 }}>Template Analytics</span>
+                <span style={{ fontSize: 15 }}>Template Analytics</span>
+              </li>
+            </NavLink>
+            <NavLink to="/whatsappmsg" className="list-item textd">
+              <li style={{ marginLeft: 2 }}>
+                <FontAwesomeIcon icon={faGem} className="faicon" />
+                <span style={{ fontSize: 15 }}>WhatsApp Messaegs</span>
               </li>
             </NavLink>
             <NavLink to="/MessageLogs" className="list-item textd">
-              <li style={{ marginLeft: 8 }}>
+              <li style={{ marginLeft: 2 }}>
                 <FontAwesomeIcon icon={faGem} className="faicon" />
-                <span style={{ fontSize: 16 }}>Message Logs</span>
+                <span style={{ fontSize: 15 }}>Message Logs</span>
               </li>
             </NavLink>
-            <NavLink to="/whatsappanalytics" className="list-item textd">
-              <li style={{ marginLeft: 8 }}>
-                <FontAwesomeIcon icon={faGem} className="faicon" />
-                <span style={{ fontSize: 16 }}>WhatsApp Messaegs</span>
-              </li>
-            </NavLink>
+
             <NavLink to="/" className="list-item textd">
-              <li style={{ marginLeft: 8 }}>
+              <li style={{ marginLeft: 2 }}>
                 <FontAwesomeIcon icon={faRightFromBracket} className="faicon" />
-                <span style={{ fontSize: 16 }}>Logout</span>
+                <span style={{ fontSize: 15 }}>Logout</span>
               </li>
             </NavLink>
           </ul>
