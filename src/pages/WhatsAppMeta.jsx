@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 // import { Megaphone, Bell, Key } from "react-bootstrap-icons";
+import { Modal, Button } from "react-bootstrap";
  
 const initialUsers = [
   {
@@ -136,24 +137,28 @@ function App() {
   const totalPages = Math.ceil(filteredData.length / usersPerPage);
  
   return (
-    <div className="table-wrapper mt-5">
-     
-    <h5 class="text-center text-dark">Meta Template</h5>
+    <div className="table-wrapper mt-5 pt-5">
+      <h5 className="text-center text-dark">Meta Template</h5>
+  
       <style>{`
         .table-wrapper {
           padding: 2rem;
           background: #f9fafb;
           min-height: 100vh;
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          max-width: 1200px;
+          margin: auto;
         }
- 
+  
         .table-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
           margin-bottom: 1.5rem;
+          flex-wrap: wrap;
+          gap: 1rem;
         }
- 
+  
         .search {
           padding: 0.5rem 1rem;
           border: 1px solid #d1d5db;
@@ -162,12 +167,12 @@ function App() {
           font-size: 0.875rem;
           background-color: #fff;
         }
- 
+  
         .actions {
           display: flex;
           gap: 0.75rem;
         }
- 
+  
         .export-btn,
         .add-btn {
           display: flex;
@@ -181,32 +186,55 @@ function App() {
           cursor: pointer;
           transition: background 0.2s ease;
         }
- 
+  
         .export-btn:hover,
         .add-btn:hover {
           background-color: #f1f5f9;
         }
- 
+  
+        .table-container {
+          width: 100%;
+        }
+  
+        .table-scroll-wrapper {
+          width: 100%;
+          overflow-x: auto;
+        }
+  
         table {
           width: 100%;
           border-collapse: collapse;
           background-color: #ffffff;
           border-radius: 8px;
           overflow: hidden;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+          min-width: 900px;
         }
- 
+  
         thead {
           background-color: #f1f5f9;
         }
- 
-        th, td {
+  
+        th {
+          padding: 0.85rem 1.2rem;
+          text-align: left;
+          font-weight: 600;
+          color: #374151;
+          font-size: 0.875rem;
+          border-bottom: 1px solid #e5e7eb;
+        }
+  
+        td {
           padding: 0.85rem 1.2rem;
           font-size: 0.875rem;
           color: #4b5563;
-          border-bottom: 1px solid #e5e7eb;
+          border-bottom: 1px solid #f1f5f9;
         }
- 
+  
+        tbody tr:nth-child(even) {
+          background-color: #f9fafb;
+        }
+  
         .avatar {
           width: 32px;
           height: 32px;
@@ -214,16 +242,23 @@ function App() {
           object-fit: cover;
           margin-right: 0.5rem;
         }
- 
+  
         .user-name-cell {
           display: flex;
           align-items: center;
           gap: 0.5rem;
         }
- 
-        .status-active { color: green; }
-        .status-inactive { color: red; }
- 
+  
+        .status-active {
+          color: #16a34a;
+          font-weight: 500;
+        }
+  
+        .status-inactive {
+          color: #dc2626;
+          font-weight: 500;
+        }
+  
         .pagination {
           margin-top: 16px;
           display: flex;
@@ -232,7 +267,7 @@ function App() {
           gap: 12px;
           font-size: 14px;
         }
- 
+  
         .pagination button {
           padding: 6px 12px;
           background-color: white;
@@ -240,119 +275,43 @@ function App() {
           border-radius: 4px;
           cursor: pointer;
         }
- 
+  
         .pagination button:disabled {
           opacity: 0.5;
           cursor: not-allowed;
         }
- 
-        /* Modal styles */
-        .modal-overlay {
-          position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-          background: rgba(0, 0, 0, 0.3);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          z-index: 999;
-        }
- 
-        .modal {
-          background: white;
-          border-radius: 6px;
-          width: 90%;
-          max-width: 600px;
-          max-height: 90vh;
-          display: flex;
-          flex-direction: column;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-          overflow: hidden;
-        }
- 
-        .modal-header {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding: 12px 16px;
-          border-bottom: 1px solid #ccc;
-          font-weight: bold;
-          position: relative;
-        }
- 
-        .modal-close {
-          position: absolute;
-          right: 16px;
-          background: none;
-          border: none;
-          font-size: 18px;
-          cursor: pointer;
-        }
- 
-        .modal-body {
-          padding: 16px;
-          overflow-y: auto;
-          flex: 1;
-        }
- 
-        .section-title {
-          font-size: 14px;
-          font-weight: bold;
-          margin-bottom: 10px;
-        }
- 
-        .category-tabs {
-          display: flex;
-          gap: 20px;
-          margin-bottom: 12px;
-        }
- 
-        .category-tab {
-          padding-bottom: 6px;
-          font-weight: bold;
-          font-size: 13px;
-          cursor: pointer;
-          color: #555;
-        }
- 
-        .category-tab.active {
-          color: #0070f3;
-          border-bottom: 2px solid #0070f3;
-        }
- 
-        .checkbox-row {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-        }
- 
-        .modal-footer {
-          display: flex;
-          justify-content: flex-end;
-          gap: 10px;
-          padding: 12px 16px;
-          border-top: 1px solid #eee;
-        }
- 
-        .btn-primary {
-          background: #0070f3;
-          color: white;
-          border: none;
-          border-radius: 20px;
-          padding: 8px 16px;
-          font-size: 12px;
-          cursor: pointer;
-        }
- 
-        .btn-secondary {
-          background: white;
-          color: #0070f3;
-          border: 1px solid #ccc;
-          border-radius: 20px;
-          padding: 8px 16px;
-          font-size: 12px;
-          cursor: pointer;
+  
+        @media screen and (max-width: 768px) {
+          .table-wrapper {
+            padding: 1rem;
+          }
+  
+          .search {
+            width: 170px;
+          }
+  
+          .export-btn,
+          .add-btn {
+            width: 100%;
+            justify-content: center;
+          }
+  
+          .table-scroll-wrapper {
+            overflow-x: auto;
+          }
+  
+          table {
+            min-width: 900px;
+          }
+  
+          .pagination {
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 2rem;
+          }
         }
       `}</style>
- 
+  
       <div className="table-header">
         <input
           type="text"
@@ -368,51 +327,91 @@ function App() {
           </button>
         </div>
       </div>
- 
-      <table>
-        <thead>
-          <tr>
-            <th><input type="checkbox" checked={isAllSelected} onChange={handleSelectAll} /></th>
-            <th>Customer Name</th>
-            <th>Phone</th>
-            <th>Business Number</th>
-            <th>Designation</th>
-            <th>Department</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentUsers.map((user) => (
-            <tr key={user.id}>
-              <td><input type="checkbox" checked={selectedUsers.includes(user.id)} onChange={() => handleSelectUser(user.id)} /></td>
-              <td><div className="user-name-cell"><img src={user.avatar} className="avatar" alt="avatar" />{user.customerName}</div></td>
-              <td>{user.customerPhone}</td>
-              <td>{user.businessNumber}</td>
-              <td>{user.designation}</td>
-              <td>{user.department}</td>
-              <td className={user.status === "Inactive" ? "status-inactive" : "status-active"}>{user.status}</td>
-              <td><button>Edit</button></td>
+  
+      <div className="table-scroll-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <input
+                  type="checkbox"
+                  checked={isAllSelected}
+                  onChange={handleSelectAll}
+                />
+              </th>
+              <th>Customer Name</th>
+              <th>Phone</th>
+              <th>Business Number</th>
+              <th>Designation</th>
+              <th>Department</th>
+              <th>Status</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
- 
-      <div className="pagination">
-        <button onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))} disabled={currentPage === 1}>Prev</button>
-        <span>Page {currentPage} of {totalPages}</span>
-        <button onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))} disabled={currentPage === totalPages}>Next</button>
+          </thead>
+          <tbody>
+            {currentUsers.map((user) => (
+              <tr key={user.id}>
+                <td>
+                  <input
+                    type="checkbox"
+                    checked={selectedUsers.includes(user.id)}
+                    onChange={() => handleSelectUser(user.id)}
+                  />
+                </td>
+                <td>
+                  <div className="user-name-cell">
+                    <img src={user.avatar} className="avatar" alt="avatar" />
+                    {user.customerName}
+                  </div>
+                </td>
+                <td>{user.customerPhone}</td>
+                <td>{user.businessNumber}</td>
+                <td>{user.designation}</td>
+                <td>{user.department}</td>
+                <td
+                  className={
+                    user.status === "Inactive"
+                      ? "status-inactive"
+                      : "status-active"
+                  }
+                >
+                  {user.status}
+                </td>
+                <td>
+                  <button>Edit</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
- 
-      {showModal && (
-        <Meta onClose={() => setShowModal(false)} />
-      )}
+  
+      <div className="pagination">
+        <button
+          onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
+  
+      <Meta show={showModal} onClose={() => setShowModal(false)} />
     </div>
   );
+  
 }
  
  
-function Meta({ onClose }) {
+function Meta({ show, onClose }) {
   const [selectedCategory, setSelectedCategory] = useState("Marketing");
   const [selectedOptions, setSelectedOptions] = useState({ Custom: true });
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
@@ -442,8 +441,6 @@ function Meta({ onClose }) {
     return [];
   };
  
-  const handleCancel = () => onClose?.();
- 
   const handleSave = () => {
     console.log("Saved Template:", { selectedCategory, selectedOptions });
     onClose?.();
@@ -456,124 +453,108 @@ function Meta({ onClose }) {
   };
  
   const styles = {
-    modalOverlay: {
-      position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-      backgroundColor: 'rgba(0,0,0,0.3)', display: 'flex',
-      justifyContent: 'center', alignItems: 'center', zIndex: 999, padding: '10px'
-    },
-    modal: {
-      backgroundColor: 'white', borderRadius: '6px',
-      width: isMobile ? '90%' : '600px',
-      height: isMobile ? 'auto' : '500px',
-      maxHeight: '90vh',
-      display: 'flex', flexDirection: 'column',
-      boxShadow: '0 2px 10px rgba(0,0,0,0.15)',
-      overflow: 'hidden'
-    },
-    modalHeader: {
-      display: 'flex', justifyContent: 'center',
-      alignItems: 'center', padding: '12px 16px',
-      borderBottom: '1px solid #ccc', position: 'relative',
-      fontWeight: 'bold'
-    },
-    closeBtn: {
-      position: 'absolute', right: '16px',
-      background: 'none', border: 'none',
-      fontSize: '18px', cursor: 'pointer'
-    },
-    modalBody: {
-      padding: '16px', overflowY: 'auto',
-      flex: 1, position: 'relative'
-    },
     sectionTitle: { fontSize: '14px', fontWeight: 'bold', marginBottom: '10px' },
     categoryTabs: {
-      display: 'flex', flexDirection: isMobile ? 'column' : 'row',
-      gap: '20px', marginBottom: '12px'
+      display: 'flex',
+      flexDirection: isMobile ? 'column' : 'row',
+      gap: '20px',
+      marginBottom: '12px'
     },
     tab: (active) => ({
-      paddingBottom: '6px', fontWeight: 'bold',
-      fontSize: '13px', borderBottom: !isMobile && active ? '2px solid #0070f3' : 'none',
-      color: active ? '#0070f3' : '#555', cursor: 'pointer'
+      paddingBottom: '6px',
+      fontWeight: 'bold',
+      fontSize: '13px',
+      borderBottom: !isMobile && active ? '2px solid #0070f3' : 'none',
+      color: active ? '#0070f3' : '#555',
+      cursor: 'pointer'
     }),
     checkboxRow: { display: 'flex', flexDirection: 'column', gap: '12px' },
-    modalFooter: {
-      display: 'flex', flexDirection: isMobile ? 'column' : 'row',
-      justifyContent: 'flex-end', alignItems: isMobile ? 'stretch' : 'center',
-      gap: '10px', padding: '12px 16px', borderTop: '1px solid #eee'
-    },
     primaryBtn: {
-      backgroundColor: '#0070f3', color: 'white',
-      border: 'none', borderRadius: '20px',
-      padding: '8px 16px', fontSize: '12px', cursor: 'pointer'
+      backgroundColor: '#0070f3',
+      color: 'white',
+      border: 'none',
+      borderRadius: '20px',
+      padding: '8px 16px',
+      fontSize: '12px',
+      cursor: 'pointer'
     },
     secondaryBtn: {
-      backgroundColor: 'white', color: '#0070f3',
-      border: '1px solid #ccc', borderRadius: '20px',
-      padding: '8px 16px', fontSize: '12px', cursor: 'pointer'
+      backgroundColor: 'white',
+      color: '#0070f3',
+      border: '1px solid #ccc',
+      borderRadius: '20px',
+      padding: '8px 16px',
+      fontSize: '12px',
+      cursor: 'pointer'
     }
   };
  
   return (
-    <div style={styles.modalOverlay}>
-      <div style={styles.modal}>
-        <div style={styles.modalHeader}>
-          <h3>WhatsApp Template</h3>
-          <button onClick={handleCancel} style={styles.closeBtn}>✕</button>
+    <Modal show={show} onHide={onClose} centered size="lg">
+      <Modal.Header closeButton>
+        <Modal.Title>WhatsApp Template</Modal.Title>
+      </Modal.Header>
+      <Modal.Body style={{ padding: "1.5rem" }}>
+        <h4 style={styles.sectionTitle}>Set up your template</h4>
+        <p style={{ fontSize: '12px' }}>
+          Choose the category that best describes your message template. Then, select the type of message that you want to send.
+        </p>
+        <div style={styles.categoryTabs}>
+          {["Marketing", "Utility", "Authentication"].map((cat) => (
+            <div
+              key={cat}
+              style={styles.tab(selectedCategory === cat)}
+              onClick={() => handleCategoryChange(cat)}
+            >
+              {cat}
+            </div>
+          ))}
         </div>
-        <div style={styles.modalBody}>
-          <h4 style={styles.sectionTitle}>Set up your template</h4>
-          <p style={{ fontSize: '12px' }}>
-            Choose the category that best describes your message template. Then, select the type of message that you want to send.
-          </p>
-          <div style={styles.categoryTabs}>
-            {["Marketing", "Utility", "Authentication"].map((cat) => (
-              <div key={cat} style={styles.tab(selectedCategory === cat)} onClick={() => handleCategoryChange(cat)}>
-                {cat === "Marketing"}
-                {cat === "Utility" }
-                {cat === "Authentication" }
-                {cat}
-              </div>
-            ))}
-          </div>
-          <div style={styles.checkboxRow}>
-            {getOptions().map((opt) => (
-              <label key={opt} style={{ fontSize: '12px' }}>
-                <input
-                  type="checkbox"
-                  checked={!!selectedOptions[opt]}
-                  onChange={() => handleCheckboxChange(opt)}
-                  disabled={selectedCategory === "Marketing" && opt !== "Custom"}
-                />{" "}
-                <strong>{opt}</strong><br />
-                {opt === "Custom" && selectedCategory === "Marketing" && (
-                  <span style={{ fontSize: '11px', color: '#555' }}>
-                    Send promotions or announcements to increase awareness and engagement.
-                  </span>
-                )}
-                {opt === "Catalogue" && selectedCategory === "Marketing" && (
-                  <span style={{ fontSize: '11px', color: '#999' }}>
-                    Send messages about your entire catalogue or multiple products from it.
-                  </span>
-                )}
-                {opt === "Calling permissions request" && selectedCategory === "Marketing" && (
-                  <span style={{ fontSize: '11px', color: '#999' }}>
-                    Ask customers if you can call them on WhatsApp.
-                  </span>
-                )}
-              </label>
-            ))}
-          </div>
+        <div style={styles.checkboxRow}>
+          {getOptions().map((opt) => (
+            <label key={opt} style={{ fontSize: '12px' }}>
+              <input
+                type="checkbox"
+                checked={!!selectedOptions[opt]}
+                onChange={() => handleCheckboxChange(opt)}
+                disabled={selectedCategory === "Marketing" && opt !== "Custom"}
+              />{" "}
+              <strong>{opt}</strong><br />
+              {opt === "Custom" && selectedCategory === "Marketing" && (
+                <span style={{ fontSize: '11px', color: '#555' }}>
+                  Send promotions or announcements to increase awareness and engagement.
+                </span>
+              )}
+              {opt === "Catalogue" && selectedCategory === "Marketing" && (
+                <span style={{ fontSize: '11px', color: '#999' }}>
+                  Send messages about your entire catalogue or multiple products from it.
+                </span>
+              )}
+              {opt === "Calling permissions request" && selectedCategory === "Marketing" && (
+                <span style={{ fontSize: '11px', color: '#999' }}>
+                  Ask customers if you can call them on WhatsApp.
+                </span>
+              )}
+            </label>
+          ))}
         </div>
-        <div style={styles.modalFooter}>
-          <button style={styles.secondaryBtn} onClick={handleCancel}>Cancel</button>
-          <button style={styles.secondaryBtn} onClick={handleSaveAndNew}>Save & New</button>
-          <button style={styles.primaryBtn} onClick={handleSave}>Save</button>
-        </div>
-      </div>
-    </div>
+      </Modal.Body>
+      <Modal.Footer className="d-flex flex-column flex-md-row justify-content-end gap-2">
+        <Button variant="outline-primary" style={styles.secondaryBtn} onClick={onClose}>
+          Cancel
+        </Button>
+        <Button variant="outline-primary" style={styles.secondaryBtn} onClick={handleSaveAndNew}>
+          Save & New
+        </Button>
+        <Button variant="primary" style={styles.primaryBtn} onClick={handleSave}>
+          Save
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 }
  
  
-export default App;
  
+ 
+export default App;

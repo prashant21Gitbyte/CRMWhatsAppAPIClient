@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
  
 function MessageLogs() {
- const initialTemplates = [
+const initialTemplates = [
     {
       id: "1",
       avatar: "https://i.pravatar.cc/100?img=1",
@@ -136,7 +136,7 @@ function MessageLogs() {
   const totalPages = Math.ceil(filteredData.length / usersPerPage);
  
   return (
-    <div className="table-wrapper mt-5">
+    <div className="table-wrapper mt-5 pt-5">
       <h5 className="text-center text-dark">Message Logs</h5>
       <style>{`
         .table-wrapper {
@@ -147,12 +147,16 @@ function MessageLogs() {
           max-width: 1200px;
           margin: auto;
         }
+  
         .table-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
           margin-bottom: 1.5rem;
+          flex-wrap: wrap;
+          gap: 1rem;
         }
+  
         .search {
           padding: 0.5rem 1rem;
           border: 1px solid #d1d5db;
@@ -161,10 +165,12 @@ function MessageLogs() {
           font-size: 0.875rem;
           background-color: #fff;
         }
+  
         .actions {
           display: flex;
           gap: 0.75rem;
         }
+  
         .export-btn {
           display: flex;
           align-items: center;
@@ -177,72 +183,107 @@ function MessageLogs() {
           cursor: pointer;
           transition: background 0.2s ease;
         }
+  
         .export-btn:hover {
           background-color: #f1f5f9;
         }
+  
+        .table-scroll-wrapper {
+          width: 100%;
+          overflow-x: auto;
+        }
+  
         table {
           width: 100%;
           border-collapse: collapse;
           background-color: #ffffff;
           border-radius: 8px;
           overflow: hidden;
-          box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+          min-width: 900px;
         }
+  
         thead {
           background-color: #f1f5f9;
         }
-        th {
+  
+        th, td {
           padding: 0.85rem 1.2rem;
-          text-align: left;
-          font-weight: 600;
-          color: #374151;
           font-size: 0.875rem;
+          text-align: left;
+          color: #4b5563;
           border-bottom: 1px solid #e5e7eb;
         }
-        td {
-          padding: 0.85rem 1.2rem;
-          font-size: 0.875rem;
-          color: #4b5563;
-          border-bottom: 1px solid #f1f5f9;
+  
+        tbody tr:nth-child(even) {
+          background-color: #f9fafb;
         }
-        .user-name-cell {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
+  
         .avatar {
           width: 32px;
           height: 32px;
           border-radius: 50%;
+          object-fit: cover;
         }
+  
         .pagination {
           margin-top: 16px;
           display: flex;
           justify-content: center;
+          align-items: center;
           gap: 12px;
+          font-size: 14px;
         }
+  
         .pagination button {
           padding: 6px 12px;
+          background-color: white;
           border: 1px solid #ccc;
           border-radius: 4px;
-          background: #fff;
           cursor: pointer;
         }
+  
         .pagination button:disabled {
           opacity: 0.5;
           cursor: not-allowed;
         }
-          th:nth-child(4),
-td:nth-child(4) {
-  min-width: 200px;
-}
- 
-th:nth-child(5),
-td:nth-child(5) {
-  min-width: 140px;
-}
+  
+        /* ---------- RESPONSIVE ---------- */
+        @media screen and (max-width: 768px) {
+          .table-wrapper {
+            padding: 1rem;
+          }
+  
+          .search {
+            width: 190px;
+          }
+  
+          .actions {
+            // width: 100%;
+            justify-content: center;
+          }
+  
+          .export-btn {
+            width: 100%;
+            justify-content: center;
+          }
+  
+          .table-scroll-wrapper {
+            overflow-x: auto;
+          }
+  
+          table {
+            min-width: 900px;
+          }
+  
+          .pagination {
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 2rem;
+          }
+        }
       `}</style>
- 
+  
       <div className="table-header">
         <input
           type="text"
@@ -255,42 +296,42 @@ td:nth-child(5) {
           <button className="export-btn">Export</button>
         </div>
       </div>
- 
-      <table>
-        <thead>
-          <tr>
-            <th><input type="checkbox" checked={isAllSelected} onChange={handleSelectAll} /></th>
-            <th>Avatar</th>
-            <th>Message Log Name</th>
-            <th>Description</th>
-            <th>Line Number</th>
-            <th>Owner</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentUsers.map((user) => (
-            <tr key={user.id}>
-              <td>
-                <input
-                  type="checkbox"
-                  checked={selectedUsers.includes(user.id)}
-                  onChange={() => handleSelectUser(user.id)}
-                />
-              </td>
-              <td>
-                <img src={user.avatar} alt="avatar" className="avatar" />
-              </td>
-              <td>{user.name}</td>
-              <td>{user.description}</td>
-              <td>{user.lineNumber}</td>
-              <td>{user.owner}</td>
-              <td><button>Edit</button></td>
+  
+      <div className="table-scroll-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th><input type="checkbox" checked={isAllSelected} onChange={handleSelectAll} /></th>
+              <th>Avatar</th>
+              <th>Message Log Name</th>
+              <th>Description</th>
+              <th>Line Number</th>
+              <th>Owner</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
- 
+          </thead>
+          <tbody>
+            {currentUsers.map((user) => (
+              <tr key={user.id}>
+                <td>
+                  <input
+                    type="checkbox"
+                    checked={selectedUsers.includes(user.id)}
+                    onChange={() => handleSelectUser(user.id)}
+                  />
+                </td>
+                <td><img src={user.avatar} alt="avatar" className="avatar" /></td>
+                <td>{user.name}</td>
+                <td>{user.description}</td>
+                <td>{user.lineNumber}</td>
+                <td>{user.owner}</td>
+                <td><button>Edit</button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+  
       <div className="pagination">
         <button onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))} disabled={currentPage === 1}>Prev</button>
         <span>Page {currentPage} of {totalPages}</span>
@@ -298,6 +339,8 @@ td:nth-child(5) {
       </div>
     </div>
   );
+  
 }
  
 export default MessageLogs;
+ 

@@ -29,7 +29,7 @@ const Slidemenu = () => {
     padding: '10px',
     backgroundColor: '#f9f9f9',
     position: 'sticky',
-    top: '81px',
+    top: '73px',
     zIndex: 1000,
     borderBottom: '1px solid #ccc',
     WebkitOverflowScrolling: 'touch',
