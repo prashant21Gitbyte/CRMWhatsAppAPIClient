@@ -50,35 +50,44 @@ const stats = [
  
 const MessageAnalysis = () => {
   return (
-    <Container fluid className="p-5 responsive-padding">
+    <Container fluid className="p-4 responsive-padding mt-5 pt-5">
       <h4 className="heading mb-4 text-black">Message Analysis</h4>
  
       <div className="stat-scroll-wrapper">
         {stats.map((stat, idx) => (
-          <div className="stat-card-small" key={stat.title}>
-            <div className={`card h-100 shadow-sm ${idx === 0 ? 'active' : ''}`}>
-              <div className="card-body d-flex flex-column align-items-start p-3">
-                <div className={`stat-icon mb-2 bg-${stat.color}-subtle`}>
-                  <i className={`bi ${stat.icon} text-${stat.color} fs-5`}></i>
-                </div>
-                <div className="d-flex align-items-center mb-1">
-                  <span className="fs-6 fw-bold me-2">{stat.value}</span>
-                  {stat.change && (
-                    <span className={`badge bg-${stat.changeType === 'up' ? 'success' : 'danger'} ms-1`}>
-                      {stat.change}
-                      <i className={`bi bi-caret-${stat.changeType}-fill ms-1`}></i>
-                    </span>
-                  )}
-                </div>
-                <div className="text-muted small">{stat.title}</div>
-              </div>
-            </div>
+  <div className="stat-card-small" key={stat.title}>
+   <div className="card h-100 shadow-sm stat-card">
+ 
+      <div className="card-body d-flex flex-column justify-content-between p-4">
+        <div className="d-flex justify-content-between align-items-start">
+          <div>
+            <div className="fs-4 fw-semibold text-dark">{stat.value}</div>
+            <div className="text-muted small">{stat.title}</div>
           </div>
-        ))}
+          <div className={`stat-icon-lg bg-${stat.color}-subtle`}>
+            <i className={`bi ${stat.icon} text-${stat.color} fs-5`}></i>
+          </div>
+        </div>
+       {stat.change && (
+  <div className="stat-badge-wrapper mt-3">
+    <span className={`badge stat-badge bg-${stat.changeType === 'up' ? 'success' : 'danger'}`}>
+      {stat.change}
+      <i className={`bi bi-caret-${stat.changeType}-fill ms-1`}></i>
+    </span>
+  </div>
+)}
+      </div>
+    </div>
+  </div>
+))}
+ 
+ 
+       
+            </div>
  
         {/* Start Date */}
         {/* <div className="stat-card-small">
-          <div className="card h-100 shadow-sm">
+          <div className="card h-100 shadow-sm-sm">
             <div className="card-body d-flex flex-column align-items-start p-3">
               <div className="text-muted small mb-1">Start Date</div>
               <input type="date" className="form-control form-control-sm" />
@@ -88,14 +97,14 @@ const MessageAnalysis = () => {
  
         {/* End Date */}
         {/* <div className="stat-card-small">
-          <div className="card h-100 shadow-sm">
+          <div className="card h-100 shadow-sm-sm">
             <div className="card-body d-flex flex-column align-items-start p-3">
               <div className="text-muted small mb-1">End Date</div>
               <input type="date" className="form-control form-control-sm" />
             </div>
           </div>
         </div> */}
-      </div>
+ 
  
       {/* Layout */}
       <div className="analysis-layout mt-4">
@@ -129,4 +138,3 @@ const MessageAnalysis = () => {
 };
  
 export default MessageAnalysis;
- 

@@ -478,7 +478,7 @@ const styles = {
  
    container: (isMobile, showChat) => ({
     display: 'flex',
-    height: '100vh',
+    height: '90vh',
     fontFamily: 'Arial, sans-serif',
     flexDirection: isMobile && showChat ? 'column' : 'row',
     padding: 16,
