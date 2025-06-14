@@ -4,7 +4,7 @@
 }
 .table-wrapper {
  
-  height: 500px !important;
+  height: 450px !important;
 }
   .heading {
     margin-top: 1px;
@@ -25,8 +25,8 @@
   flex-wrap: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
-  gap: 12px;
-  justify-content: space-evenly;
+  /* gap: 12px; */
+  justify-content: space-between;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 4px;
   scroll-snap-type: x mandatory;
@@ -131,3 +131,4 @@ input {
     margin-top: 130px;
   }
 }
+ 

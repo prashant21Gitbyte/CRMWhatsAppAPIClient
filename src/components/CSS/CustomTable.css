@@ -1,33 +1,31 @@
-.table-wrapper {
+.custom-table-wrapper {
   background: #f9fafb;
   border-radius: 8px;
+  height: 450px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  /* padding: 1rem; */
 }
  
-/* Outer table container to allow horizontal scroll if needed */
-.table-container {
+.custom-table-container {
   overflow-x: auto;
 }
  
-/* Style for the entire table */
-table {
+.custom-table {
   width: 100%;
   border-collapse: collapse;
   background-color: #ffffff;
   table-layout: fixed;
 }
  
-/* Header */
-thead, thead tr {
+.custom-thead,
+.custom-thead tr {
   display: table;
   width: 100%;
   table-layout: fixed;
   background-color: #f1f5f9;
 }
  
-thead th {
+.custom-thead th {
   padding: 0.85rem 1.2rem;
   text-align: left;
   font-weight: 600;
@@ -37,21 +35,20 @@ thead th {
   white-space: nowrap;
 }
  
-/* Scrollable table body */
-tbody {
+.custom-tbody {
   display: block;
-  max-height: 400px; /* Adjust height as needed */
+  max-height: 400px;
   overflow-y: auto;
   width: 100%;
 }
  
-tbody tr {
+.custom-tbody tr {
   display: table;
   width: 100%;
   table-layout: fixed;
 }
  
-td {
+.custom-tbody td {
   padding: 0.85rem 1.2rem;
   font-size: 0.875rem;
   color: #4b5563;
@@ -59,16 +56,15 @@ td {
   white-space: nowrap;
 }
  
-tbody tr:nth-child(even) {
+.custom-tbody tr:nth-child(even) {
   background-color: #f9fafb;
 }
  
-tbody tr:hover {
+.custom-tbody tr:hover {
   background-color: #eef2f7;
 }
  
-/* Kebab menu */
-.kebab-menu {
+.custom-kebab-menu {
   background: transparent;
   border: none;
   padding: 0;
@@ -77,16 +73,16 @@ tbody tr:hover {
   color: #4b5563;
 }
  
-.kebab-menu:hover {
+.custom-kebab-menu:hover {
   color: #1f2937;
 }
  
 /* Scrollbar styling */
-tbody::-webkit-scrollbar {
+.custom-tbody::-webkit-scrollbar {
   width: 8px;
 }
  
-tbody::-webkit-scrollbar-thumb {
+.custom-tbody::-webkit-scrollbar-thumb {
   background-color: #cbd5e1;
   border-radius: 4px;
 }
