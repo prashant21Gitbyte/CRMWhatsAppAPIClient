@@ -484,7 +484,6 @@ const styles = {
     flexDirection: isMobile && showChat ? 'column' : 'row',
     padding: 16,
     gap: 16,
-    //marginLeft:30,
     width:'100%',
   }),
  

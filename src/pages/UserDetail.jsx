@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import FileUploadBox from './RelatedD';
+import ChatWindow from './DetailsConvo';
 
 const DetailsTab = () => (
   <>
@@ -55,14 +57,14 @@ const DetailsTab = () => (
 );
 
 const RelatedTab = () => (
-  <div style={styles.value}>
-    <p>No related records found.</p>
+  <div style={styles.value2}>
+   <FileUploadBox/>
   </div>
 );
 
 const ConversationTab = () => (
   <div style={styles.value}>
-    <p>No conversation available.</p>
+   <ChatWindow/>
   </div>
 );
 
@@ -88,7 +90,7 @@ export default function WhatsappUserPage() {
     <div style={styles.container}>
       {/* Header */}
       <div style={styles.header}>
-        <img src="/assets/chess.jpg" alt="logo" width="30" height="30" style={{ borderRadius: '50%' }} />
+        <img src="/images/avatar/avatar-7.jpg" alt="logo" width="30" height="30" style={{ borderRadius: '50%' }} />
         <span>Whatsapp User</span>
         <span style={{ fontWeight: 'normal', color: '#004de5' }}>W-1086</span>
       </div>
@@ -121,7 +123,6 @@ const tabStyle = (active) => ({
 });
 const styles = {
   body: {
-    width: '100%',
     display: 'flex',
     flexDirection: 'row',
     marginTop: '25px',
@@ -130,9 +131,7 @@ const styles = {
   },
 
   container: {
-    width: '90%',
-    height:'100vh',
-    borderRadius: '16px',
+    height:'100%',
     fontFamily: 'Arial, sans-serif',
     padding: '20px',
     boxSizing: 'border-box',
@@ -197,7 +196,11 @@ const styles = {
   value: {
     fontSize: 14,
     color: '#333',
-
+  },
+  value2: {
+    fontSize: 14,
+    color: '#333',
+    marginLeft:-10
   },
 
   infoRow: {

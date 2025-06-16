@@ -5,7 +5,7 @@ import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 const initialUsers = [
   {
     id: 1,
-    owner: "Sumeet Kendre",
+    owner: "John Doe",
     lead: "John Doe",
     account: "Tech Corp",
     contact: "johndoe@example.com",
@@ -25,7 +25,7 @@ const initialUsers = [
   },
   {
     id: 3,
-    owner: "Sumeet Kendre",
+    owner: "Jane Smith",
     lead: "Michael Brown",
     account: "BuildIt Inc.",
     contact: "michaelbrown@example.com",
@@ -35,7 +35,7 @@ const initialUsers = [
   },
   {
     id: 4,
-    owner: "Sumeet Kendre",
+    owner: "Cate Blanchett",
     lead: "Emily White",
     account: "GrowMore",
     contact: "emilywhite@example.com",
@@ -45,7 +45,7 @@ const initialUsers = [
   },
   {
     id: 5,
-    owner: "Sumeet Kendre",
+    owner: "Bhoomi Dhilliwal",
     lead: "David Johnson",
     account: "EcoWorld",
     contact: "davidjohnson@example.com",
@@ -55,7 +55,7 @@ const initialUsers = [
   },
   {
     id: 6,
-    owner: "Sumeet Kendre",
+    owner: "William Taylor",
     lead: "Olivia Martinez",
     account: "SmartHome",
     contact: "oliviam@example.com",
@@ -65,7 +65,7 @@ const initialUsers = [
   },
   {
     id: 7,
-    owner: "Sumeet Kendre",
+    owner: "Ava Lee",
     lead: "William Taylor",
     account: "GreenTech",
     contact: "williamt@example.com",
@@ -75,7 +75,7 @@ const initialUsers = [
   },
   {
     id: 8,
-    owner: "Sumeet Kendre",
+    owner: "Olivia Martinez",
     lead: "Ava Lee",
     account: "SoftSolutions",
     contact: "aval@example.com",
@@ -84,10 +84,7 @@ const initialUsers = [
     avatar: "https://i.pravatar.cc/100?img=8"
   }
 ];
- 
- 
- 
- 
+
 function Message() {
   const [userList, setUserList] = useState(initialUsers);
   const [selectedUsers, setSelectedUsers] = useState([]);

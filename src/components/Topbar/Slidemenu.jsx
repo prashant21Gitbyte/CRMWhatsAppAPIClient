@@ -5,22 +5,45 @@ import {
   faHouse,
   faEnvelope,
   faGem,
-  faRightFromBracket
+  faRightFromBracket,
+  faUsers,
+  faChartColumn,
+  faMessage,
+  faFileLines,
 } from '@fortawesome/free-solid-svg-icons';
+
+const iconMap = {
+  'WhatsApp Analysis': faHouse,
+  'WhatsApp Conversation': faEnvelope,
+  'WhatsApp Users': faUsers,
+  'Meta Template': faChartColumn,
+  'Template Analytics': faChartColumn,
+  'WhatsApp Messages': faMessage,
+  'Message Logs': faFileLines,
+  Logout: faRightFromBracket,
+};
+
+const menuItems = [
+  { to: '/', label: 'WhatsApp Analysis' },
+  { to: '/conversation', label: 'WhatsApp Conversation' },
+  { to: '/whatsappusers', label: 'WhatsApp Users' },
+  { to: '/whatsappmeta', label: 'Meta Template' },
+  { to: '/whatsappanalytics', label: 'Template Analytics' },
+  { to: '/whatsappmsg', label: 'WhatsApp Messages' },
+  { to: '/messagelogs', label: 'Message Logs' },
+  { to: '/logout', label: 'Logout' },
+];
 
 const Slidemenu = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  if (!isMobile) return null; // Hide on desktop
+  if (!isMobile) return null;
 
   const scrollMenuStyle = {
     display: 'flex',
@@ -32,19 +55,10 @@ const Slidemenu = () => {
     top: '73px',
     zIndex: 1000,
     borderBottom: '1px solid #ccc',
-    WebkitOverflowScrolling: 'touch',
-    msOverflowStyle: 'none',
-    scrollbarWidth: 'none',
   };
 
-  const navItemStyle = {
-    flex: '0 0 auto',
-    marginRight: '12px',
-    textDecoration: 'none',
-    color: 'inherit',
-  };
-
-  const listItemStyle = {
+  const navItemBase = { flex: '0 0 auto', marginRight: '12px', textDecoration: 'none' };
+  const listItemBase = {
     listStyle: 'none',
     display: 'flex',
     alignItems: 'center',
@@ -53,64 +67,43 @@ const Slidemenu = () => {
     borderRadius: '6px',
     fontSize: '14px',
     minWidth: '150px',
-    transition: 'background 0.3s',
-  };
-
-  const iconStyle = {
-    marginRight: '8px',
+    transition: 'background 0.3s, color 0.3s',
   };
 
   return (
     <nav style={scrollMenuStyle}>
-      <NavLink to="/" style={navItemStyle}>
-        <li style={listItemStyle}>
-          <FontAwesomeIcon icon={faHouse} style={iconStyle} />
-          <span>WhlatsApp Anaysis</span>
-        </li>
-      </NavLink>
-      <NavLink to="/conversation" style={navItemStyle}>
-        <li style={listItemStyle}>
-          <FontAwesomeIcon icon={faEnvelope} style={iconStyle} />
-          <span>WhatsApp Conversation</span>
-        </li>
-      </NavLink>
-      <NavLink to="/whatsappusers" style={navItemStyle}>
-        <li style={listItemStyle}>
-          <FontAwesomeIcon icon={faGem} style={iconStyle} />
-          <span>WhatsApp Users</span>
-        </li>
-      </NavLink>
-      <NavLink to="/whatsappmeta" style={navItemStyle}>
-        <li style={listItemStyle}>
-          <FontAwesomeIcon icon={faGem} style={iconStyle} />
-          <span>Meta Template</span>
-        </li>
-      </NavLink>
-      <NavLink to="/whatsappanalytics" style={navItemStyle}>
-        <li style={listItemStyle}>
-          <FontAwesomeIcon icon={faGem} style={iconStyle} />
-          <span>Template Analytics</span>
-        </li>
-      </NavLink>
-            <NavLink to="/whatsappmsg" style={navItemStyle}>
-        <li style={listItemStyle}>
-          <FontAwesomeIcon icon={faGem} style={iconStyle} />
-          <span>WhatsApp Messaegs</span>
-        </li>
-      </NavLink>
-      
-      <NavLink to="/messagelogs" style={navItemStyle}>
-        <li style={listItemStyle}>
-          <FontAwesomeIcon icon={faGem} style={iconStyle} />
-          <span>Message Logs</span>
-        </li>
-      </NavLink>
-      <NavLink to="/" style={navItemStyle}>
-        <li style={listItemStyle}>
-          <FontAwesomeIcon icon={faRightFromBracket} style={iconStyle} />
-          <span>Logout</span>
-        </li>
-      </NavLink>
+      {menuItems.map((item, idx) => {
+        const icon = iconMap[item.label] || faGem;
+        return (
+          <NavLink
+            key={idx}
+            to={item.to}
+            end
+            style={({ isActive }) => ({
+              ...navItemBase,
+              opacity: isActive ? 1 : 0.7,
+              cursor: 'pointer'
+            })}
+          >
+            {({ isActive }) => (
+              <li
+                style={{
+                  ...listItemBase,
+                  background: isActive ? '#1e2a5a' : listItemBase.background,
+                  color: isActive ? '#fff' : '#000',
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={icon}
+                  color={isActive ? '#fff' : '#007bff'}
+                  style={{ marginRight: '8px' }}
+                />
+                <span>{item.label}</span>
+              </li>
+            )}
+          </NavLink>
+        );
+      })}
     </nav>
   );
 };

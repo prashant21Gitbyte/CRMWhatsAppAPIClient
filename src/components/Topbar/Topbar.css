@@ -83,7 +83,7 @@ img.rounded-circle {
 .profile-dropdown {
   position: absolute;
   top: 51px;
-  right: 242px;
+  right: 30px;
   background: white;
   border-radius: 10px;
   z-index: 1000;

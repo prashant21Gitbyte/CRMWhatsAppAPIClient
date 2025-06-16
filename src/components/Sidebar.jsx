@@ -9,132 +9,103 @@ import {
   faChartColumn,
   faGem,
   faRightFromBracket,
+  faMessage,
+  faUsers,
+  faFileLines,
 } from "@fortawesome/free-solid-svg-icons";
 
-import {
-  FaShoppingCart,
-  FaUserTie,
-  FaHospital,
-  FaIndustry,
-  FaUniversity,
-  FaCoffee,
-  FaShieldAlt,
-  FaHotel,
-  FaEnvelope,
-  FaFileAlt,
-  FaTh,
-  FaCashRegister,
-  FaCalendar,
-} from "react-icons/fa";
+// Map each label (or route) to its corresponding icon
+const iconMap = {
+  "WhatsApp Analysis": faHouse,
+  "WhatsApp Conversation": faEnvelope,
+  "WhatsApp Users": faUsers,
+  "Meta Template": faChartColumn,
+  "Template Analytics": faChartColumn,
+  "WhatsApp Messages": faMessage,
+  "Message Logs": faFileLines,
+  Logout: faRightFromBracket,
+};
+
+const menuItems = [
+  { to: "/", label: "WhatsApp Analysis" },
+  { to: "/conversation", label: "WhatsApp Conversation" },
+  { to: "/whatsappusers", label: "WhatsApp Users" },
+  { to: "/whatsappmeta", label: "Meta Template" },
+  { to: "/whatsappanalytics", label: "Template Analytics" },
+  { to: "/whatsappmsg", label: "WhatsApp Messages" },
+  { to: "/messagelogs", label: "Message Logs" },
+  { to: "/logout", label: "Logout" },
+];
 
 const Sidebar = () => {
   const sidebarRef = useRef(null);
   const indicatorRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleSidebar = () => {
-    setIsOpen((prev) => !prev);
-  };
-  const linkClasses = ({ isActive }) =>
-    `flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-      isActive
-        ? "bg-gradient-to-r from-indigo-500 to-blue-600 text-white"
-        : "text-gray-700 hover:bg-gray-100"
-    }`;
+  const toggleSidebar = () => setIsOpen((prev) => !prev);
 
   useEffect(() => {
     const sidebar = sidebarRef.current;
     const indicator = indicatorRef.current;
-    const menuItems = sidebar.querySelectorAll("ul li");
+    const items = sidebar.querySelectorAll("ul li");
 
-    const handleMouseOver = (item) => {
-      const itemHeight = item.offsetHeight;
-      const offsetTop = item.offsetTop;
-      indicator.style.top = `${offsetTop}px`;
-      indicator.style.height = `${itemHeight}px`;
+    const onHover = (item) => {
+      indicator.style.top = `${item.offsetTop}px`;
+      indicator.style.height = `${item.offsetHeight}px`;
     };
 
-    menuItems.forEach((item) => {
-      item.addEventListener("mouseover", () => handleMouseOver(item));
-    });
-
-    // Cleanup event listeners
+    items.forEach((item) =>
+      item.addEventListener("mouseover", () => onHover(item))
+    );
     return () => {
-      menuItems.forEach((item) => {
-        item.removeEventListener("mouseover", () => handleMouseOver(item));
-      });
+      items.forEach((item) =>
+        item.removeEventListener("mouseover", () => onHover(item))
+      );
     };
   }, []);
 
   return (
-    <div>
-      <div className="bgcolor" style={{ height: 300 }}></div>
-      <div className="sidebar-wrapper">
-        <div
-          className={`sidebar ${isOpen ? "open" : ""}`}
-          id="sidebar"
-          ref={sidebarRef}
-        >
-          <div style={{ marginLeft: 5 }} className="profile">
-            {/* <img src={logo} alt='Profile' width={30} /> */}
-          </div>
-          <div className="indicator" id="indicator" ref={indicatorRef}></div>
-          <ul>
-            <NavLink to="/" className="list-item textd">
-              <li style={{ marginLeft: 2 }}>
-                <FontAwesomeIcon icon={faHouse} className="faicon" />
-                <span style={{ fontSize: 15 }}>WhlatsApp Anaysis</span>
-              </li>
-            </NavLink>
-            <NavLink to="/conversation" className="list-item textd">
-              <li style={{ marginLeft: 2 }}>
-                <FontAwesomeIcon icon={faEnvelope} className="faicon" />
-                <span style={{ fontSize: 15 }}>WhatsApp Conversation</span>
-              </li>
-            </NavLink>
-            <NavLink to="/whatsappusers" className="list-item textd">
-              <li style={{ marginLeft: 2 }}>
-                <FontAwesomeIcon icon={faGem} className="faicon" />
-                <span style={{ fontSize: 15 }}>WhatsApp Users</span>
-              </li>
-            </NavLink>
-            <NavLink to="/whatsappmeta" className="list-item textd">
-              <li style={{ marginLeft: 2 }}>
-                <FontAwesomeIcon icon={faGem} className="faicon" />
-                <span style={{ fontSize: 15 }}>Meta Template</span>
-              </li>
-            </NavLink>
-            <NavLink to="/whatsappanalytics" className="list-item textd">
-              <li style={{ marginLeft: 2 }}>
-                <FontAwesomeIcon icon={faGem} className="faicon" />
-                <span style={{ fontSize: 15 }}>Template Analytics</span>
-              </li>
-            </NavLink>
-            <NavLink to="/whatsappmsg" className="list-item textd">
-              <li style={{ marginLeft: 2 }}>
-                <FontAwesomeIcon icon={faGem} className="faicon" />
-                <span style={{ fontSize: 15 }}>WhatsApp Messaegs</span>
-              </li>
-            </NavLink>
-            <NavLink to="/MessageLogs" className="list-item textd">
-              <li style={{ marginLeft: 2 }}>
-                <FontAwesomeIcon icon={faGem} className="faicon" />
-                <span style={{ fontSize: 15 }}>Message Logs</span>
-              </li>
-            </NavLink>
-
-            <NavLink to="/" className="list-item textd">
-              <li style={{ marginLeft: 2 }}>
-                <FontAwesomeIcon icon={faRightFromBracket} className="faicon" />
-                <span style={{ fontSize: 15 }}>Logout</span>
-              </li>
-            </NavLink>
-          </ul>
-        </div>
-        <button className="toggle-btn" id="toggleBtn" onClick={toggleSidebar}>
-          <FontAwesomeIcon icon={isOpen ? faChevronLeft : faChevronRight} />
-        </button>
+    <div className="sidebar-wrapper">
+      <div ref={sidebarRef} className={`sidebar ${isOpen ? "open" : ""}`}>
+        <div className="indicator" ref={indicatorRef} />
+        <ul>
+          {menuItems.map((item) => {
+            const icon = iconMap[item.label] || faGem; // fallback icon
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end
+                style={{ textDecoration: "none" }}
+              >
+                {({ isActive }) => (
+                  <li
+                    className="list-item"
+                    style={{
+                      background: isActive
+                        ? "linear-gradient(to right, #1e2a5a , #1852a1)"
+                        : "transparent",
+                      color: isActive ? "#fff" : "#031F7E",
+                    }}
+                  >
+                    <FontAwesomeIcon
+                      icon={icon}
+                      className="faicon"
+                      style={{
+                        color: isActive ? "#fff" : "#031F7E",
+                      }}
+                    />
+                    <span>{item.label}</span>
+                  </li>
+                )}
+              </NavLink>
+            );
+          })}
+        </ul>
       </div>
+      <button className="toggle-btn" onClick={toggleSidebar}>
+        <FontAwesomeIcon icon={isOpen ? faChevronLeft : faChevronRight} />
+      </button>
     </div>
   );
 };
