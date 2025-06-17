@@ -168,19 +168,19 @@ function App() {
       latestTime: "",
       status: "Active",
     });
-  
+ 
     const handleClose = () => setShowForm(false);
-  
+ 
     const handleChange = (e) => {
       const { name, value } = e.target;
       setFormData((prev) => ({ ...prev, [name]: value }));
     };
-  
+ 
     const handleSaveUser = () => {
       console.log("Saved Data:", formData);
       handleClose();
     };
-  
+ 
     // Shorter, modern input style
     const inputStyle = {
       borderRadius: "10px",
@@ -191,19 +191,19 @@ function App() {
       boxShadow: "none",
       transition: "all 0.2s ease-in-out",
     };
-  
+ 
     const labelStyle = {
       fontWeight: 500,
       color: "#333",
       fontSize: "14px",
     };
-  
+ 
     const placeholderStyle = {
       fontStyle: "normal",
       color: "#999",
       fontSize: "13px",
     };
-  
+ 
     return (
       <Modal show={show} onHide={handleClose} size="lg" centered>
         <Modal.Header closeButton style={{ background: "#f8f9fa", borderBottom: "none" }}>
@@ -211,7 +211,7 @@ function App() {
             New WhatsApp User
           </Modal.Title>
         </Modal.Header>
-  
+ 
         <Modal.Body
           style={{
             padding: "2rem",
@@ -236,7 +236,7 @@ function App() {
                 />
               </Col>
             </Row>
-  
+ 
             <Row className="mb-3">
               <Col md={4} className="mb-2 mb-md-0">
                 <Form.Label style={labelStyle}>Customer Phone</Form.Label>
@@ -252,7 +252,7 @@ function App() {
                 />
               </Col>
             </Row>
-  
+ 
             <Row className="mb-3">
               <Col md={4} className="mb-2 mb-md-0">
                 <Form.Label style={labelStyle}>Business Number</Form.Label>
@@ -268,7 +268,7 @@ function App() {
                 />
               </Col>
             </Row>
-  
+ 
             <Row className="mb-3">
               <Col md={4}>
                 <Form.Label style={labelStyle}>Latest Date & Time</Form.Label>
@@ -292,7 +292,7 @@ function App() {
                 />
               </Col>
             </Row>
-  
+ 
             <Row className="mb-3">
               <Col md={4} className="mb-2 mb-md-0">
                 <Form.Label style={labelStyle}>Status</Form.Label>
@@ -311,7 +311,7 @@ function App() {
             </Row>
           </Form>
         </Modal.Body>
-  
+ 
         <Modal.Footer
           style={{
             background: "#f8f9fa",
@@ -350,9 +350,9 @@ function App() {
       </Modal>
     );
   };
-  
-  
-  
+ 
+ 
+ 
  
   return (
     <>
@@ -367,7 +367,7 @@ function App() {
             max-width: 1200px;
             margin: auto;
           }
-  
+ 
           .table-header {
             display: flex;
             justify-content: space-between;
@@ -376,7 +376,7 @@ function App() {
             flex-wrap: wrap;
             gap: 1rem;
           }
-  
+ 
           .search {
             padding: 0.5rem 1rem;
             border: 1px solid #d1d5db;
@@ -385,12 +385,12 @@ function App() {
             font-size: 0.875rem;
             background-color: #fff;
           }
-  
+ 
           .actions {
             display: flex;
             gap: 0.75rem;
           }
-  
+ 
           .export-btn,
           .add-btn {
             display: flex;
@@ -404,21 +404,21 @@ function App() {
             cursor: pointer;
             transition: background 0.2s ease;
           }
-  
+ 
           .export-btn:hover,
           .add-btn:hover {
             background-color: #f1f5f9;
           }
-  
+ 
           .table-container {
             width: 100%;
           }
-  
+ 
           .table-scroll-wrapper {
             width: 100%;
             overflow-x: auto;
           }
-  
+ 
           table {
             width: 100%;
             border-collapse: collapse;
@@ -428,11 +428,11 @@ function App() {
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             min-width: 900px;
           }
-  
+ 
           thead {
             background-color: #f1f5f9;
           }
-  
+ 
           th {
             padding: 0.85rem 1.2rem;
             text-align: left;
@@ -441,18 +441,18 @@ function App() {
             font-size: 0.875rem;
             border-bottom: 1px solid #e5e7eb;
           }
-  
+ 
           td {
             padding: 0.85rem 1.2rem;
             font-size: 0.875rem;
             color: #4b5563;
             border-bottom: 1px solid #f1f5f9;
           }
-  
+ 
           tbody tr:nth-child(even) {
             background-color: #f9fafb;
           }
-  
+ 
           .avatar {
             width: 32px;
             height: 32px;
@@ -460,23 +460,23 @@ function App() {
             object-fit: cover;
             margin-right: 0.5rem;
           }
-  
+ 
           .user-name-cell {
             display: flex;
             align-items: center;
             gap: 0.5rem;
           }
-  
+ 
           .status-active {
             color: #16a34a;
             font-weight: 500;
           }
-  
+ 
           .status-inactive {
             color: #dc2626;
             font-weight: 500;
           }
-  
+ 
           .pagination {
             margin-top: 16px;
             display: flex;
@@ -485,7 +485,7 @@ function App() {
             gap: 12px;
             font-size: 14px;
           }
-  
+ 
           .pagination button {
             padding: 6px 12px;
             background-color: white;
@@ -493,42 +493,42 @@ function App() {
             border-radius: 4px;
             cursor: pointer;
           }
-  
+ 
           .pagination button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
           }
-  
+ 
           /* ---------- RESPONSIVE ---------- */
           @media screen and (max-width: 768px) {
             .table-wrapper {
               padding: 1rem;
             }
-  
+ 
             .table-header {
             }
-  
+ 
             .search {
               width: 170px;
             }
-  
+ 
             .actions {
             }
-  
+ 
             .export-btn,
             .add-btn {
               width: 100%;
               justify-content: center;
             }
-  
+ 
             .table-scroll-wrapper {
               overflow-x: auto;
             }
-  
+ 
             table {
               min-width: 900px;
             }
-  
+ 
             .pagination {
               flex-direction: column;
               gap: 8px;
@@ -536,7 +536,7 @@ function App() {
             }
           }
         `}</style>
-  
+ 
         <div className="table-header">
           <input
             type="text"
@@ -552,7 +552,7 @@ function App() {
             </button>
           </div>
         </div>
-  
+ 
         <div className="table-container">
           <div className="table-scroll-wrapper">
             <table>
@@ -616,7 +616,7 @@ function App() {
               </tbody>
             </table>
           </div>
-  
+ 
           <div className="pagination">
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
@@ -637,15 +637,16 @@ function App() {
             </button>
           </div>
         </div>
-  
+ 
         <UserForm show={showModal} setShowForm={setShowModal} />
       </div>
     </>
   );
-  
-  
+ 
+ 
 }
  
 export default App;
+ 
  
  

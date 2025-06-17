@@ -1,80 +1,81 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Row, Col, Form } from "react-bootstrap";
-
+ 
 function App() {
   const initialTemplates = [
-    {
-      id: "1",
-      templateId: "TMP-001",
-      analyticsName: "Welcome Message",
-      amountSpent: "₹250",
-      delivered: "Yes",
-      avatar: "https://i.pravatar.cc/100?img=1",
-      startDate: "2024-05-01",
-      endDate: "2024-05-02",
-    },
-    {
-      id: "2",
-      templateId: "TMP-002",
-      analyticsName: "Order Confirmation",
-      amountSpent: "₹180",
-      delivered: "Yes",
-      avatar: "https://i.pravatar.cc/100?img=2",
-      startDate: "2024-05-03",
-      endDate: "2024-05-04",
-    },
-    {
-      id: "3",
-      templateId: "TMP-003",
-      analyticsName: "Cart Abandonment",
-      amountSpent: "₹300",
-      delivered: "No",
-      avatar: "https://i.pravatar.cc/100?img=3",
-      startDate: "2024-05-06",
-      endDate: "2024-05-07",
-    },
-    {
-      id: "4",
-      templateId: "TMP-004",
-      analyticsName: "Feedback Request",
-      amountSpent: "₹210",
-      delivered: "Yes",
-      avatar: "https://i.pravatar.cc/100?img=4",
-      startDate: "2024-05-08",
-      endDate: "2024-05-09",
-    },
-    {
-      id: "5",
-      templateId: "TMP-005",
-      analyticsName: "Delivery Update",
-      amountSpent: "₹195",
-      delivered: "Yes",
-      avatar: "https://i.pravatar.cc/100?img=5",
-      startDate: "2024-05-10",
-      endDate: "2024-05-11",
-    },
-    {
-      id: "6",
-      templateId: "TMP-006",
-      analyticsName: "Offer Notification",
-      amountSpent: "₹275",
-      delivered: "No",
-      avatar: "https://i.pravatar.cc/100?img=6",
-      startDate: "2024-05-12",
-      endDate: "2024-05-13",
-    },
-    {
-      id: "7",
-      templateId: "TMP-007",
-      analyticsName: "Thank You Message",
-      amountSpent: "₹220",
-      delivered: "Yes",
-      avatar: "https://i.pravatar.cc/100?img=7",
-      startDate: "2024-05-14",
-      endDate: "2024-05-15",
-    },
-  ];
-
+  {
+    id: "1",
+    templateId: "TMP-001",
+    analyticsName: "Welcome Message",
+    amountSpent: "₹250",
+    delivered: "Yes",
+    avatar: "https://i.pravatar.cc/100?img=1",
+    startDate: "2024-05-01",
+    endDate: "2024-05-02",
+  },
+  {
+    id: "2",
+    templateId: "TMP-002",
+    analyticsName: "Order Confirmation",
+    amountSpent: "₹180",
+    delivered: "Yes",
+    avatar: "https://i.pravatar.cc/100?img=2",
+    startDate: "2024-05-03",
+    endDate: "2024-05-04",
+  },
+  {
+    id: "3",
+    templateId: "TMP-003",
+    analyticsName: "Cart Abandonment",
+    amountSpent: "₹300",
+    delivered: "No",
+    avatar: "https://i.pravatar.cc/100?img=3",
+    startDate: "2024-05-06",
+    endDate: "2024-05-07",
+  },
+  {
+    id: "4",
+    templateId: "TMP-004",
+    analyticsName: "Feedback Request",
+    amountSpent: "₹210",
+    delivered: "Yes",
+    avatar: "https://i.pravatar.cc/100?img=4",
+    startDate: "2024-05-08",
+    endDate: "2024-05-09",
+  },
+  {
+    id: "5",
+    templateId: "TMP-005",
+    analyticsName: "Delivery Update",
+    amountSpent: "₹195",
+    delivered: "Yes",
+    avatar: "https://i.pravatar.cc/100?img=5",
+    startDate: "2024-05-10",
+    endDate: "2024-05-11",
+  },
+  {
+    id: "6",
+    templateId: "TMP-006",
+    analyticsName: "Offer Notification",
+    amountSpent: "₹275",
+    delivered: "No",
+    avatar: "https://i.pravatar.cc/100?img=6",
+    startDate: "2024-05-12",
+    endDate: "2024-05-13",
+  },
+  {
+    id: "7",
+    templateId: "TMP-007",
+    analyticsName: "Thank You Message",
+    amountSpent: "₹220",
+    delivered: "Yes",
+    avatar: "https://i.pravatar.cc/100?img=7",
+    startDate: "2024-05-14",
+    endDate: "2024-05-15",
+  },
+];
+ 
+ 
   const [userList, setUserList] = useState(initialTemplates);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [search, setSearch] = useState("");
@@ -82,7 +83,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const usersPerPage = 10;
-
+ 
   const [formData, setFormData] = useState({
     name: "",
     templateId: "",
@@ -96,12 +97,12 @@ function App() {
     amountSpent: "",
     costPerClick: "",
   });
-
+ 
   useEffect(() => {
     setFilteredData(userList);
     setCurrentPage(1);
   }, [userList]);
-
+ 
   const handleSearch = (e) => {
     const keyword = e.target.value.toLowerCase();
     setSearch(keyword);
@@ -117,7 +118,7 @@ function App() {
       setFilteredData(result);
     }
   };
-
+ 
   const handleSelectAll = (e) => {
     if (e.target.checked) {
       setSelectedUsers(filteredData.map((user) => user.id));
@@ -125,26 +126,26 @@ function App() {
       setSelectedUsers([]);
     }
   };
-
+ 
   const handleSelectUser = (id) => {
     setSelectedUsers((prev) =>
       prev.includes(id) ? prev.filter((uid) => uid !== id) : [...prev, id]
     );
   };
-
+ 
   const isAllSelected =
     filteredData.length > 0 && selectedUsers.length === filteredData.length;
-
+ 
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = filteredData.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(filteredData.length / usersPerPage);
-
+ 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
+ 
   const handleSave = () => {
     const newTemplate = {
       id: Date.now().toString(),
@@ -172,16 +173,12 @@ function App() {
       costPerClick: "",
     });
   };
-
-  const TemplateAnalyticsModal = ({
-    show,
-    setShowModal,
-    formData,
-    handleFormChange,
-    handleSave,
-  }) => {
+ 
+ 
+ 
+  const TemplateAnalyticsModal = ({ show, setShowModal, formData, handleFormChange, handleSave }) => {
     const handleClose = () => setShowModal(false);
-
+ 
     const inputStyle = {
       borderRadius: "10px",
       padding: "6px 12px",
@@ -191,32 +188,37 @@ function App() {
       boxShadow: "none",
       transition: "all 0.2s ease-in-out",
     };
-
+ 
     const labelStyle = {
       fontWeight: 500,
       color: "#333",
       fontSize: "14px",
     };
-
+ 
     return (
       <Modal show={show} onHide={handleClose} size="lg" centered>
         {/* Header */}
-        <Modal.Header
-          closeButton
-          style={{ background: "#f8f9fa", borderBottom: "none" }}
-        >
+        <Modal.Header closeButton style={{ background: "#f8f9fa", borderBottom: "none" }}>
           <Modal.Title style={{ fontWeight: 600, fontSize: "18px" }}>
             New Template Analytics
           </Modal.Title>
         </Modal.Header>
-
+ 
         {/* Body */}
         <Modal.Body
-          style={{
-            padding: "2rem",
-            background: "rgba(255, 255, 255, 0.9)",
+          // style={{
+          //   padding: "2rem",
+          //   background: "rgba(255, 255, 255, 0.9)",
+          //   backdropFilter: "blur(6px)",
+          //   borderRadius: "12px",
+          // }}
+           style={{
+            height: "70vh",
+            overflow: "scroll",
+            background: "rgba(255,255,255,0.9)",
             backdropFilter: "blur(6px)",
-            borderRadius: "12px",
+            padding: "2rem",
+            scrollbarWidth:'none'
           }}
         >
           <Form>
@@ -235,7 +237,7 @@ function App() {
                 />
               </Col>
             </Row>
-
+ 
             <Row className="mb-3">
               <Col md={4} className="mb-2 mb-md-0">
                 <Form.Label style={labelStyle}>Template ID</Form.Label>
@@ -251,7 +253,7 @@ function App() {
                 />
               </Col>
             </Row>
-
+ 
             <Row className="mb-3">
               <Col md={4}>
                 <Form.Label style={labelStyle}>Start & End Date</Form.Label>
@@ -275,31 +277,27 @@ function App() {
                 />
               </Col>
             </Row>
-
-            {["sent", "delivered", "read", "amountSpent", "costPerClick"].map(
-              (field, idx) => (
-                <Row className="mb-3" key={idx}>
-                  <Col md={4} className="mb-2 mb-md-0">
-                    <Form.Label style={labelStyle}>
-                      {field.charAt(0).toUpperCase() + field.slice(1)}
-                    </Form.Label>
-                  </Col>
-                  <Col md={8}>
-                    <Form.Control
-                      type="text"
-                      name={field}
-                      placeholder={`Enter ${field}`}
-                      value={formData[field]}
-                      onChange={handleFormChange}
-                      style={inputStyle}
-                    />
-                  </Col>
-                </Row>
-              )
-            )}
+ 
+            {["sent", "delivered", "read", "amountSpent", "costPerClick"].map((field, idx) => (
+              <Row className="mb-3" key={idx}>
+                <Col md={4} className="mb-2 mb-md-0">
+                  <Form.Label style={labelStyle}>{field.charAt(0).toUpperCase() + field.slice(1)}</Form.Label>
+                </Col>
+                <Col md={8}>
+                  <Form.Control
+                    type="text"
+                    name={field}
+                    placeholder={`Enter ${field}`}
+                    value={formData[field]}
+                    onChange={handleFormChange}
+                    style={inputStyle}
+                  />
+                </Col>
+              </Row>
+            ))}
           </Form>
         </Modal.Body>
-
+ 
         {/* Footer */}
         <Modal.Footer
           style={{
@@ -339,12 +337,18 @@ function App() {
       </Modal>
     );
   };
-
+ 
+ 
+ 
+ 
+ 
+ 
   return (
     <div className="table-wrapper mt-5  pt-5 pt-lg-0">
       <div>
-        <h5 className="text-center text-dark">Template Analytics</h5>
-        <style>{`
+ 
+      <h5 className="text-center text-dark">Template Analytics</h5>
+      <style>{`
         .table-wrapper {
           padding: 2rem;
           background: #f9fafb;
@@ -515,103 +519,102 @@ function App() {
           }
         }
       `}</style>
-
-        <div className="table-header">
-          <input
-            type="text"
-            placeholder="Search templates..."
-            className="search"
-            value={search}
-            onChange={handleSearch}
-          />
-          <div className="actions">
-            <button className="export-btn">Export</button>
-            <button className="add-btn" onClick={() => setShowModal(true)}>
-              Add
-            </button>
-          </div>
-        </div>
-
-        <div className="table-scroll-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  <input
-                    type="checkbox"
-                    checked={isAllSelected}
-                    onChange={handleSelectAll}
-                  />
-                </th>
-                <th>Template ID</th>
-                <th>Analytics Name</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Amount Spent</th>
-                <th>Delivered</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentUsers.map((user) => (
-                <tr key={user.id}>
-                  <td>
-                    <input
-                      type="checkbox"
-                      checked={selectedUsers.includes(user.id)}
-                      onChange={() => handleSelectUser(user.id)}
-                    />
-                  </td>
-                  <td>
-                    <div className="user-name-cell">
-                      <img src={user.avatar} alt="avatar" className="avatar" />
-                      {user.templateId}
-                    </div>
-                  </td>
-                  <td>{user.analyticsName}</td>
-                  <td>{user.startDate || "-"}</td>
-                  <td>{user.endDate || "-"}</td>
-                  <td>{user.amountSpent}</td>
-                  <td
-                    className={
-                      user.delivered === "Yes"
-                        ? "status-active"
-                        : "status-inactive"
-                    }
-                  >
-                    {user.delivered}
-                  </td>
-                  <td>
-                    <button>Edit</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="pagination">
-          <button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            Prev
-          </button>
-          <span>
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            onClick={() =>
-              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-            }
-            disabled={currentPage === totalPages}
-          >
-            Next
+ 
+      <div className="table-header">
+        <input
+          type="text"
+          placeholder="Search templates..."
+          className="search"
+          value={search}
+          onChange={handleSearch}
+        />
+        <div className="actions">
+          <button className="export-btn">Export</button>
+          <button className="add-btn" onClick={() => setShowModal(true)}>
+            Add
           </button>
         </div>
       </div>
-
-      <TemplateAnalyticsModal
+ 
+      <div className="table-scroll-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <input
+                  type="checkbox"
+                  checked={isAllSelected}
+                  onChange={handleSelectAll}
+                />
+              </th>
+              <th>Template ID</th>
+              <th>Analytics Name</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Amount Spent</th>
+              <th>Delivered</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentUsers.map((user) => (
+              <tr key={user.id}>
+                <td>
+                  <input
+                    type="checkbox"
+                    checked={selectedUsers.includes(user.id)}
+                    onChange={() => handleSelectUser(user.id)}
+                  />
+                </td>
+                <td>
+                  <div className="user-name-cell">
+                    <img src={user.avatar} alt="avatar" className="avatar" />
+                    {user.templateId}
+                  </div>
+                </td>
+                <td>{user.analyticsName}</td>
+                <td>{user.startDate || "-"}</td>
+                <td>{user.endDate || "-"}</td>
+                <td>{user.amountSpent}</td>
+                <td
+                  className={
+                    user.delivered === "Yes"
+                      ? "status-active"
+                      : "status-inactive"
+                  }
+                >
+                  {user.delivered}
+                </td>
+                <td>
+                  <button>Edit</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+ 
+      <div className="pagination">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Prev
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
+ 
+      </div>
+     
+       <TemplateAnalyticsModal
         show={showModal}
         setShowModal={setShowModal}
         formData={formData}
@@ -621,5 +624,8 @@ function App() {
     </div>
   );
 }
-
+ 
 export default App;
+ 
+ 
+ 
