@@ -6,20 +6,9 @@
 
 body {
   font-family: Arial, sans-serif;
-  /* background-color: #b1c2e0 !important; */
   background-color: #f0f3f7 !important;
   color: rgb(8, 16, 134);
-  /* position: 'relative'; */
 }
-
-/* .container {
-        display: flex;
-        align-items: center;
-        width: 90%;
-        height: 600px;
-        background-color: #072653;
-        border-radius: 10px;
-    } */
 
 .sidebar-wrapper {
   display: flex;
@@ -33,7 +22,7 @@ body {
 
 .sidebar {
   width: 65px;
-  height: 86vh;
+  height: 89vh;
   background-color: #dfefff;
   transition: width 0.3s ease;
   overflow: hidden;
@@ -258,4 +247,20 @@ body {
 }
 .textd {
   text-decoration: none;
+}
+.toggle-btn {
+  transition: all 0.3s ease;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  position: absolute;
+  right: -8px;
+  top: 4px;
+  border:solid 1px gray
+}
+
+.toggle-btn.active {
+  background-color: #1852a1;
+  color: white;
 }

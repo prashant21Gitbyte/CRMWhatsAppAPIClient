@@ -41,7 +41,6 @@ const ChatRecorder = ({ onRecordComplete }) => {
       setRecording(false);
     }
   };
-
   return (
     <button
       style={{

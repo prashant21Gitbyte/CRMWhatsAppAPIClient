@@ -1,3 +1,7 @@
+
+ 
+ 
+ 
 import React from 'react';
 import { Container, Card } from 'react-bootstrap';
 import 'chart.js/auto';
@@ -5,6 +9,37 @@ import '../pages/CSS/Dashboard.css';
 import CustomTable from '../components/CustomTable';
 import DonutChart from './DonutChart';
 import PieChart from "./PieChart";
+import TemplateAnalysisTable from '../components/TemplateAnalysisTable';
+ 
+const templateData = [
+  {
+    templateName: "erty",
+    sent: 1,
+    notDelivered: 0
+  },
+   {
+    templateName: "enty",
+    sent: 1,
+    notDelivered: 0
+  },
+   {
+    templateName: "erty",
+    sent: 1,
+    notDelivered: 0
+  },
+   {
+    templateName: "enty",
+    sent: 1,
+    notDelivered: 0
+  },
+   {
+    templateName: "erty",
+    sent: 1,
+    notDelivered: 0
+  },
+ 
+ 
+];
  
 const stats = [
   {
@@ -134,8 +169,11 @@ const MessageAnalysis = () => {
            {/* <DonutChart /> */}
         </Card>
       </div>
+      <h4 className="heading mb-4 mt-4 text-black">Template Analysis</h4>
+      <TemplateAnalysisTable data={templateData} />
     </Container>
   );
 };
  
 export default MessageAnalysis;
+ 

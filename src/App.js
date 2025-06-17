@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './layout/Layout';
-
+ 
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 // import Conversation from './pages/Conversation'
@@ -13,7 +13,8 @@ import WhatsAppMeta from './pages/WhatsAppMeta'
 import WhatsAppAnalytics from './pages/WhatsAppAnalytics'
 import WhatsAppMsg from './pages/WhatsappMessages'
 import MessageLogs from './pages/MessageLogs'
-
+import TemplateInsightPage from './components/TemplateInsightPage';
+ 
 import './App.css'
 const App = () => {
   return (
@@ -29,10 +30,11 @@ const App = () => {
                      <Route path="whatsappmsg" element={<WhatsAppMsg />} />
           <Route path="settings" element={<Settings />} />
           <Route path="/user/:userId" element={<UserDetail />} />
+          <Route path="template-insight" element={<TemplateInsightPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
   );
 };
-
+ 
 export default App;

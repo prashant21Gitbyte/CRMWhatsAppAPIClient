@@ -48,7 +48,7 @@ const Sidebar = () => {
     const sidebar = sidebarRef.current;
     const indicator = indicatorRef.current;
     const items = sidebar.querySelectorAll("ul li");
-
+ 
     const onHover = (item) => {
       indicator.style.top = `${item.offsetTop}px`;
       indicator.style.height = `${item.offsetHeight}px`;
@@ -103,9 +103,13 @@ const Sidebar = () => {
           })}
         </ul>
       </div>
-      <button className="toggle-btn" onClick={toggleSidebar}>
-        <FontAwesomeIcon icon={isOpen ? faChevronLeft : faChevronRight} />
-      </button>
+      <button
+  className={`toggle-btn ${isOpen ? "active" : ""}`}
+  onClick={toggleSidebar}
+>
+  <FontAwesomeIcon icon={isOpen ? faChevronLeft : faChevronRight} />
+</button>
+
     </div>
   );
 };

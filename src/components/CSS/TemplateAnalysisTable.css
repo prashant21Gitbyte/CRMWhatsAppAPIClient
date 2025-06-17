@@ -1,0 +1,25 @@
+.custom-insight-btn {
+  background-color: #eef2f7;
+  border: none;
+  color: #2563eb;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+ 
+.custom-insight-btn:hover {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+.action-button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+ 
+ 

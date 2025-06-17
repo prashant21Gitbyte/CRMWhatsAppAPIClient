@@ -4,56 +4,41 @@
   height: 450px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: auto;
 }
  
 .custom-table-container {
-  overflow-x: auto;
+  min-width: 800px;
 }
  
 .custom-table {
   width: 100%;
   border-collapse: collapse;
   background-color: #ffffff;
-  table-layout: fixed;
+  table-layout: auto;
 }
  
-.custom-thead,
-.custom-thead tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
+.custom-thead th,
+.custom-tbody td {
+  padding: 0.85rem 1.2rem;
+  text-align: center; /* Aligned center */
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+ 
+.custom-thead {
   background-color: #EFF2F7;
 }
  
 .custom-thead th {
-  padding: 0.85rem 1.2rem;
-  text-align: left;
   font-weight: 600;
   color: #374151;
-  font-size: 0.875rem;
   border-bottom: 1px solid #e5e7eb;
-  white-space: nowrap;
-}
- 
-.custom-tbody {
-  display: block;
-  max-height: 400px;
-  overflow-y: auto;
-  width: 100%;
-}
- 
-.custom-tbody tr {
-  display: table;
-  width: 100%;
-  table-layout: fixed;
 }
  
 .custom-tbody td {
-  padding: 0.85rem 1.2rem;
-  font-size: 0.875rem;
   color: #4b5563;
   border-bottom: 1px solid #f1f5f9;
-  white-space: nowrap;
 }
  
 .custom-tbody tr:nth-child(even) {
@@ -77,14 +62,25 @@
   color: #1f2937;
 }
  
-/* Scrollbar styling */
-.custom-tbody::-webkit-scrollbar {
-  width: 8px;
+.custom-table-wrapper::-webkit-scrollbar {
+  height: 8px;
 }
  
-.custom-tbody::-webkit-scrollbar-thumb {
+.custom-table-wrapper::-webkit-scrollbar-thumb {
   background-color: #cbd5e1;
   border-radius: 4px;
+}
+ 
+@media (max-width: 768px) {
+  .custom-thead th,
+  .custom-tbody td {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+ 
+  .custom-table-container {
+    min-width: 600px;
+  }
 }
  
  

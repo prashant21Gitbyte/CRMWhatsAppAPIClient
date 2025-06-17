@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
- 
- 
+
 const initialUsers = [
   {
     id: 1,
@@ -11,7 +10,7 @@ const initialUsers = [
     contact: "johndoe@example.com",
     phoneNoId: "+1 234-567-8901",
     chatStatus: "Active",
-    avatar: "https://i.pravatar.cc/100?img=1"
+    avatar: "https://i.pravatar.cc/100?img=1",
   },
   {
     id: 2,
@@ -21,7 +20,7 @@ const initialUsers = [
     contact: "janesmith@example.com",
     phoneNoId: "+1 345-678-9012",
     chatStatus: "Inactive",
-    avatar: "https://i.pravatar.cc/100?img=2"
+    avatar: "https://i.pravatar.cc/100?img=2",
   },
   {
     id: 3,
@@ -31,7 +30,7 @@ const initialUsers = [
     contact: "michaelbrown@example.com",
     phoneNoId: "+1 456-789-0123",
     chatStatus: "Active",
-    avatar: "https://i.pravatar.cc/100?img=3"
+    avatar: "https://i.pravatar.cc/100?img=3",
   },
   {
     id: 4,
@@ -41,7 +40,7 @@ const initialUsers = [
     contact: "emilywhite@example.com",
     phoneNoId: "+1 567-890-1234",
     chatStatus: "Pending",
-    avatar: "https://i.pravatar.cc/100?img=4"
+    avatar: "https://i.pravatar.cc/100?img=4",
   },
   {
     id: 5,
@@ -51,7 +50,7 @@ const initialUsers = [
     contact: "davidjohnson@example.com",
     phoneNoId: "+1 678-901-2345",
     chatStatus: "Active",
-    avatar: "https://i.pravatar.cc/100?img=5"
+    avatar: "https://i.pravatar.cc/100?img=5",
   },
   {
     id: 6,
@@ -61,7 +60,7 @@ const initialUsers = [
     contact: "oliviam@example.com",
     phoneNoId: "+1 789-012-3456",
     chatStatus: "Inactive",
-    avatar: "https://i.pravatar.cc/100?img=6"
+    avatar: "https://i.pravatar.cc/100?img=6",
   },
   {
     id: 7,
@@ -71,7 +70,7 @@ const initialUsers = [
     contact: "williamt@example.com",
     phoneNoId: "+1 890-123-4567",
     chatStatus: "Pending",
-    avatar: "https://i.pravatar.cc/100?img=7"
+    avatar: "https://i.pravatar.cc/100?img=7",
   },
   {
     id: 8,
@@ -81,8 +80,8 @@ const initialUsers = [
     contact: "aval@example.com",
     phoneNoId: "+1 901-234-5678",
     chatStatus: "Active",
-    avatar: "https://i.pravatar.cc/100?img=8"
-  }
+    avatar: "https://i.pravatar.cc/100?img=8",
+  },
 ];
 
 function Message() {
@@ -93,12 +92,12 @@ function Message() {
   const [filteredData, setFilteredData] = useState(initialUsers);
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
- 
+
   useEffect(() => {
     setFilteredData(userList);
     setCurrentPage(1);
   }, [userList]);
- 
+
   const handleSearch = (e) => {
     const keyword = e.target.value.toLowerCase();
     setSearch(keyword);
@@ -112,7 +111,7 @@ function Message() {
       setFilteredData(result);
     }
   };
- 
+
   const handleSelectAll = (e) => {
     if (e.target.checked) {
       setSelectedUsers(filteredData.map((user) => user.id));
@@ -120,35 +119,34 @@ function Message() {
       setSelectedUsers([]);
     }
   };
- 
+
   const handleSelectUser = (id) => {
     setSelectedUsers((prev) =>
       prev.includes(id) ? prev.filter((uid) => uid !== id) : [...prev, id]
     );
   };
- 
+
   const handleDeleteUser = (userToDelete) => {
     setUserList((prev) => prev.filter((user) => user.id !== userToDelete.id));
   };
- 
+
   const handleSaveUser = (formData) => {
     const newUser = {
       id: Date.now().toString(),
       ...formData,
-      avatar: `https://i.pravatar.cc/100?img=${Math.floor(
-        Math.random() * 70
-      ) + 1}`,
+      avatar: `https://i.pravatar.cc/100?img=${
+        Math.floor(Math.random() * 70) + 1
+      }`,
     };
     setUserList((prev) => [...prev, newUser]);
     setShowModal(false);
   };
- 
+
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = filteredData.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(filteredData.length / usersPerPage);
- 
- 
+
   const ModalMessages = ({ show, setShowForm }) => {
     const [formData, setFormData] = useState({
       owner: "",
@@ -158,26 +156,26 @@ function Message() {
       phoneNoId: "",
       chatStatus: "Active",
     });
-  
+
     const handleClose = () => setShowForm(false);
-  
+
     const handleChange = (e) => {
       const { name, value } = e.target;
       setFormData((prev) => ({ ...prev, [name]: value }));
     };
-  
+
     const handleChangeCheckbox = (e) => {
       setFormData((prev) => ({
         ...prev,
         [e.target.name]: e.target.checked,
       }));
     };
-  
+
     const handleSaveUser = () => {
       console.log("Saved Data:", formData);
       handleClose();
     };
-  
+
     const inputStyle = {
       borderRadius: "10px",
       padding: "6px 12px",
@@ -187,21 +185,27 @@ function Message() {
       boxShadow: "none",
       transition: "all 0.2s ease-in-out",
     };
-  
+
     const labelStyle = {
       fontWeight: 500,
       color: "#333",
       fontSize: "14px",
     };
-  
+
     return (
       <Modal show={show} onHide={handleClose} size="lg" centered>
-        <Modal.Header closeButton style={{ background: "#f8f9fa", borderBottom: "none" }}>
-          <Modal.Title className="w-100 text-center" style={{ fontWeight: 600, fontSize: "18px" }}>
+        <Modal.Header
+          closeButton
+          style={{ background: "#f8f9fa", borderBottom: "none" }}
+        >
+          <Modal.Title
+            className="w-100 text-center"
+            style={{ fontWeight: 600, fontSize: "18px" }}
+          >
             New WhatsApp Message
           </Modal.Title>
         </Modal.Header>
-  
+
         <Modal.Body
           style={{
             height: "70vh",
@@ -212,91 +216,181 @@ function Message() {
           }}
         >
           <Form>
-            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Information</p>
+            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">
+              Information
+            </p>
             <Row className="mb-3">
               <Col sm={6}>
-                <Form.Label style={labelStyle}>WhatsApp Message Name</Form.Label>
-                <Form.Control size="sm" type="text" name="whatsappMessageName" style={inputStyle} />
+                <Form.Label style={labelStyle}>
+                  WhatsApp Message Name
+                </Form.Label>
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  name="whatsappMessageName"
+                  style={inputStyle}
+                />
               </Col>
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Owner</Form.Label>
-                <Form.Control size="sm" type="text" readOnly defaultValue="Sumeet Kendre" style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  readOnly
+                  defaultValue="Sumeet Kendre"
+                  style={inputStyle}
+                />
               </Col>
             </Row>
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Label style={labelStyle}>BusinessPhoneNumber</Form.Label>
-                <Form.Control size="sm" type="text" name="businessPhoneNumber" style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  name="businessPhoneNumber"
+                  style={inputStyle}
+                />
               </Col>
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Lead</Form.Label>
-                <Form.Control size="sm" type="text" placeholder="Search Leads..." style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  placeholder="Search Leads..."
+                  style={inputStyle}
+                />
               </Col>
             </Row>
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Phone number Id</Form.Label>
-                <Form.Control size="sm" type="text" name="phoneNumberId" style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  name="phoneNumberId"
+                  style={inputStyle}
+                />
               </Col>
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Account</Form.Label>
-                <Form.Control size="sm" type="text" placeholder="Search Accounts..." style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  placeholder="Search Accounts..."
+                  style={inputStyle}
+                />
               </Col>
             </Row>
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Label style={labelStyle}>CustomerName</Form.Label>
-                <Form.Control size="sm" type="text" name="customerName" style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  name="customerName"
+                  style={inputStyle}
+                />
               </Col>
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Contact</Form.Label>
-                <Form.Control size="sm" type="text" placeholder="Search Contacts..." style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  placeholder="Search Contacts..."
+                  style={inputStyle}
+                />
               </Col>
             </Row>
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Label style={labelStyle}>CustomerPhone</Form.Label>
-                <Form.Control size="sm" type="text" name="customerPhone" style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  name="customerPhone"
+                  style={inputStyle}
+                />
               </Col>
             </Row>
             <Row className="mb-3">
               <Col sm={6}>
-                <Form.Check label="Chat Status" name="chatStatus" onChange={handleChangeCheckbox} />
+                <Form.Check
+                  label="Chat Status"
+                  name="chatStatus"
+                  onChange={handleChangeCheckbox}
+                />
               </Col>
               <Col sm={6}>
-                <Form.Check label="Viewed By Agent" name="viewedByAgent" onChange={handleChangeCheckbox} />
+                <Form.Check
+                  label="Viewed By Agent"
+                  name="viewedByAgent"
+                  onChange={handleChangeCheckbox}
+                />
               </Col>
             </Row>
-  
-            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Message Content</p>
+
+            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">
+              Message Content
+            </p>
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Label style={labelStyle}>WhatsApp User</Form.Label>
-                <Form.Control size="sm" type="text" placeholder="Search WhatsApp Users..." style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  placeholder="Search WhatsApp Users..."
+                  style={inputStyle}
+                />
               </Col>
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Messaging Session</Form.Label>
-                <Form.Control size="sm" type="text" placeholder="Search Messaging Sessions..." style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  placeholder="Search Messaging Sessions..."
+                  style={inputStyle}
+                />
               </Col>
             </Row>
             <Row className="mb-3">
               <Col sm={6}>
-                <Form.Label style={labelStyle}>WhatsApp Messaging Session</Form.Label>
-                <Form.Control size="sm" type="text" placeholder="Search WhatsApp Messaging Sessions..." style={inputStyle} />
+                <Form.Label style={labelStyle}>
+                  WhatsApp Messaging Session
+                </Form.Label>
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  placeholder="Search WhatsApp Messaging Sessions..."
+                  style={inputStyle}
+                />
               </Col>
             </Row>
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Message ID</Form.Label>
-                <Form.Control size="sm" type="text" name="messageId" style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  name="messageId"
+                  style={inputStyle}
+                />
               </Col>
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Message Content</Form.Label>
-                <Form.Control as="textarea" rows={2} size="sm" name="messageContent" style={inputStyle} />
+                <Form.Control
+                  as="textarea"
+                  rows={2}
+                  size="sm"
+                  name="messageContent"
+                  style={inputStyle}
+                />
               </Col>
             </Row>
-  
-            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Message Info</p>
+
+            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">
+              Message Info
+            </p>
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Parent Message ID</Form.Label>
@@ -323,8 +417,10 @@ function Message() {
                 <Form.Control size="sm" type="time" style={inputStyle} />
               </Col>
             </Row>
-  
-            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Media</p>
+
+            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">
+              Media
+            </p>
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Media ID</Form.Label>
@@ -355,58 +451,111 @@ function Message() {
                 <Form.Control size="sm" type="text" style={inputStyle} />
               </Col>
             </Row>
-  
-            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Template</p>
+
+            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">
+              Template
+            </p>
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Template Name</Form.Label>
-                <Form.Control size="sm" type="text" name="templateName" style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  name="templateName"
+                  style={inputStyle}
+                />
               </Col>
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Order Number</Form.Label>
-                <Form.Control size="sm" type="text" name="orderNumber" style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  name="orderNumber"
+                  style={inputStyle}
+                />
               </Col>
             </Row>
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Template Language</Form.Label>
-                <Form.Control size="sm" type="text" name="templateLanguage" style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  name="templateLanguage"
+                  style={inputStyle}
+                />
               </Col>
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Template Header URL</Form.Label>
-                <Form.Control size="sm" type="text" name="templateHeaderUrl" style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  name="templateHeaderUrl"
+                  style={inputStyle}
+                />
               </Col>
             </Row>
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Template Header Type</Form.Label>
-                <Form.Control size="sm" type="text" name="templateHeaderType" style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  name="templateHeaderType"
+                  style={inputStyle}
+                />
               </Col>
               <Col sm={6}>
-                <Form.Label style={labelStyle}>Template Button Payload</Form.Label>
-                <Form.Control size="sm" type="text" name="templateButtonPayload" style={inputStyle} />
+                <Form.Label style={labelStyle}>
+                  Template Button Payload
+                </Form.Label>
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  name="templateButtonPayload"
+                  style={inputStyle}
+                />
               </Col>
             </Row>
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Template Button Text</Form.Label>
-                <Form.Control size="sm" type="text" name="templateButtonText" style={inputStyle} />
+                <Form.Control
+                  size="sm"
+                  type="text"
+                  name="templateButtonText"
+                  style={inputStyle}
+                />
               </Col>
             </Row>
-  
-            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Order / Interactive</p>
+
+            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">
+              Order / Interactive
+            </p>
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Order Detail</Form.Label>
-                <Form.Control as="textarea" rows={2} size="sm" style={inputStyle} />
+                <Form.Control
+                  as="textarea"
+                  rows={2}
+                  size="sm"
+                  style={inputStyle}
+                />
               </Col>
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Interactive Detail</Form.Label>
-                <Form.Control as="textarea" rows={2} size="sm" style={inputStyle} />
+                <Form.Control
+                  as="textarea"
+                  rows={2}
+                  size="sm"
+                  style={inputStyle}
+                />
               </Col>
             </Row>
-  
-            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">Status Details</p>
+
+            <p className="fw-semibold fs-6 mb-2 text-center bg-light p-1">
+              Status Details
+            </p>
             <Row className="mb-3">
               <Col sm={6}>
                 <Form.Label style={labelStyle}>Message Status</Form.Label>
@@ -429,7 +578,9 @@ function Message() {
             </Row>
             <Row className="mb-3">
               <Col sm={6}>
-                <Form.Label style={labelStyle}>Conversation Expiration</Form.Label>
+                <Form.Label style={labelStyle}>
+                  Conversation Expiration
+                </Form.Label>
                 <Form.Control size="sm" type="text" style={inputStyle} />
               </Col>
               <Col sm={6}>
@@ -449,12 +600,23 @@ function Message() {
             </Row>
           </Form>
         </Modal.Body>
-  
-        <Modal.Footer style={{ background: "#f8f9fa", borderTop: "none", padding: "1rem 2rem" }}>
+
+        <Modal.Footer
+          style={{
+            background: "#f8f9fa",
+            borderTop: "none",
+            padding: "1rem 2rem",
+          }}
+        >
           <Button
             variant="outline-secondary"
             onClick={handleClose}
-            style={{ borderRadius: "20px", padding: "6px 20px", fontSize: "14px", fontWeight: 500 }}
+            style={{
+              borderRadius: "20px",
+              padding: "6px 20px",
+              fontSize: "14px",
+              fontWeight: 500,
+            }}
           >
             Cancel
           </Button>
@@ -477,13 +639,7 @@ function Message() {
       </Modal>
     );
   };
-  
-  
-  
- 
- 
- 
- 
+
   return (
     <>
       <div className="table-wrapper mt-5 pt-5 pt-lg-0">
@@ -666,7 +822,7 @@ function Message() {
             }
           }
         `}</style>
- 
+
         <div className="table-header">
           <input
             type="text"
@@ -682,75 +838,80 @@ function Message() {
             </button>
           </div>
         </div>
- 
+
         <div className="table-container">
           <div className="table-scroll-wrapper">
             <table>
-             <thead>
-  <tr>
-    <th>
-      <input
-        type="checkbox"
-        checked={
-          filteredData.length > 0 &&
-          selectedUsers.length === filteredData.length
-        }
-        onChange={handleSelectAll}
-      />
-    </th>
-    <th>Owner</th>
-    <th>Lead</th>
-    <th>Account</th>
-    <th>Contact</th>
-    <th>Phone No ID</th>
-    <th>Chat Status</th>
-    <th>Action</th>
-  </tr>
-</thead>
- 
-<tbody>
-  {currentUsers.map((user) => (
-    <tr key={user.id}>
-      <td>
-        <input
-          type="checkbox"
-          checked={selectedUsers.includes(user.id)}
-          onChange={() => handleSelectUser(user.id)}
-        />
-      </td>
-      <td>
-        <div className="user-name-cell">
-          <img src={user.avatar} alt="avatar" className="avatar" />
-          {user.owner}
-        </div>
-      </td>
-      <td>{user.lead}</td>
-      <td>{user.account}</td>
-      <td>{user.contact}</td>
-      <td>{user.phoneNoId}</td>
-      <td>
-        <span
-          className={
-            user.chatStatus === "Active"
-              ? "status-active"
-              : user.chatStatus === "Inactive"
-              ? "status-inactive"
-              : "status-pending"
-          }
-        >
-          {user.chatStatus}
-        </span>
-      </td>
-      <td>
-        <button onClick={() => handleDeleteUser(user)}>...</button>
-      </td>
-    </tr>
-  ))}
-</tbody>
- 
+              <thead>
+                <tr>
+                  <th>
+                    <input
+                      type="checkbox"
+                      checked={
+                        filteredData.length > 0 &&
+                        selectedUsers.length === filteredData.length
+                      }
+                      onChange={handleSelectAll}
+                    />
+                  </th>
+                  <th>Owner</th>
+                  <th>Lead</th>
+                  <th>Account</th>
+                  <th>Contact</th>
+                  <th>Phone No ID</th>
+                  <th>Chat Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {currentUsers.map((user) => (
+                  <tr key={user.id}>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={selectedUsers.includes(user.id)}
+                        onChange={() => handleSelectUser(user.id)}
+                      />
+                    </td>
+                    <td>
+                      <div className="user-name-cell">
+                        <img
+                          src={user.avatar}
+                          alt="avatar"
+                          className="avatar"
+                        />
+                        {user.owner}
+                      </div>
+                    </td>
+                    <td>{user.lead}</td>
+                    <td>{user.account}</td>
+                    <td>{user.contact}</td>
+                    <td>{user.phoneNoId}</td>
+                    <td>
+                      <span
+                        className={
+                          user.chatStatus === "Active"
+                            ? "status-active"
+                            : user.chatStatus === "Inactive"
+                            ? "status-inactive"
+                            : "status-pending"
+                        }
+                      >
+                        {user.chatStatus}
+                      </span>
+                    </td>
+                    <td>
+                      <button onClick={() => handleDeleteUser(user)}>
+                        ...
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
- 
+
           <div className="pagination">
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
@@ -771,14 +932,11 @@ function Message() {
             </button>
           </div>
         </div>
- 
+
         <ModalMessages show={showModal} setShowForm={setShowModal} />
       </div>
     </>
   );
- 
- 
 }
- 
+
 export default Message;
- 

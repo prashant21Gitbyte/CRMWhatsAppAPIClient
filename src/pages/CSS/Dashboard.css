@@ -31,11 +31,11 @@
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(10px);
-  padding: 12px;
+  /* padding: 12px; */
   overflow-x: auto;
 }
  
-input {
+.input {
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -220,5 +220,6 @@ input:focus {
     width: 100%;
   }
 }
+ 
  
  

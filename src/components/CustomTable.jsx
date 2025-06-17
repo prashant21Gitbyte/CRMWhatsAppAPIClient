@@ -25,7 +25,7 @@ function CustomTable({ headers = [], columns = [], data = [] }) {
  
   return (
     <div className="custom-table-wrapper">
-      <div className="custom-table-container">
+      {/* <div className="custom-table-container"> */}
         <table className="custom-table">
           <thead className="custom-thead">
             <tr>
@@ -64,11 +64,12 @@ function CustomTable({ headers = [], columns = [], data = [] }) {
             ))}
           </tbody>
         </table>
-      </div>
+      {/* </div> */}
     </div>
   );
 }
  
 export default CustomTable;
+ 
  
  
