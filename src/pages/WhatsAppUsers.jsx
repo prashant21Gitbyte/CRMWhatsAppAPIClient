@@ -167,6 +167,8 @@ function App() {
       latestDate: "",
       latestTime: "",
       status: "Active",
+      addtAGS: "--NONE--",
+      tagsdata: "",
     });
  
     const handleClose = () => setShowForm(false);
@@ -307,6 +309,42 @@ function App() {
                   <option value="Active">Active</option>
                   <option value="Inactive">Inactive</option>
                 </Form.Select>
+              </Col>
+            </Row>
+            <Row className="mb-3">
+  <Col md={4} className="mb-2 mb-md-0">
+    <Form.Label style={labelStyle}>Add Tags</Form.Label>
+  </Col>
+  <Col md={8}>
+    <Form.Select
+      name="add-tags"
+      value={formData.addtAGS}
+      onChange={handleChange}
+      style={inputStyle}
+    >
+      <option value="">-- NONE --</option>
+      <option value="Tag 1">Tag 1</option>
+      <option value="Tag 2">Tag 2</option>
+      <option value="Tag 3">Tag 3</option>
+      <option value="Tag 4">Tag 4</option>
+      <option value="Tag 5">Tag 5</option>
+    </Form.Select>
+  </Col>
+</Row>
+ 
+            <Row className="mb-3">
+              <Col md={4} className="mb-2 mb-md-0">
+                <Form.Label style={labelStyle}>Tags-data</Form.Label>
+              </Col>
+              <Col md={8}>
+                <Form.Control
+                  type="text"
+                  name="Tags-data"
+                  placeholder=""
+                  value={formData.tagsdata}
+                  onChange={handleChange}
+                  style={inputStyle}
+                />
               </Col>
             </Row>
           </Form>

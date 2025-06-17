@@ -52,7 +52,7 @@ const Dashboard = () => {
             padding: 0,
         },
         wrapper: {
-            width: '100%',
+            width: '97%',
             padding: screenWidth < 480 ? '10px' : '10px 20px',
             boxSizing: 'border-box',
             fontFamily: 'Arial, sans-serif',

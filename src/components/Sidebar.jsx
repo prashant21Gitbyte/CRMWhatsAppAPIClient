@@ -34,7 +34,7 @@ const menuItems = [
   { to: "/whatsappanalytics", label: "Template Analytics" },
   { to: "/whatsappmsg", label: "WhatsApp Messages" },
   { to: "/messagelogs", label: "Message Logs" },
-  { to: "/logout", label: "Logout" },
+  { to: "/user/:userId", label: "Logout" },
 ];
 
 const Sidebar = () => {

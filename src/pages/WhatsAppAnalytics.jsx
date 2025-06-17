@@ -170,7 +170,9 @@ function App() {
       delivered: "",
       read: "",
       amountSpent: "",
-      costPerClick: "",
+      costPerDelivered:"",
+      costPerUrlButtonClick: "",
+     
     });
   };
  
@@ -197,21 +199,16 @@ function App() {
  
     return (
       <Modal show={show} onHide={handleClose} size="lg" centered>
-        {/* Header */}
+       
         <Modal.Header closeButton style={{ background: "#f8f9fa", borderBottom: "none" }}>
           <Modal.Title style={{ fontWeight: 600, fontSize: "18px" }}>
             New Template Analytics
           </Modal.Title>
         </Modal.Header>
  
-        {/* Body */}
+       
         <Modal.Body
-          // style={{
-          //   padding: "2rem",
-          //   background: "rgba(255, 255, 255, 0.9)",
-          //   backdropFilter: "blur(6px)",
-          //   borderRadius: "12px",
-          // }}
+         
            style={{
             height: "70vh",
             overflow: "scroll",
@@ -254,31 +251,59 @@ function App() {
               </Col>
             </Row>
  
-            <Row className="mb-3">
-              <Col md={4}>
-                <Form.Label style={labelStyle}>Start & End Date</Form.Label>
-              </Col>
-              <Col xs={6} md={4}>
-                <Form.Control
-                  type="date"
-                  name="startDate"
-                  value={formData.startDate}
-                  onChange={handleFormChange}
-                  style={inputStyle}
-                />
-              </Col>
-              <Col xs={6} md={4}>
-                <Form.Control
-                  type="date"
-                  name="endDate"
-                  value={formData.endDate}
-                  onChange={handleFormChange}
-                  style={inputStyle}
-                />
-              </Col>
-            </Row>
+           
+<Row className="mb-3">
+  <Col md={4}>
+    <Form.Label style={labelStyle}>Start Date</Form.Label>
+  </Col>
+  <Col md={4}>
+    <Form.Control
+      type="date"
+      name="startDate"
+      value={formData.startDate}
+      onChange={handleFormChange}
+      style={inputStyle}
+    />
+  </Col>
+  <Col md={4}>
+    <Form.Control
+      type="time"
+      name="startTime"
+      value={formData.startTime}
+      onChange={handleFormChange}
+      style={inputStyle}
+    />
+  </Col>
+</Row>
  
-            {["sent", "delivered", "read", "amountSpent", "costPerClick"].map((field, idx) => (
+ 
+<Row className="mb-3">
+  <Col md={4}>
+    <Form.Label style={labelStyle}>End Date</Form.Label>
+  </Col>
+  <Col md={4}>
+    <Form.Control
+      type="date"
+      name="endDate"
+      value={formData.endDate}
+      onChange={handleFormChange}
+      style={inputStyle}
+    />
+  </Col>
+  <Col md={4}>
+    <Form.Control
+      type="time"
+      name="endTime"
+      value={formData.endTime}
+      onChange={handleFormChange}
+      style={inputStyle}
+    />
+  </Col>
+</Row>
+ 
+ 
+ 
+            {["sent", "delivered", "read", "amount Spent","Cost Per Delivered", "cost Per url Button Click"].map((field, idx) => (
               <Row className="mb-3" key={idx}>
                 <Col md={4} className="mb-2 mb-md-0">
                   <Form.Label style={labelStyle}>{field.charAt(0).toUpperCase() + field.slice(1)}</Form.Label>
@@ -298,7 +323,7 @@ function App() {
           </Form>
         </Modal.Body>
  
-        {/* Footer */}
+     
         <Modal.Footer
           style={{
             background: "#f8f9fa",
@@ -318,6 +343,19 @@ function App() {
           >
             Cancel
           </Button>
+         
+          <Button
+            variant="outline-secondary"
+            onClick={handleClose}
+            style={{
+              borderRadius: "20px",
+              padding: "6px 20px",
+              fontSize: "14px",
+              fontWeight: 500,
+            }}
+          >
+            Save & New
+            </Button>
           <Button
             variant="primary"
             onClick={handleSave}

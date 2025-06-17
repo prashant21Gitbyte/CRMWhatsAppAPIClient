@@ -1,0 +1,112 @@
+/* Ensure full viewport usage and remove default margins */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { height: 100%; }
+
+/* Full-height chat container */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 78vh;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #f4f7f9;
+}
+.user-info { display: flex; align-items: center; gap: 10px; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; background: #bbb; }
+.name { font-weight: 600; font-size: 16px; }
+.phone { font-size: 13px; color: #555; }
+.dropdown { padding: 6px; border-radius: 6px; border: 1px solid #ccc; }
+
+/* Chat area */
+.chat-box {
+  flex: 1;
+  padding: 16px;
+  background: #e9ebee;
+  overflow-y: auto;
+}
+.message-row {
+  display: flex;
+  margin-bottom: 12px;
+}
+.message-row.you { justify-content: flex-end; }
+
+/* Message bubble styles */
+.bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 20px;
+  position: relative;
+  word-wrap: break-word;
+  font-size: 15px;
+}
+.bubble.you { background: #215197; color: #fff; }
+.bubble.them { background: #E5E5EA; color: #000; }
+.bubble img { max-width: 100%; border-radius: 10px; }
+
+/* Timestamp style */
+.time {
+  margin-top: 4px;
+  font-size: 11px;
+  color: #888;
+  text-align: right;
+}
+
+/* Input area */
+.input-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-top: 1px solid #e1e4e8;
+}
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 6px;
+  margin-right: 6px;
+  color: #666;
+  cursor: pointer;
+}
+.input {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  margin-right: 6px;
+  font-size: 15px;
+}
+.send-btn {
+  background: #0B93F6;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .chat-container { width: 91vw; border-radius: 0; }
+  .bubble { max-width: 85vw; }
+  .input-bar { padding: 8px; }
+  .chat-container{
+    height: 94vh !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+.maincontainer{
+    margin-top: 1px;
+}
+}
